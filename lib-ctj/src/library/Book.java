@@ -1,13 +1,9 @@
 package library;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
@@ -18,7 +14,7 @@ public class Book {
 	private String isbn;
 	private int uniqueWords;
 	private int totalCount;
-	HashMap<String, Integer> wordMap;
+	private HashMap<String, Integer> wordMap;
 	
 	public Book(String title, String author, String age, String isbn, String filename) 
 			throws IOException, FileNotFoundException {
@@ -34,7 +30,6 @@ public class Book {
 		s.filter(w -> w.length() > 0)
 		.forEach(w -> wordMap.put(w, wordMap.containsKey(w) ? wordMap.get(w) + 1 : 1));
 		s.close();
-		System.out.println(wordMap);
 	}
 	
 	void  setTitle(String title) { this.title = title; }
