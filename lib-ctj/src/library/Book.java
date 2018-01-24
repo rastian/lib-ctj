@@ -3,7 +3,13 @@ package library;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 public class Book {
 	private String title;
@@ -12,15 +18,23 @@ public class Book {
 	private String isbn;
 	private int uniqueWords;
 	private int totalCount;
-	private HashMap<String, Integer> wordMap;
+	HashMap<String, Integer> wordMap;
 	
 	public Book(String title, String author, String age, String isbn, String filename) 
-			throws FileNotFoundException {
+			throws IOException, FileNotFoundException {
 		this.title = title;
 		this.author = author;
 		this.age = age;
 		this.isbn = isbn;
 
+		wordMap = new HashMap<>();
+		// Populate wordMap
+		Stream<String> s = Files.lines(Paths.get(filename))
+				.flatMap(line -> Stream.of(line.split("[ ,.!;?\r\n]")));
+		s.filter(w -> w.length() > 0)
+		.forEach(w -> wordMap.put(w, wordMap.containsKey(w) ? wordMap.get(w) + 1 : 1));
+		s.close();
+		System.out.println(wordMap);
 	}
 	
 	void  setTitle(String title) { this.title = title; }
