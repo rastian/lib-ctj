@@ -12,24 +12,37 @@ public class Book {
 	private String author;
 	private String age;
 	private String isbn;
-	private int uniqueWords;
-	private int totalCount;
-	private HashMap<String, Integer> wordMap;
+	private int uniqueWordCount;
+	private int totalWordCount;
+	HashMap<String, Integer> wordMap;
 	
 	public Book(String title, String author, String age, String isbn, String filename) 
 			throws IOException, FileNotFoundException {
+
 		this.title = title;
-		this.setAuthor(author);
+		this.author = author;
 		this.age = age;
 		this.isbn = isbn;
 
 		wordMap = new HashMap<>();
-		// Populate wordMap
-		Stream<String> s = Files.lines(Paths.get(filename))
+		// Get all words in text file given by filename
+		Stream<String> words = Files.lines(Paths.get(filename))
 				.flatMap(line -> Stream.of(line.split("[ ,.!;?\r\n]")))
-				.filter(w -> w.length() > 0);
-		s.forEach(w -> wordMap.put(w, wordMap.containsKey(w) ? wordMap.get(w) + 1 : 1));
-		s.close();
+				.filter(word -> word.length() > 0)
+				.map(word -> word.toLowerCase());
+		// Populate wordMap 
+		words.forEach(w -> wordMap.put(w, wordMap.containsKey(w) ? wordMap.get(w) + 1 : 1));
+		
+		this.uniqueWordCount = wordMap.keySet().size();
+		this.totalWordCount = wordMap.values().stream().mapToInt(Integer::intValue).sum();
+		
+		words.close();
+	}
+	
+	public String toString() {
+		String s = String.format("Book[title='%s', author='%s', age='%s', isbn='%s', uniqueWordCount=%d, totalWordCount=%d]",
+				title, author, age, isbn, uniqueWordCount, totalWordCount);
+		return s;
 	}
 	
 	public void  setTitle(String title) { this.title = title; }
@@ -44,7 +57,7 @@ public class Book {
 	public void setISBN(String isbn) { this.isbn = isbn; }
 	public String getISBN() { return isbn; }
 	
-	public int getUniqueWords() { return uniqueWords; }
+	public int getUniqueWordCount() { return uniqueWordCount; }
 	
-	public int getTotalCount() { return totalCount; }
+	public int getTotalWordCount() { return totalWordCount; }
 }
