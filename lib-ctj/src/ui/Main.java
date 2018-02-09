@@ -1,6 +1,8 @@
 package ui;
 import java.io.File;
 import javafx.application.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.*;
 import library.Book;
 import javafx.scene.*;
@@ -207,7 +209,43 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    stageFilter.show();
 					}
 				});;
-		merge.setOnAction(e -> System.out.println("Libraries Merged"));
+		merge.setOnAction(
+				new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(final ActionEvent e) {
+						Stage stageMerge = new Stage();
+		            	stageMerge.setTitle("Merge Libraries");
+		            	GridPane grid = new GridPane();
+		            	grid.setPadding(new Insets(10, 10, 10, 10));
+		            	grid.setVgap(8);
+		            	grid.setHgap(10);
+		            	
+		            	ObservableList<String> options = 
+		            		    FXCollections.observableArrayList(
+		            		        "Library 1",
+		            		        "Library 2",
+		            		        "Library 3"
+		            		    );
+		            	ComboBox comboBox = new ComboBox(options);
+		            	ComboBox comboBox2 = new ComboBox(options);
+		            	Label lib1 = new Label("First Library: ");
+	                	GridPane.setConstraints(lib1, 0, 0);
+		            	GridPane.setConstraints(comboBox, 1, 0);
+		            	
+		            	Label lib2 = new Label("Library to Merge with: ");
+		            	GridPane.setConstraints(lib2, 0,1);
+		            	GridPane.setConstraints(comboBox2, 1, 1);
+		            	
+		            	Button submit = new Button("Merge");
+		            	GridPane.setConstraints(submit, 0, 2);
+		            	submit.setOnAction(a-> System.out.println("Libraries Merged"));
+		            	grid.getChildren().addAll(lib1, comboBox, lib2, comboBox2, submit);
+		            	Scene scene = new Scene(grid, 500, 500);
+		                stageMerge.setScene(scene);
+		                stageMerge.show();
+		            }
+		        });
+		
 		genD.setOnAction(e -> System.out.println("Generate Dictionary"));
 		
 		//Main Panes/Show Stage
