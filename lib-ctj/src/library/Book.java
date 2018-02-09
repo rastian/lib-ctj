@@ -61,7 +61,9 @@ public class Book {
 	public void setISBN(String isbn) { this.isbn = isbn; }
 	public String getISBN() { return isbn; }
 	
+	public void setUniqueWordCount(int uniqueWordCount) { this.uniqueWordCount = uniqueWordCount; }
 	public int getUniqueWordCount() { return uniqueWordCount; }
 	
+	public void setTotalWordCount(int totalWordCount) { this.totalWordCount = totalWordCount; }
 	public int getTotalWordCount() { return totalWordCount; }
 }
