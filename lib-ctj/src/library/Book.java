@@ -14,7 +14,7 @@ public class Book {
 	private String isbn;
 	private int uniqueWordCount;
 	private int totalWordCount;
-	HashMap<String, Integer> wordMap;
+	private HashMap<String, Integer> wordMap;
 	
 	public Book(String title, String author, String age, String isbn, String filename) 
 			throws IOException, FileNotFoundException {
@@ -37,6 +37,10 @@ public class Book {
 		this.totalWordCount = wordMap.values().stream().mapToInt(Integer::intValue).sum();
 		
 		words.close();
+	}
+	
+	public Book() {
+		
 	}
 	
 	public String toString() {
