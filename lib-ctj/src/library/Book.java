@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Book {
@@ -79,4 +80,10 @@ public class Book {
 	
 	public void setTotalWordCount(int totalWordCount) { this.totalWordCount = totalWordCount; }
 	public int getTotalWordCount() { return totalWordCount; }
+	
+	public HashMap<String, Integer> getWordMap() {
+		// returns copy of wordMap to prevent accidental changes
+		return (HashMap<String, Integer>)wordMap.entrySet().stream()
+				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+	}
 }
