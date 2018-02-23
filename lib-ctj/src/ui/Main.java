@@ -47,19 +47,20 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		TableView lib1 = new TableView();
 		lib1.setEditable(true);
         TableColumn titleCol = new TableColumn("Title");
-        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         TableColumn authorCol = new TableColumn("Author");
-        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
+        authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
         TableColumn isbnCol = new TableColumn("ISBN-13");
-        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
+        isbnCol.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         TableColumn ageCol = new TableColumn("Age");
-        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("age"));
+        ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
         TableColumn uniqueCol = new TableColumn("Unique Words");
-        titleCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("uniqueWordCount"));
+        uniqueCol.setCellValueFactory(new PropertyValueFactory<>("uniqueWordCount"));
         TableColumn totalCol = new TableColumn("Total Words");
-        titleCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("totalWordCount"));
+        totalCol.setCellValueFactory(new PropertyValueFactory<>("totalWordCount"));
+        lib1.setItems(data);
         lib1.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, uniqueCol, totalCol);
-        lib1.setItems(FXCollections.observableArrayList(data));
+        
 		//Tabs
 		TabPane tabPane = new TabPane();
 		Tab tab = new Tab();
@@ -83,17 +84,17 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						TableView lib1 = new TableView();
 						lib1.setEditable(true);
 				        TableColumn titleCol = new TableColumn("Title");
-				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
+				        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 				        TableColumn authorCol = new TableColumn("Author");
-				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
+				        authorCol.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
 				        TableColumn isbnCol = new TableColumn("ISBN-13");
-				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
+				        isbnCol.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
 				        TableColumn ageCol = new TableColumn("Age");
-				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("age"));
+				        ageCol.setCellValueFactory(new PropertyValueFactory<Book, String>("age"));
 				        TableColumn uniqueCol = new TableColumn("Unique Words");
-				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("uniqueWordCount"));
+				        uniqueCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("uniqueWordCount"));
 				        TableColumn totalCol = new TableColumn("Total Words");
-				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("totalWordCount"));
+				        totalCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("totalWordCount"));
 				        lib1.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, uniqueCol, totalCol);
 				        lib1.setItems(FXCollections.observableArrayList(data));
 				        //Tabs
@@ -131,11 +132,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	grid.setVgap(8);
 	                	grid.setHgap(10);
 	                	
-	                	Button browse = new Button("Browse");
-	                	browse.setOnAction(a -> fileChooser.showOpenDialog(stage));
-	                	
-	                	Button submit = new Button("Submit");
-	                	submit.setOnAction(a-> System.out.println("Book Added"));
 	                	
 	                	Label titleLab = new Label("Title: ");
 	                	GridPane.setConstraints(titleLab, 0, 0);
@@ -165,6 +161,16 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	Label fileLab = new Label("Text File: ");
 	                	GridPane.setConstraints(fileLab, 0, 4);
 	                	
+	                	Button browse = new Button("Browse");
+	                	browse.setOnAction(a -> fileChooser.showOpenDialog(stage));
+	                	
+	                	Button submit = new Button("Submit");
+	                	submit.setOnAction(new EventHandler<ActionEvent>() {
+	    	                @Override
+	    	                public void handle(final ActionEvent a) {
+	    	                    data.add(new Book(titleInput.getText(), authInput.getText(), ageInput.getText(), isbnInput.getText(), "test"));
+	    	                }
+	    	            });
 	                	GridPane.setConstraints(browse, 1, 4);
 	                	GridPane.setConstraints(submit, 1, 5);
 	                	
