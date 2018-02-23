@@ -4,7 +4,12 @@ import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder; 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -21,18 +26,22 @@ public class Library {
 	private String filename;
 	private HashMap<Integer, Book> books;
 	private int size;
+	private Document doc;
+	private Element root;
 	
 	public Library(String libXMLFilename) {
 		books = new HashMap<>();
 		File libXMLFile = new File(libXMLFilename);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
-		Document doc;
+		
 		try {
 			// Read library from XML file into memory
 			dBuilder = dbFactory.newDocumentBuilder();
 			doc = dBuilder.parse(libXMLFile);
 			doc.getDocumentElement().normalize();
+			
+			root = doc.getDocumentElement();
 
 			// Get all books
 			NodeList bookNodeList = doc.getElementsByTagName("Book");
@@ -75,7 +84,24 @@ public class Library {
 	}
 
 	public Library() {
-		
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		size = 0;
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			doc = dBuilder.newDocument();
+			
+			// Create root element
+			root = doc.createElement("Literature");
+			doc.appendChild(root);
+			Attr count = doc.createAttribute("count");
+			count.setValue(Integer.toString(0));
+			root.setAttributeNode(count);
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean hasDuplicate(Book book) {
@@ -88,11 +114,63 @@ public class Library {
 	public void addBook(Book book) {
 		if (!this.hasDuplicate(book)) {
 			books.put(size++, book);
+			root.setAttribute("count", Integer.toString(size));
+
+			/* Create Book Node */
+			Element bookNode = doc.createElement("Book");
+			// Create/Set book attributes
+			Attr age = doc.createAttribute("age");
+			Attr author = doc.createAttribute("author");
+			Attr title = doc.createAttribute("title");
+			Attr isbn = doc.createAttribute("isbn13");
+			age.setValue(book.getAge());
+			author.setValue(book.getAuthor());
+			title.setValue(book.getTitle());
+			isbn.setValue(book.getISBN());
+			bookNode.setAttributeNode(age);
+			bookNode.setAttributeNode(author);
+			bookNode.setAttributeNode(title);
+			bookNode.setAttributeNode(isbn);
+			
+			/* Create Words Node */
+			Element wordsNode = doc.createElement("Words");
+			// Create/Set words attributes
+			Attr uniqueWordCount = doc.createAttribute("unique_words");
+			Attr totalWordCount = doc.createAttribute("total_count");
+			uniqueWordCount.setValue(Integer.toString(book.getUniqueWordCount()));
+			totalWordCount.setValue(Integer.toString(book.getTotalWordCount()));
+			wordsNode.setAttributeNode(uniqueWordCount);
+			wordsNode.setAttributeNode(totalWordCount);
+			
+			// Set individual word nodes
+			Element word;
+			HashMap<String, Integer> wordMap = book.getWordMap();
+			for (String w : wordMap.keySet()) {
+				word = doc.createElement("W");
+				Attr freq = doc.createAttribute("freq");
+				freq.setValue(Integer.toString(wordMap.get(w)));
+				word.setAttributeNode(freq);
+				word.appendChild(doc.createTextNode(w));
+				wordsNode.appendChild(word);
+			}
+			bookNode.appendChild(wordsNode);
+			root.appendChild(bookNode);
 		}
 	}
 	
 	public int save() {
-		return 1;
+		try {
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource src = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File("C:\\Users\\Christian\\Desktop\\test.xml"));
+			transformer.transform(src, result);
+			return 1;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	
 	public int size() { return size; }
