@@ -163,7 +163,7 @@ public class Library {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource src = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("C:\\Users\\Christian\\Desktop\\test.xml"));
+			StreamResult result = new StreamResult(new File("C:\\" + filename));
 			transformer.transform(src, result);
 			return 1;
 		}
