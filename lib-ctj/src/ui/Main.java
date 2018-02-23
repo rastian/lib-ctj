@@ -33,16 +33,25 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	public void start(Stage primaryStage) throws Exception{
 		primaryStage.setTitle("libctj");
 		ToolBar toolbar = new ToolBar(newLib, open, save, delete, addB, delB, filter, merge, genD);
-		
+		//Table
+		TableView lib1 = new TableView();
+        TableColumn titleCol = new TableColumn("Title");
+        TableColumn authorCol = new TableColumn("Author");
+        TableColumn isbnCol = new TableColumn("ISBN-13");
+        TableColumn ageCol = new TableColumn("Age");
+        TableColumn uniqueCol = new TableColumn("Unique Words");
+        TableColumn totalCol = new TableColumn("Total Words");
+        lib1.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, uniqueCol, totalCol);
 		//Tabs
-				TabPane tabPane = new TabPane();
-				Tab tab = new Tab();
-				tab.setText("new lib");
-				tabPane.getTabs().add(tab);
-				
+		TabPane tabPane = new TabPane();
+		Tab tab = new Tab();
+		tab.setText("new lib");
+		tab.setContent(lib1);
+		tabPane.getTabs().add(tab);
+		
 		//Open/Save File Stuff
 		final FileChooser fileChooser = new FileChooser();
-		Stage stage = new Stage(); //For Open/Save Fie
+		Stage stage = new Stage(); //For Open/Save File
 		FileChooser openLD = new FileChooser(); 
 		openLD.setTitle("Select Library or Dictionary XML File to Open");
 		
@@ -51,11 +60,21 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(final ActionEvent e) {
-						
+						Scene newScene = new Scene(new Group());
+						//Table Stuff
+						TableView lib1 = new TableView();
+				        TableColumn titleCol = new TableColumn("Title");
+				        TableColumn authorCol = new TableColumn("Author");
+				        TableColumn isbnCol = new TableColumn("ISBN-13");
+				        TableColumn ageCol = new TableColumn("Age");
+				        TableColumn uniqueCol = new TableColumn("Unique Words");
+				        TableColumn totalCol = new TableColumn("Total Words");
+				        lib1.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, uniqueCol, totalCol);
+				        //Tabs
 						Tab tab = new Tab();
 						tab.setText("new lib");
+						tab.setContent(lib1);
 						tabPane.getTabs().add(tab);
-						
 						
 					}
 				});
