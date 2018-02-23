@@ -20,6 +20,7 @@ import org.xml.sax.helpers.*;
 public class Library {
 	private String filename;
 	private HashMap<Integer, Book> books;
+	private int size;
 	
 	public Library(String libXMLFilename) {
 		books = new HashMap<>();
@@ -36,9 +37,9 @@ public class Library {
 			// Get all books
 			NodeList bookNodeList = doc.getElementsByTagName("Book");
 			Book tmpBook;
-				
+			this.size = 0;
 			for (int i = 0; i < bookNodeList.getLength(); ++i) {
-				Node bookNode = bookNodeList.item(i);
+				Node bookNode = bookNodeList.item(size);
 				//System.out.println(node.getNodeName());
 				if (bookNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eBook = (Element) bookNode;
@@ -48,7 +49,7 @@ public class Library {
 					tmpBook.setAuthor(eBook.getAttribute("author").trim());
 					tmpBook.setAge(eBook.getAttribute("age").trim());
 					tmpBook.setISBN(eBook.getAttribute("isbn13").trim());
-						
+	
 					NodeList wordNodeList = eBook.getChildNodes();
 					for (int j = 0; j < wordNodeList.getLength(); ++j) {
 						Node wordNode = wordNodeList.item(j);
@@ -59,6 +60,7 @@ public class Library {
 						}
 					}
 					books.put(i, tmpBook);
+					++size;
 				}
 			}	
 		} catch (ParserConfigurationException e) {
@@ -76,8 +78,27 @@ public class Library {
 		
 	}
 	
+	public boolean hasDuplicate(Book book) {
+		for (Book b : books.values()) {
+			if (book.equals(b)) return true;
+		}
+		return false;
+	}
+	
+	public void addBook(Book book) {
+		if (!this.hasDuplicate(book)) {
+			books.put(size++, book);
+		}
+	}
+	
+	public int save() {
+		return 1;
+	}
+	
+	public int size() { return size; }
+
 	public void setFilename(String filename) { this.filename = filename; }
 	public String getFilename() { return filename; }
-	
+
 	public Book getBook(int index) { return books.get(index); }
 }
