@@ -1,6 +1,8 @@
 package ui;
+import library.Book;
 import java.io.File;
 import javafx.application.*;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
@@ -10,10 +12,18 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.geometry.*;
 import javafx.event.*;
 
 public class Main extends Application implements EventHandler<ActionEvent>{
+	//Sample Books for Testing Table
+	private TableView<Book> table = new TableView<Book>();
+    private final ObservableList<Book> data =
+        FXCollections.observableArrayList(
+            new Book("Cat in the Hat", "Dr. Seuss", "K", "978-0394800011", "cat.txt")
+            
+        );
 	
 	Button newLib = new Button("New Library");
 	Button open = new Button("Open");
@@ -35,13 +45,21 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		ToolBar toolbar = new ToolBar(newLib, open, save, delete, addB, delB, filter, merge, genD);
 		//Table
 		TableView lib1 = new TableView();
+		lib1.setEditable(true);
         TableColumn titleCol = new TableColumn("Title");
+        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
         TableColumn authorCol = new TableColumn("Author");
+        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
         TableColumn isbnCol = new TableColumn("ISBN-13");
+        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
         TableColumn ageCol = new TableColumn("Age");
+        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("age"));
         TableColumn uniqueCol = new TableColumn("Unique Words");
+        titleCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("uniqueWordCount"));
         TableColumn totalCol = new TableColumn("Total Words");
+        titleCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("totalWordCount"));
         lib1.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, uniqueCol, totalCol);
+        lib1.setItems(FXCollections.observableArrayList(data));
 		//Tabs
 		TabPane tabPane = new TabPane();
 		Tab tab = new Tab();
@@ -63,13 +81,21 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						Scene newScene = new Scene(new Group());
 						//Table Stuff
 						TableView lib1 = new TableView();
+						lib1.setEditable(true);
 				        TableColumn titleCol = new TableColumn("Title");
+				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
 				        TableColumn authorCol = new TableColumn("Author");
+				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
 				        TableColumn isbnCol = new TableColumn("ISBN-13");
+				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
 				        TableColumn ageCol = new TableColumn("Age");
+				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("age"));
 				        TableColumn uniqueCol = new TableColumn("Unique Words");
+				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("uniqueWordCount"));
 				        TableColumn totalCol = new TableColumn("Total Words");
+				        titleCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("totalWordCount"));
 				        lib1.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, uniqueCol, totalCol);
+				        lib1.setItems(FXCollections.observableArrayList(data));
 				        //Tabs
 						Tab tab = new Tab();
 						tab.setText("new lib");

@@ -16,8 +16,8 @@ public class Book {
 	private int totalWordCount;
 	private HashMap<String, Integer> wordMap;
 	
-	public Book(String title, String author, String age, String isbn, String filename) 
-			throws IOException, FileNotFoundException {
+	public Book(String title, String author, String age, String isbn, String filename) { 
+		try{
 
 		this.title = title;
 		this.author = author;
@@ -38,7 +38,10 @@ public class Book {
 		
 		words.close();
 	}
-	
+		catch (Exception e){
+		
+		}
+	}
 	public Book() {
 		
 	}
