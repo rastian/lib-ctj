@@ -49,6 +49,16 @@ public class Book {
 		return s;
 	}
 	
+	public boolean equals(Book b) {
+		return this.title.equals(b.title) && 
+				this.author.equals(b.title) &&
+				this.age.equals(b.age) &&
+				this.isbn.equals(b.isbn) &&
+				this.uniqueWordCount == b.uniqueWordCount &&
+				this.totalWordCount == b.totalWordCount &&
+				this.wordMap.equals(b.wordMap);
+	}
+	
 	public void  setTitle(String title) { this.title = title; }
 	public String getTitle() { return title; }
 	
