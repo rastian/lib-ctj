@@ -57,7 +57,7 @@ public class Library {
 					tmpBook.setTitle(eBook.getAttribute("title").trim());
 					tmpBook.setAuthor(eBook.getAttribute("author").trim());
 					tmpBook.setAge(eBook.getAttribute("age").trim());
-					tmpBook.setISBN(eBook.getAttribute("isbn13").trim());
+					tmpBook.setIsbn(eBook.getAttribute("isbn13").trim());
 	
 					NodeList wordNodeList = eBook.getChildNodes();
 					for (int j = 0; j < wordNodeList.getLength(); ++j) {
@@ -126,7 +126,7 @@ public class Library {
 			age.setValue(book.getAge());
 			author.setValue(book.getAuthor());
 			title.setValue(book.getTitle());
-			isbn.setValue(book.getISBN());
+			isbn.setValue(book.getIsbn());
 			bookNode.setAttributeNode(age);
 			bookNode.setAttributeNode(author);
 			bookNode.setAttributeNode(title);

@@ -72,8 +72,8 @@ public class Book {
 	public void setAge(String age) { this.age = age; }
 	public String getAge() { return age; }
 	
-	public void setISBN(String isbn) { this.isbn = isbn; }
-	public String getISBN() { return isbn; }
+	public void setIsbn(String isbn) { this.isbn = isbn; }
+	public String getIsbn() { return isbn; }
 	
 	public void setUniqueWordCount(int uniqueWordCount) { this.uniqueWordCount = uniqueWordCount; }
 	public int getUniqueWordCount() { return uniqueWordCount; }
