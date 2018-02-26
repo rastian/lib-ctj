@@ -154,7 +154,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	     	                	chooser.setInitialDirectory(new File(currentPath));
 	     	                    File file = chooser.showOpenDialog(stage);
 	     	                    if (file != null) {
-	     	                        filePath.setText(file.getName());
+	     	                        filePath.setText(file.getPath());
 	     	                    }
 	     	                }
 	                	});
