@@ -18,34 +18,32 @@ public class Book {
 	private HashMap<String, Integer> wordMap;
 	
 	public Book(String title, String author, String age, String isbn, String filename) { 
-		try{
+		try {
+			this.title = title;
+			this.author = author;
+			this.age = age;
+			this.isbn = isbn;
 
-		this.title = title;
-		this.author = author;
-		this.age = age;
-		this.isbn = isbn;
-
-		wordMap = new HashMap<>();
-		// Get all words in text file given by filename
-		Stream<String> words = Files.lines(Paths.get(filename))
-				.flatMap(line -> Stream.of(line.split("[ ,.!;?\r\n]")))
-				.filter(word -> word.length() > 0)
-				.map(word -> word.toLowerCase());
-		// Populate wordMap 
-		words.forEach(w -> wordMap.put(w, wordMap.containsKey(w) ? wordMap.get(w) + 1 : 1));
+			wordMap = new HashMap<>();
+			// Get all words in text file given by filename
+			Stream<String> words = Files.lines(Paths.get(filename))
+					.flatMap(line -> Stream.of(line.split("[ ,.!;?\r\n]")))
+					.filter(word -> word.length() > 0)
+					.map(word -> word.toLowerCase());
+			// Populate wordMap 
+			words.forEach(w -> wordMap.put(w, wordMap.containsKey(w) ? wordMap.get(w) + 1 : 1));
 		
-		this.uniqueWordCount = wordMap.keySet().size();
-		this.totalWordCount = wordMap.values().stream().mapToInt(Integer::intValue).sum();
+			this.uniqueWordCount = wordMap.keySet().size();
+			this.totalWordCount = wordMap.values().stream().mapToInt(Integer::intValue).sum();
 		
-		words.close();
-	}
+			words.close();
+		}
 		catch (Exception e){
-		
+			e.printStackTrace();
 		}
 	}
-	public Book() {
-		
-	}
+
+	public Book() { }
 	
 	public String toString() {
 		String s = String.format("Book[title='%s', author='%s', age='%s', isbn='%s', uniqueWordCount=%d, totalWordCount=%d]",
@@ -54,15 +52,12 @@ public class Book {
 	}
 	
 	public boolean equals(Book b) {
-		return this.title.equals(b.title) && 
-				this.author.equals(b.title) &&
-				this.age.equals(b.age) &&
-				this.isbn.equals(b.isbn) &&
-				this.uniqueWordCount == b.uniqueWordCount &&
-				this.totalWordCount == b.totalWordCount &&
-				this.wordMap.equals(b.wordMap);
+		if (this.title.equals(b.title)) {
+			return this.isbn.equals(b.isbn);
+		}
+		return false;
 	}
-	
+
 	public void  setTitle(String title) { this.title = title; }
 	public String getTitle() { return title; }
 	
