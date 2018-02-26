@@ -88,7 +88,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                    File file = chooser.showOpenDialog(stage);
 	                    if (file != null) {
-	                        Library libObj = new Library(file.getPath());
+	                    	Library libObj = new Library(file.toPath());
 	                        for(int i = 0; i < libObj.size(); i++) {
 	                        	data.add(libObj.getBook(i));
 	                        }
@@ -100,6 +100,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                @Override
 	                public void handle(final ActionEvent e) {
 	                    File file = fileChooser.showSaveDialog(stage);
+	                    
+	                    
 	                }
 	            });
 		delete.setOnAction(e -> System.out.println("Deleted Library"));
