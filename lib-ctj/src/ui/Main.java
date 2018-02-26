@@ -23,7 +23,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	private TableView<Book> table = new TableView<Book>();
 	public ObservableList<Book> data =
 	        FXCollections.observableArrayList(
-	        	new Book("a", "b", "c", "d", "e")
+	        	
 	            
 	        );
     Button newLib = new Button("New Library");
@@ -84,11 +84,11 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                @Override
 	                public void handle(final ActionEvent e) {
 	                	FileChooser chooser = new FileChooser();
-	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                    File file = chooser.showOpenDialog(stage);
 	                    if (file != null) {
-	                        Library libObj = new Library(file.getName());
+	                        Library libObj = new Library(file.getPath());
 	                        for(int i = 0; i < libObj.size(); i++) {
 	                        	data.add(libObj.getBook(i));
 	                        }
