@@ -4,6 +4,7 @@ import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder; 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -16,6 +17,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException; 
@@ -23,18 +26,19 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.*;
 
 public class Library {
-	private String filename;
+	private Path path;
 	private HashMap<Integer, Book> books;
 	private int size;
 	private Document doc;
 	private Element root;
 	
-	public Library(String libXMLFilename) {
+	public Library(Path libXMLPath) {
+		path = libXMLPath;
 		books = new HashMap<>();
-		File libXMLFile = new File(libXMLFilename);
+		File libXMLFile = new File(path.toString());
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
-		
+
 		try {
 			// Read library from XML file into memory
 			dBuilder = dbFactory.newDocumentBuilder();
@@ -49,7 +53,6 @@ public class Library {
 			this.size = 0;
 			for (int i = 0; i < bookNodeList.getLength(); ++i) {
 				Node bookNode = bookNodeList.item(size);
-				//System.out.println(node.getNodeName());
 				if (bookNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eBook = (Element) bookNode;
 					tmpBook = new Book();
@@ -95,9 +98,8 @@ public class Library {
 			root = doc.createElement("Literature");
 			doc.appendChild(root);
 			Attr count = doc.createAttribute("count");
-			count.setValue(Integer.toString(0));
+			count.setValue(Integer.toString(size));
 			root.setAttributeNode(count);
-			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -153,17 +155,22 @@ public class Library {
 				word.appendChild(doc.createTextNode(w));
 				wordsNode.appendChild(word);
 			}
-			bookNode.appendChild(wordsNode);
 			root.appendChild(bookNode);
+			bookNode.appendChild(wordsNode);
+			System.out.printf("[LOG:%s] Added: %s\n", path.getFileName(), book.getTitle());
 		}
 	}
 	
-	public int save() {
+	public int save(Path path) {
 		try {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			DOMSource src = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("C:\\" + filename));
+			StreamResult result = new StreamResult(new File(path.toString()));
 			transformer.transform(src, result);
 			return 1;
 		}
@@ -172,11 +179,15 @@ public class Library {
 			return 0;
 		}
 	}
+
+	public int save() {
+		return save(path);
+	}
 	
 	public int size() { return size; }
 
-	public void setFilename(String filename) { this.filename = filename; }
-	public String getFilename() { return filename; }
+	public void setPath(Path path) { this.path = path; }
+	public Path getPath() { return path; }
 
 	public Book getBook(int index) { return books.get(index); }
 }
