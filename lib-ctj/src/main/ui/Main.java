@@ -1,5 +1,5 @@
-package ui;
-import library.*;
+package main.ui;
+import main.library.*;
 import java.io.File;
 import java.nio.file.Paths;
 
@@ -8,7 +8,6 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
-import library.Book;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
