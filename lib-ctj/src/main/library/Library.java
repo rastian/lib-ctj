@@ -108,6 +108,8 @@ public class Library {
 	}
 	
 	public boolean hasDuplicate(Book book) {
+		if (this.isEmpty())
+			return false;
 		for (Book b : books.values()) {
 			if (book.equals(b)) return true;
 		}
@@ -191,4 +193,9 @@ public class Library {
 	public Path getPath() { return path; }
 
 	public Book getBook(int index) { return books.get(index); }
+	public boolean isEmpty() {
+		if(size == 0)
+			return true;
+		return false;
+	}
 }

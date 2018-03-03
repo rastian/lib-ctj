@@ -19,8 +19,7 @@ import javafx.geometry.*;
 import javafx.event.*;
 
 public class Main extends Application implements EventHandler<ActionEvent>{
-	private HashMap<LibTab, Integer> libTabs;
-	private HashMap<DictTab, Integer> dictTabs;
+	private LibTabs libTabs = new LibTabs();
     Button newLib = new Button("New Library");
 	Button open = new Button("Open");
 	Button save = new Button("Save");
@@ -53,17 +52,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(final ActionEvent e) {
-						Tab tab = new Tab();
-						Scene newScene = new Scene(new Group());
 						//Table Stuff
 						Library libObj = new Library();
-						LibTab libTab = new LibTab(libObj, tab);
-						TableView lib1 = libTab.getLibTable();
+						LibTab libTab = new LibTab(libObj, tabPane);
 				        //Tabs
-						tab.setText("new lib");
-						tab.setContent(lib1);
-						tabPane.getTabs().add(tab);
-						
+						libTabs.addLibTab(libTab.getTab(), libTab);
+						libTab.setName("Lib" + libTabs.getTabCount());
 					}
 				});
 		
@@ -71,17 +65,15 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	            new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(final ActionEvent e) {
-	                	Tab tab = new Tab();
 	                	FileChooser chooser = new FileChooser();
 	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                    File file = chooser.showOpenDialog(stage);
 	                    if (file != null) {
 	                    	Library libObj = new Library(file.toPath());
-	                        LibTab libTab = new LibTab(libObj, tab);
-	                        tab.setText(libObj.getPath().getFileName().toString());
-	                        tab.setContent(libTab.getLibTable());
-	                        tabPane.getTabs().add(tab);
+	                        LibTab libTab = new LibTab(libObj, tabPane);
+	                        libTab.setName(libObj.getPath().getFileName().toString());
+	                        libTabs.addLibTab(libTab.getTab(), libTab);
 	                    }
 	                }
 	            });
@@ -155,8 +147,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
-	    	                    data.add(new Book(titleInput.getText(), authInput.getText(), ageInput.getText(), isbnInput.getText(), filePath.getText()));
-	    	                    stageAdd.close();
+	    	                	if(!tabPane.getTabs().isEmpty()) {
+	    	                		Tab tab = tabPane.getSelectionModel().getSelectedItem();
+	    	                		LibTab libTab = libTabs.getLibTab(tab);
+	    	                		//When Null Pointer Exception Fixed, move .close() to next line after .addNewBook()
+	    	                		stageAdd.close();
+	    	                		libTab.addNewBook(new Book(titleInput.getText(), authInput.getText(), ageInput.getText(), isbnInput.getText(), filePath.getText()));
+		    	                    
+	    	                	}
 	    	                }
 	    	            });
 	                	GridPane.setConstraints(browse, 1, 4);
