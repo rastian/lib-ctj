@@ -40,4 +40,7 @@ public class LibTab {
 	public TableView<Book> getLibTable(){
 		return libData;
 	}
+	public void addNewBook(Book book) {
+		data.add(book);
+	}
 }

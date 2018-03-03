@@ -2,6 +2,7 @@ package main.ui;
 import main.library.*;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import javafx.application.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -18,9 +19,8 @@ import javafx.geometry.*;
 import javafx.event.*;
 
 public class Main extends Application implements EventHandler<ActionEvent>{
-	//Sample Books for Testing Table
-	
-	
+	private HashMap<LibTab, Integer> libTabs;
+	private HashMap<DictTab, Integer> dictTabs;
     Button newLib = new Button("New Library");
 	Button open = new Button("Open");
 	Button save = new Button("Save");
@@ -48,7 +48,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		Stage stage = new Stage(); //For Open/Save File
 		FileChooser openLD = new FileChooser(); 
 		openLD.setTitle("Select Library or Dictionary XML File to Open");
-		
 		//Button Actions
 		newLib.setOnAction( 
 				new EventHandler<ActionEvent>() {
@@ -72,15 +71,17 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	            new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(final ActionEvent e) {
+	                	Tab tab = new Tab();
 	                	FileChooser chooser = new FileChooser();
 	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                    File file = chooser.showOpenDialog(stage);
 	                    if (file != null) {
 	                    	Library libObj = new Library(file.toPath());
-	                        for(int i = 0; i < libObj.size(); i++) {
-	                        	data.add(libObj.getBook(i));
-	                        }
+	                        LibTab libTab = new LibTab(libObj, tab);
+	                        tab.setText(libObj.getPath().getFileName().toString());
+	                        tab.setContent(libTab.getLibTable());
+	                        tabPane.getTabs().add(tab);
 	                    }
 	                }
 	            });

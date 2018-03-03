@@ -1,4 +1,4 @@
-package library;
+package main.library;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
