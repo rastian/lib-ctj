@@ -81,7 +81,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(final ActionEvent e) {
-	                    File file = fileChooser.showSaveDialog(stage);
+	                	FileChooser chooser = new FileChooser();
+	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
+	                	chooser.setInitialDirectory(new File(currentPath));
+	                    File file = chooser.showSaveDialog(stage);
+	                    Tab tab = tabPane.getSelectionModel().getSelectedItem();
+	                    LibTab libTab = libTabs.getLibTab(tab);
+	                    Library libObj = libTab.getLib();
+	                    libObj.save(file.toPath());
 	                    
 	                    
 	                }

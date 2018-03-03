@@ -61,4 +61,7 @@ public class LibTab {
 	public Tab getTab() {
 		return tab;
 	}
+	public Library getLib() {
+		return libObj;
+	}
 }
