@@ -19,12 +19,8 @@ import javafx.event.*;
 
 public class Main extends Application implements EventHandler<ActionEvent>{
 	//Sample Books for Testing Table
-	private TableView<Book> table = new TableView<Book>();
-	public ObservableList<Book> data =
-	        FXCollections.observableArrayList(
-	        	
-	            
-	        );
+	
+	
     Button newLib = new Button("New Library");
 	Button open = new Button("Open");
 	Button save = new Button("Save");
@@ -44,15 +40,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		primaryStage.setTitle("libctj");
 		ToolBar toolbar = new ToolBar(newLib, open, save, delete, addB, delB, filter, merge, genD);
 		
-		//Table
-		
-		TableView lib1 = tables();
 		//Tabs
 		TabPane tabPane = new TabPane();
-		Tab tab = new Tab();
-		tab.setText("new lib");
-		tab.setContent(lib1);
-		tabPane.getTabs().add(tab);
 		
 		//Open/Save File Stuff
 		final FileChooser fileChooser = new FileChooser();
@@ -65,12 +54,13 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(final ActionEvent e) {
+						Tab tab = new Tab();
 						Scene newScene = new Scene(new Group());
 						//Table Stuff
 						Library libObj = new Library();
-						TableView lib1 = tables();
+						LibTab libTab = new LibTab(libObj, tab);
+						TableView lib1 = libTab.getLibTable();
 				        //Tabs
-						Tab tab = new Tab();
 						tab.setText("new lib");
 						tab.setContent(lib1);
 						tabPane.getTabs().add(tab);
@@ -306,26 +296,4 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	}
 	@Override
 	public void handle(ActionEvent event) {}
-	
-	public TableView tables() {
-		
-		
-		TableView lib1 = new TableView();
-		lib1.setEditable(true);
-        TableColumn titleCol = new TableColumn("Title");
-        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
-        TableColumn authorCol = new TableColumn("Author");
-        authorCol.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-        TableColumn isbnCol = new TableColumn("ISBN-13");
-        isbnCol.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
-        TableColumn ageCol = new TableColumn("Age");
-        ageCol.setCellValueFactory(new PropertyValueFactory<Book, String>("age"));
-        TableColumn uniqueCol = new TableColumn("Unique Words");
-        uniqueCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("uniqueWordCount"));
-        TableColumn totalCol = new TableColumn("Total Words");
-        totalCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("totalWordCount"));
-        lib1.setItems(data);
-        lib1.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, uniqueCol, totalCol);
-        return lib1;
-	}
 }

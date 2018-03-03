@@ -1,4 +1,4 @@
-package library;
+package main.library;
 
 import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder; 
