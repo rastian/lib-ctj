@@ -2,6 +2,7 @@ package main.ui;
 import main.library.*;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.application.*;
@@ -173,7 +174,23 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    stageAdd.show();
 	                }
 	            });
-		delB.setOnAction(e -> System.out.println("Books Deleted"));
+		delB.setOnAction(
+			new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(final ActionEvent e) {
+					ArrayList<Integer> indexes = new ArrayList<Integer>();
+					Tab tab = tabPane.getSelectionModel().getSelectedItem();
+					LibTab libTab = libTabs.getLibTab(tab);
+					Library lib = libTab.getLib();
+					for(int i = 0; i < lib.size(); i++) {
+						if(libTab.getLibTable().getSelectionModel().getSelectedItems().contains(lib.getBook(i))) {
+							indexes.add(i);
+						}
+					}
+					
+					
+				}
+			});
 		filter.setOnAction(
 				new EventHandler<ActionEvent>() {
 					@Override
@@ -252,7 +269,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    stageFilter.setScene(scene);
 	                    stageFilter.show();
 					}
-				});;
+				});
 		merge.setOnAction(
 				new EventHandler<ActionEvent>() {
 					@Override

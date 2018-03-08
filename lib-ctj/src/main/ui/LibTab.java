@@ -2,6 +2,9 @@ package main.ui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -14,13 +17,20 @@ public class LibTab {
 	private int tabCount;
 	private Tab tab = new Tab();
 	Library libObj = new Library();
-	private TableView<Book> libData = new TableView<Book>();
+	private MultiSelectTableView<Book> libData = new MultiSelectTableView<Book>();
 	private ObservableList<Book> data =
 	        FXCollections.observableArrayList(
 	        	
 	            
 	        );
 	public LibTab(Library lib, TabPane pane){
+		tab.setOnCloseRequest(new EventHandler<Event>() {
+			@Override
+		    public void handle(Event e) 
+		    {
+		        
+		    }
+		});
 		libData.setEditable(true);
 		libObj = lib;
 		for(int i = 0; i < lib.size(); i++) {
@@ -63,5 +73,8 @@ public class LibTab {
 	}
 	public Library getLib() {
 		return libObj;
+	}
+	public void setLib(Library newLib) {
+		libObj = newLib;
 	}
 }

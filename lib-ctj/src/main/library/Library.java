@@ -88,6 +88,7 @@ public class Library {
 	}
 
 	public Library() {
+		books = new HashMap<>();
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		size = 0;
