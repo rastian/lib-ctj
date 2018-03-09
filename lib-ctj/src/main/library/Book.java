@@ -27,9 +27,9 @@ public class Book {
 			wordMap = new HashMap<>();
 			// Get all words in text file given by filename
 			Stream<String> words = Files.lines(Paths.get(filename))
-					.flatMap(line -> Stream.of(line.split("[ ,.!;?\r\n]")))
+					.flatMap(line -> Stream.of(line.split("[\\s+ ,.!;?\r\n\\h]")))
 					.filter(word -> word.length() > 0)
-					.map(word -> word.toLowerCase());
+					.map(word -> word.toLowerCase().trim());
 			// Populate wordMap 
 			words.forEach(w -> wordMap.put(w, wordMap.containsKey(w) ? wordMap.get(w) + 1 : 1));
 		
