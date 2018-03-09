@@ -50,28 +50,40 @@ public class Library {
 			// Get all books
 			NodeList bookNodeList = doc.getElementsByTagName("Book");
 			Book tmpBook;
+			HashMap<String, Integer> wordMap;
 			this.size = 0;
 			for (int i = 0; i < bookNodeList.getLength(); ++i) {
 				Node bookNode = bookNodeList.item(size);
 				if (bookNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eBook = (Element) bookNode;
 					tmpBook = new Book();
+					wordMap = new HashMap<>();
 					// Fill attributes
 					tmpBook.setTitle(eBook.getAttribute("title").trim());
 					tmpBook.setAuthor(eBook.getAttribute("author").trim());
 					tmpBook.setAge(eBook.getAttribute("age").trim());
 					tmpBook.setIsbn(eBook.getAttribute("isbn13").trim());
 
-	
-					NodeList wordNodeList = eBook.getChildNodes();
-					for (int j = 0; j < wordNodeList.getLength(); ++j) {
-						Node wordNode = wordNodeList.item(j);
-						if (wordNode.getNodeType() == Node.ELEMENT_NODE) {
-							Element eWord = (Element) wordNode;
-							tmpBook.setUniqueWordCount(Integer.parseInt(eWord.getAttribute("unique_words")));
-							tmpBook.setTotalWordCount(Integer.parseInt(eWord.getAttribute("total_count")));
+					NodeList wordsNodeList = eBook.getChildNodes();
+					for (int j = 0; j < wordsNodeList.getLength(); ++j) {
+						Node wordsNode = wordsNodeList.item(j);
+						if (wordsNode.getNodeType() == Node.ELEMENT_NODE) {
+							Element eWords = (Element) wordsNode;
+							tmpBook.setUniqueWordCount(Integer.parseInt(eWords.getAttribute("unique_words")));
+							tmpBook.setTotalWordCount(Integer.parseInt(eWords.getAttribute("total_count")));
+							// Fill the book wordMap
+							NodeList wordNodeList = eWords.getChildNodes();
+							for (int k = 0; k < wordNodeList.getLength(); ++k) {
+								Node wordNode = wordNodeList.item(k);
+								if (wordNode.getNodeType() == Node.ELEMENT_NODE) {
+									Element eWord = (Element) wordNode;
+									wordMap.put(eWord.getTextContent(), Integer.parseInt(eWord.getAttribute("freq")));
+									//System.out.println(eWord.getTextContent() + " : " + eWord.getAttribute("freq"));
+								}
+							}
 						}
 					}
+					tmpBook.setWordMap(wordMap);
 					books.put(i, tmpBook);
 					++size;
 				}
@@ -186,6 +198,16 @@ public class Library {
 
 	public int save() {
 		return save(path);
+	}
+	
+	public Library merge(Library lib) {
+		Library newLib = this;
+		for (Book b : lib.books.values()) {
+			if (!this.hasDuplicate(b)) {
+				newLib.addBook(b);
+			}
+		}
+		return newLib;
 	}
 	
 	public int size() { return size; }
