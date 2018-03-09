@@ -201,7 +201,12 @@ public class Library {
 	}
 	
 	public Library merge(Library lib) {
-		Library newLib = this;
+		Library newLib = new Library();
+		// Add books from first library
+		for (Book b : this.books.values()) {
+			newLib.addBook(b);
+		}
+		// Add books from second library, except duplicates
 		for (Book b : lib.books.values()) {
 			if (!this.hasDuplicate(b)) {
 				newLib.addBook(b);
