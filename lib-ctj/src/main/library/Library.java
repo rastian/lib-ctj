@@ -161,7 +161,7 @@ public class Library {
 			}
 			root.appendChild(bookNode);
 			bookNode.appendChild(wordsNode);
-			System.out.printf("[LOG:%s] Added: %s\n", path.getFileName(), book.getTitle());
+			System.out.printf("[LOG:%s] Added: %s\n", (path != null) ? path.getFileName() : "null", book.getTitle());
 		}
 	}
 	
