@@ -14,7 +14,7 @@ public class BookTest {
 				"Jean Richards",
 				"PK",
 				"978-0822559917",
-				"lib-ctj/test_files/books/A Fruit is a Suitcase For Seeds.txt");
+				"test_files/books/A Fruit is a Suitcase For Seeds.txt");
 		assertEquals(b.getTitle(), "A Fruit is a Suitcase for Seeds");
 		assertEquals(b.getAuthor(), "Jean Richards");
 		assertEquals(b.getAge(), "PK");
@@ -30,14 +30,14 @@ public class BookTest {
 				"Unicef",
 				"PK",
 				"978-0751339826",
-				"lib-ctj/test_files/books/A life like mine.txt"
+				"test_files/books/A life like mine.txt"
 				);
 		Book b2 = new Book(
 				"A Life Like Mine: How Children Live Around the World",
 				"Unicef",
 				"PK",
 				"978-0751339826",
-				"lib-ctj/test_files/books/A life like mine.txt"
+				"test_files/books/A life like mine.txt"
 				);
 		assertEquals(b1.equals(b2), true);
 	}
