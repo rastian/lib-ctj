@@ -1,5 +1,6 @@
 package main.library;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder; 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,14 +28,14 @@ import org.xml.sax.helpers.*;
 
 public class Library {
 	private Path path;
-	private HashMap<Integer, Book> books;
+	private ArrayList<Book> books;
 	private int size;
 	private Document doc;
 	private Element root;
 	
 	public Library(Path libXMLPath) {
 		path = libXMLPath;
-		books = new HashMap<>();
+		books = new ArrayList<>();
 		File libXMLFile = new File(path.toString());
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -78,13 +79,12 @@ public class Library {
 								if (wordNode.getNodeType() == Node.ELEMENT_NODE) {
 									Element eWord = (Element) wordNode;
 									wordMap.put(eWord.getTextContent(), Integer.parseInt(eWord.getAttribute("freq")));
-									//System.out.println(eWord.getTextContent() + " : " + eWord.getAttribute("freq"));
 								}
 							}
 						}
 					}
 					tmpBook.setWordMap(wordMap);
-					books.put(i, tmpBook);
+					books.add(tmpBook);
 					++size;
 				}
 			}	
@@ -100,7 +100,7 @@ public class Library {
 	}
 
 	public Library() {
-		books = new HashMap<>();
+		books = new ArrayList<>();
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		size = 0;
@@ -123,7 +123,7 @@ public class Library {
 	public boolean hasDuplicate(Book book) {
 		if (this.isEmpty())
 			return false;
-		for (Book b : books.values()) {
+		for (Book b : books) {
 			if (book.equals(b)) return true;
 		}
 		return false;
@@ -131,7 +131,8 @@ public class Library {
 	
 	public void addBook(Book book) {
 		if (!this.hasDuplicate(book)) {
-			books.put(size++, book);
+			books.add(book);
+			++size;
 			root.setAttribute("count", Integer.toString(size));
 
 			/* Create Book Node */
@@ -173,7 +174,19 @@ public class Library {
 			}
 			root.appendChild(bookNode);
 			bookNode.appendChild(wordsNode);
-			System.out.printf("[LOG:%s] Added: %s\n", (path != null) ? path.getFileName() : "null", book.getTitle());
+		}
+	}
+	
+	public Book delete(int index) {
+		if (index <= size) {
+			// Find book to be deleted
+			Book b = books.get(index);
+			books.remove(index);
+			--size;
+			return b;
+		}
+		else {
+			throw new IndexOutOfBoundsException();
 		}
 	}
 	
@@ -203,11 +216,11 @@ public class Library {
 	public Library merge(Library lib) {
 		Library newLib = new Library();
 		// Add books from first library
-		for (Book b : this.books.values()) {
+		for (Book b : this.books) {
 			newLib.addBook(b);
 		}
 		// Add books from second library, except duplicates
-		for (Book b : lib.books.values()) {
+		for (Book b : lib.books) {
 			if (!this.hasDuplicate(b)) {
 				newLib.addBook(b);
 			}
