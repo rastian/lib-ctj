@@ -41,4 +41,22 @@ public class BookTest {
 				);
 		assertEquals(b1.equals(b2), true);
 	}
+	
+	@Test
+	public void booksShouldNotBeEqual() {
+		Book b1 = new Book(
+				"A Life Like Mine: How Children Live Around the World",
+				"Unicef",
+				"PK",
+				"978-0751339826",
+				"test_files/books/A life like mine.txt"
+				);
+		Book b2 = new Book(
+				"A Fruit is a Suitcase for Seeds", 
+				"Jean Richards",
+				"PK",
+				"978-0822559917",
+				"test_files/books/A Fruit is a Suitcase For Seeds.txt");
+		assertEquals(b1.equals(b2), false);
+	}
 }

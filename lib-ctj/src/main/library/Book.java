@@ -81,6 +81,5 @@ public class Book {
 		return (HashMap<String, Integer>)wordMap.entrySet().stream()
 				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
 	}
-	
 	public void setWordMap(HashMap<String, Integer> wordMap) { this.wordMap = wordMap; }
 }
