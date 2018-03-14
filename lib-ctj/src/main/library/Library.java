@@ -234,9 +234,8 @@ public class Library {
 	public Path getPath() { return path; }
 
 	public Book getBook(int index) { return books.get(index); }
+
 	public boolean isEmpty() {
-		if(size == 0)
-			return true;
-		return false;
+		return size == 0;
 	}
 }
