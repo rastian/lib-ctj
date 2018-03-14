@@ -1,0 +1,1619 @@
+<Dictionary size="171">
+    <W function="yes" frequency="9" syllables="1" spelling="a">
+        <Arpabet>AH0</Arpabet>
+        <Morphemes>a</Morphemes>
+        <Cognate>a</Cognate>
+        <BiphAve>0</BiphAve>
+        <PSegAve>0.051703304</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>i</Neighbor>
+            <Neighbor>the</Neighbor>
+            <Neighbor>of</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="yes" frequency="7" syllables="1" spelling="all">
+        <Arpabet>AO1 L</Arpabet>
+        <Morphemes>all</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0091289915</BiphAve>
+        <PSegAve>0.021861598</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>or</Neighbor>
+            <Neighbor>ball</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="almond">
+        <Arpabet>AA1 M AH0 N D</Arpabet>
+        <Morphemes>almond</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014023297</BiphAve>
+        <PSegAve>0.035474215</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="yes" frequency="7" syllables="1" spelling="am">
+        <Arpabet>AE1 M</Arpabet>
+        <Morphemes>am</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0091289915</BiphAve>
+        <PSegAve>0.027928792</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>i'm</Neighbor>
+            <Neighbor>at</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="yes" frequency="14" syllables="1" spelling="and">
+        <Arpabet>AH0 N D</Arpabet>
+        <Morphemes>and</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01443589</BiphAve>
+        <PSegAve>0.04322223</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="yes" frequency="1" syllables="3" spelling="another">
+        <Arpabet>AH0 N AH1 DH ER0</Arpabet>
+        <Morphemes>another</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014003683</BiphAve>
+        <PSegAve>0.03966289</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="yes" frequency="3" syllables="1" spelling="are">
+        <Arpabet>AA1 R</Arpabet>
+        <Morphemes>are</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0073083532</BiphAve>
+        <PSegAve>0.039216809</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>or</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="yes" frequency="6" syllables="1" spelling="at">
+        <Arpabet>AE1 T</Arpabet>
+        <Morphemes>at</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0087977592</BiphAve>
+        <PSegAve>0.025529068</PSegAve>
+        <Neighborhood size="5">
+            <Neighbor>am</Neighbor>
+            <Neighbor>eat</Neighbor>
+            <Neighbor>it</Neighbor>
+            <Neighbor>out</Neighbor>
+            <Neighbor>that</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="3" syllables="2" spelling="aware">
+        <Arpabet>AH0 W EH1 R</Arpabet>
+        <Morphemes>aware</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.010755614</BiphAve>
+        <PSegAve>0.028166436</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="baby">
+        <Arpabet>B EY1 B IY0</Arpabet>
+        <Morphemes>baby</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.007281471</BiphAve>
+        <PSegAve>0.068013653</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="ball">
+        <Arpabet>B AO1 L</Arpabet>
+        <Morphemes>ball</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.048073918</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>all</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="balloon">
+        <Arpabet>B AH0 L UW1 N</Arpabet>
+        <Morphemes>balloon</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.016058287</BiphAve>
+        <PSegAve>0.068946593</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="yes" frequency="2" syllables="1" spelling="be">
+        <Arpabet>B IY1</Arpabet>
+        <Morphemes>be</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.011384808</BiphAve>
+        <PSegAve>0.062038876</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>me</Neighbor>
+            <Neighbor>see</Neighbor>
+            <Neighbor>beach</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="beach">
+        <Arpabet>B IY1 CH</Arpabet>
+        <Morphemes>beach</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.011892257</BiphAve>
+        <PSegAve>0.051597778</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>be</Neighbor>
+            <Neighbor>peach</Neighbor>
+            <Neighbor>each</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="yes" frequency="1" syllables="2" spelling="because">
+        <Arpabet>B IH0 K AO1 Z</Arpabet>
+        <Morphemes>because</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012586007</BiphAve>
+        <PSegAve>0.063378297</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="yes" frequency="1" syllables="2" spelling="between">
+        <Arpabet>B IH0 T W IY1 N</Arpabet>
+        <Morphemes>between</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.022710707</BiphAve>
+        <PSegAve>0.081989266</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="bird">
+        <Arpabet>B ER1 D</Arpabet>
+        <Morphemes>bird</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.041975778</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="bounce">
+        <Arpabet>B AW1 N S</Arpabet>
+        <Morphemes>bounce</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.024418481</BiphAve>
+        <PSegAve>0.070612691</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="bronze">
+        <Arpabet>B R AA1 N Z</Arpabet>
+        <Morphemes>bronze</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01413597</BiphAve>
+        <PSegAve>0.067252293</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="brown">
+        <Arpabet>B R AW1 N</Arpabet>
+        <Morphemes>brown</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0089307046</BiphAve>
+        <PSegAve>0.051525541</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="yes" frequency="2" syllables="1" spelling="but">
+        <Arpabet>B AH1 T</Arpabet>
+        <Morphemes>but</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.015925355</BiphAve>
+        <PSegAve>0.094572775</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>what</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="yes" frequency="6" syllables="1" spelling="can">
+        <Arpabet>K AE1 N</Arpabet>
+        <Morphemes>can</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.02168465</BiphAve>
+        <PSegAve>0.081001997</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>tan</Neighbor>
+            <Neighbor>can't</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="yes" frequency="1" syllables="1" spelling="can&apos;t">
+        <Arpabet>K AE1 N T</Arpabet>
+        <Morphemes>+CONT can not</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.021587672</BiphAve>
+        <PSegAve>0.083632886</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>can</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="city">
+        <Arpabet>S IH1 T IY0</Arpabet>
+        <Morphemes>city</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01306394</BiphAve>
+        <PSegAve>0.1036089</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="cocoa">
+        <Arpabet>K OW1 K OW0</Arpabet>
+        <Morphemes>cocoa</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.007281471</BiphAve>
+        <PSegAve>0.039647628</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="coffee">
+        <Arpabet>K AA1 F IY0</Arpabet>
+        <Morphemes>coffee</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0089307046</BiphAve>
+        <PSegAve>0.06142737</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="color">
+        <Arpabet>K AH1 L ER0</Arpabet>
+        <Morphemes>color</Morphemes>
+        <Cognate>color</Cognate>
+        <BiphAve>0.019928025</BiphAve>
+        <PSegAve>0.079694524</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>colors</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="colors">
+        <Arpabet>K AH1 L ER0 Z</Arpabet>
+        <Morphemes>color +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.020833999</BiphAve>
+        <PSegAve>0.087307535</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>color</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="come">
+        <Arpabet>K AH1 M</Arpabet>
+        <Morphemes>come</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.023774149</BiphAve>
+        <PSegAve>0.07707946</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>some</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="cookies">
+        <Arpabet>K UH1 K IY0 Z</Arpabet>
+        <Morphemes>cookie +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012899045</BiphAve>
+        <PSegAve>0.07364808</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="copper">
+        <Arpabet>K AA1 P ER0</Arpabet>
+        <Morphemes>copper</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012496325</BiphAve>
+        <PSegAve>0.05559326</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="3" spelling="covering">
+        <Arpabet>K AH1 V ER0 IH0 NG</Arpabet>
+        <Morphemes>cover +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.042533766</BiphAve>
+        <PSegAve>0.091351688</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="creamy">
+        <Arpabet>K R IY1 M IY0</Arpabet>
+        <Morphemes>cream +SUF</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01444901</BiphAve>
+        <PSegAve>0.049918965</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="dark">
+        <Arpabet>D AA1 R K</Arpabet>
+        <Morphemes>dark</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.017172268</BiphAve>
+        <PSegAve>0.055893444</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>park</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="day">
+        <Arpabet>D EY1</Arpabet>
+        <Morphemes>day</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0049477001</BiphAve>
+        <PSegAve>0.055484556</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>they</Neighbor>
+            <Neighbor>do</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="2" syllables="3" spelling="different">
+        <Arpabet>D IH1 F ER0 AH0 N T</Arpabet>
+        <Morphemes>different</Morphemes>
+        <Cognate>diferente</Cognate>
+        <BiphAve>0.061320256</BiphAve>
+        <PSegAve>0.087305725</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="do">
+        <Arpabet>D UW1</Arpabet>
+        <Morphemes>do</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0064371065</BiphAve>
+        <PSegAve>0.042908631</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>day</Neighbor>
+            <Neighbor>to</Neighbor>
+            <Neighbor>too</Neighbor>
+            <Neighbor>you</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="drink">
+        <Arpabet>D R IH1 NG K</Arpabet>
+        <Morphemes>drink</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.016065242</BiphAve>
+        <PSegAve>0.040609047</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="drum">
+        <Arpabet>D R AH1 M</Arpabet>
+        <Morphemes>drum</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014562942</BiphAve>
+        <PSegAve>0.040731814</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>from</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="yes" frequency="1" syllables="1" spelling="each">
+        <Arpabet>IY1 CH</Arpabet>
+        <Morphemes>each</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0049477001</BiphAve>
+        <PSegAve>0.010455667</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>beach</Neighbor>
+            <Neighbor>eat</Neighbor>
+            <Neighbor>peach</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="ears">
+        <Arpabet>IH1 R Z</Arpabet>
+        <Morphemes>ear +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.046634797</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>is</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="eat">
+        <Arpabet>IY1 T</Arpabet>
+        <Morphemes>eat</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0049477001</BiphAve>
+        <PSegAve>0.02474995</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>at</Neighbor>
+            <Neighbor>each</Neighbor>
+            <Neighbor>it</Neighbor>
+            <Neighbor>out</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="engine">
+        <Arpabet>EH1 N JH AH0 N</Arpabet>
+        <Morphemes>engine</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.023125041</BiphAve>
+        <PSegAve>0.043691896</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="2" spelling="even">
+        <Arpabet>IY1 V IH0 N</Arpabet>
+        <Morphemes>even</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014740265</BiphAve>
+        <PSegAve>0.039161451</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="yes" frequency="1" syllables="3" spelling="every">
+        <Arpabet>EH1 V ER0 IY0</Arpabet>
+        <Morphemes>every</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014562942</BiphAve>
+        <PSegAve>0.050830007</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>ivory</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="yes" frequency="1" syllables="3" spelling="everything">
+        <Arpabet>EH1 V R IY0 TH IH2 NG</Arpabet>
+        <Morphemes>every thing</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.04376727</BiphAve>
+        <PSegAve>0.072639294</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="3" spelling="exactly">
+        <Arpabet>IH0 G Z AE1 K T L IY0</Arpabet>
+        <Morphemes>exact +LY</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.082438901</BiphAve>
+        <PSegAve>0.09618675</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="eyes">
+        <Arpabet>AY1 Z</Arpabet>
+        <Morphemes>eye +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0049477001</BiphAve>
+        <PSegAve>0.021242719</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>is</Neighbor>
+            <Neighbor>i'm</Neighbor>
+            <Neighbor>i</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="fair">
+        <Arpabet>F EH1 R</Arpabet>
+        <Morphemes>fair</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.026105367</BiphAve>
+        <PSegAve>0.082400464</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>their</Neighbor>
+            <Neighbor>there</Neighbor>
+            <Neighbor>four</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="3" spelling="family">
+        <Arpabet>F AE1 M AH0 L IY0</Arpabet>
+        <Morphemes>family</Morphemes>
+        <Cognate>familia</Cognate>
+        <BiphAve>0.026199033</BiphAve>
+        <PSegAve>0.058770746</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="fingers">
+        <Arpabet>F IH1 NG G ER0 Z</Arpabet>
+        <Morphemes>finger +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.020481195</BiphAve>
+        <PSegAve>0.063193448</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="fire">
+        <Arpabet>F AY1 ER0</Arpabet>
+        <Morphemes>fire</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0087923305</BiphAve>
+        <PSegAve>0.043350298</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>five</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="five">
+        <Arpabet>F AY1 V</Arpabet>
+        <Morphemes>five</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0097255018</BiphAve>
+        <PSegAve>0.042891826</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>fire</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="food">
+        <Arpabet>F UW1 D</Arpabet>
+        <Morphemes>food</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.047039237</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="four">
+        <Arpabet>F AO1 R</Arpabet>
+        <Morphemes>four</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0096068755</BiphAve>
+        <PSegAve>0.058106493</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>fair</Neighbor>
+            <Neighbor>more</Neighbor>
+            <Neighbor>or</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="frog">
+        <Arpabet>F R AA1 G</Arpabet>
+        <Morphemes>frog</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.010997321</BiphAve>
+        <PSegAve>0.040530965</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="yes" frequency="1" syllables="1" spelling="from">
+        <Arpabet>F R AH1 M</Arpabet>
+        <Morphemes>from</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014562942</BiphAve>
+        <PSegAve>0.043630894</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>drum</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="game">
+        <Arpabet>G EY1 M</Arpabet>
+        <Morphemes>game</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0086737033</BiphAve>
+        <PSegAve>0.051440924</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>same</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="get">
+        <Arpabet>G EH1 T</Arpabet>
+        <Morphemes>get</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0080476273</BiphAve>
+        <PSegAve>0.074743435</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>guess</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="go">
+        <Arpabet>G OW1</Arpabet>
+        <Morphemes>go</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0098954001</BiphAve>
+        <PSegAve>0.02940684</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="gold">
+        <Arpabet>G OW1 L D</Arpabet>
+        <Morphemes>gold</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012496325</BiphAve>
+        <PSegAve>0.040899914</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="guess">
+        <Arpabet>G EH1 S</Arpabet>
+        <Morphemes>guess</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.011147553</BiphAve>
+        <PSegAve>0.064495891</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>get</Neighbor>
+            <Neighbor>less</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="hard">
+        <Arpabet>HH AA1 R D</Arpabet>
+        <Morphemes>hard</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012036822</BiphAve>
+        <PSegAve>0.05482021</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="3" syllables="1" spelling="have">
+        <Arpabet>HH AE1 V</Arpabet>
+        <Morphemes>have</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0082331439</BiphAve>
+        <PSegAve>0.036278278</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="8" syllables="1" spelling="hear">
+        <Arpabet>HH IY1 R</Arpabet>
+        <Morphemes>hear</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.017859053</BiphAve>
+        <PSegAve>0.067834944</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="2" spelling="hearing">
+        <Arpabet>HH IY1 R IH0 NG</Arpabet>
+        <Morphemes>hear +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.043621115</BiphAve>
+        <PSegAve>0.079151094</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="how">
+        <Arpabet>HH AW1</Arpabet>
+        <Morphemes>how</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0049477001</BiphAve>
+        <PSegAve>0.021102794</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="52" syllables="1" spelling="i">
+        <Arpabet>AY1</Arpabet>
+        <Morphemes>i</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0</BiphAve>
+        <PSegAve>0.027642339</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>a</Neighbor>
+            <Neighbor>eyes</Neighbor>
+            <Neighbor>my</Neighbor>
+            <Neighbor>i'm</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="i&apos;m">
+        <Arpabet>AY1 M</Arpabet>
+        <Morphemes>+CONT I am</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0049477001</BiphAve>
+        <PSegAve>0.032989025</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>am</Neighbor>
+            <Neighbor>eyes</Neighbor>
+            <Neighbor>i</Neighbor>
+            <Neighbor>time</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="3" spelling="important">
+        <Arpabet>IH2 M P AO1 R T AH0 N T</Arpabet>
+        <Morphemes>important</Morphemes>
+        <Cognate>importante</Cognate>
+        <BiphAve>0.19713405</BiphAve>
+        <PSegAve>0.20321518</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="6" syllables="1" spelling="in">
+        <Arpabet>IH0 N</Arpabet>
+        <Morphemes>in</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0087977592</BiphAve>
+        <PSegAve>0.038355004</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>is</Neighbor>
+            <Neighbor>it</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="10" syllables="1" spelling="is">
+        <Arpabet>IH1 Z</Arpabet>
+        <Morphemes>is</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0098954001</BiphAve>
+        <PSegAve>0.028646927</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>ears</Neighbor>
+            <Neighbor>eyes</Neighbor>
+            <Neighbor>in</Neighbor>
+            <Neighbor>it</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="it">
+        <Arpabet>IH1 T</Arpabet>
+        <Morphemes>it</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0098954001</BiphAve>
+        <PSegAve>0.037993506</PSegAve>
+        <Neighborhood size="6">
+            <Neighbor>at</Neighbor>
+            <Neighbor>eat</Neighbor>
+            <Neighbor>in</Neighbor>
+            <Neighbor>is</Neighbor>
+            <Neighbor>out</Neighbor>
+            <Neighbor>it's</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="it&apos;s">
+        <Arpabet>IH1 T S</Arpabet>
+        <Morphemes>+CONT it is</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0080476273</BiphAve>
+        <PSegAve>0.050377596</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>it</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="3" spelling="ivory">
+        <Arpabet>AY1 V ER0 IY0</Arpabet>
+        <Morphemes>ivory</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012913709</BiphAve>
+        <PSegAve>0.054113626</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>every</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="just">
+        <Arpabet>JH AH1 S T</Arpabet>
+        <Morphemes>just</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.022944862</BiphAve>
+        <PSegAve>0.072462492</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="kitten">
+        <Arpabet>K IH1 T AH0 N</Arpabet>
+        <Morphemes>kitten</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.028899182</BiphAve>
+        <PSegAve>0.079301111</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="laugh">
+        <Arpabet>L AE1 F</Arpabet>
+        <Morphemes>laugh</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.035164613</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="less">
+        <Arpabet>L EH1 S</Arpabet>
+        <Morphemes>less</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0086737033</BiphAve>
+        <PSegAve>0.067078382</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>guess</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="light">
+        <Arpabet>L AY1 T</Arpabet>
+        <Morphemes>light</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.016670059</BiphAve>
+        <PSegAve>0.066029273</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>right</Neighbor>
+            <Neighbor>sight</Neighbor>
+            <Neighbor>like</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="like">
+        <Arpabet>L AY1 K</Arpabet>
+        <Morphemes>like</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.010470204</BiphAve>
+        <PSegAve>0.047888186</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>light</Neighbor>
+            <Neighbor>look</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="look">
+        <Arpabet>L UH1 K</Arpabet>
+        <Morphemes>look</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0086737033</BiphAve>
+        <PSegAve>0.031095946</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>like</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="lots">
+        <Arpabet>L AA1 T S</Arpabet>
+        <Morphemes>lot +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0093480879</BiphAve>
+        <PSegAve>0.064360157</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="make">
+        <Arpabet>M EY1 K</Arpabet>
+        <Morphemes>make</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.011147553</BiphAve>
+        <PSegAve>0.063423149</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>makes</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="makes">
+        <Arpabet>M EY1 K S</Arpabet>
+        <Morphemes>make +THIRD</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.010997321</BiphAve>
+        <PSegAve>0.068442762</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>make</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="4" syllables="2" spelling="many">
+        <Arpabet>M EH1 N IY0</Arpabet>
+        <Morphemes>many</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.02366451</BiphAve>
+        <PSegAve>0.10270418</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="3" syllables="1" spelling="me">
+        <Arpabet>M IY1</Arpabet>
+        <Morphemes>me</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0073083532</BiphAve>
+        <PSegAve>0.062176473</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>be</Neighbor>
+            <Neighbor>see</Neighbor>
+            <Neighbor>my</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="milk">
+        <Arpabet>M IH1 L K</Arpabet>
+        <Morphemes>milk</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0089307046</BiphAve>
+        <PSegAve>0.058638573</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="minute">
+        <Arpabet>M IH1 N AH0 T</Arpabet>
+        <Morphemes>minute</Morphemes>
+        <Cognate>minuto</Cognate>
+        <BiphAve>0.012586007</BiphAve>
+        <PSegAve>0.06949915</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="moon">
+        <Arpabet>M UW1 N</Arpabet>
+        <Morphemes>moon</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.080587722</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="more">
+        <Arpabet>M AO1 R</Arpabet>
+        <Morphemes>more</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.010351579</BiphAve>
+        <PSegAve>0.063519441</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>four</Neighbor>
+            <Neighbor>or</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="19" syllables="1" spelling="my">
+        <Arpabet>M AY1</Arpabet>
+        <Morphemes>my</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.016222291</BiphAve>
+        <PSegAve>0.060745157</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>i</Neighbor>
+            <Neighbor>me</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="myself">
+        <Arpabet>M AY2 S EH1 L F</Arpabet>
+        <Morphemes>my self</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.021496143</BiphAve>
+        <PSegAve>0.060238227</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="nose">
+        <Arpabet>N OW1 Z</Arpabet>
+        <Morphemes>nose</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.011147553</BiphAve>
+        <PSegAve>0.026713679</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>rose</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="not">
+        <Arpabet>N AA1 T</Arpabet>
+        <Morphemes>not</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0086737033</BiphAve>
+        <PSegAve>0.052173201</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="noticed">
+        <Arpabet>N OW1 T IH0 S T</Arpabet>
+        <Morphemes>notice +PAST</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.020230766</BiphAve>
+        <PSegAve>0.066402122</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="13" syllables="1" spelling="of">
+        <Arpabet>AH1 V</Arpabet>
+        <Morphemes>of</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.015406858</BiphAve>
+        <PSegAve>0.044195183</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>a</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="often">
+        <Arpabet>AO1 F T AH0 N</Arpabet>
+        <Morphemes>often</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.025799256</BiphAve>
+        <PSegAve>0.059507608</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="once">
+        <Arpabet>W AH1 N S</Arpabet>
+        <Morphemes>once</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.03527233</BiphAve>
+        <PSegAve>0.097092353</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>one</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="3" syllables="1" spelling="one">
+        <Arpabet>W AH1 N</Arpabet>
+        <Morphemes>one</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.02185455</BiphAve>
+        <PSegAve>0.1016226</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>once</Neighbor>
+            <Neighbor>sun</Neighbor>
+            <Neighbor>when</Neighbor>
+            <Neighbor>what</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="only">
+        <Arpabet>OW1 N L IY0</Arpabet>
+        <Morphemes>only</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.007281471</BiphAve>
+        <PSegAve>0.05710486</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="9" syllables="1" spelling="or">
+        <Arpabet>AO1 R</Arpabet>
+        <Morphemes>or</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0096690059</BiphAve>
+        <PSegAve>0.044831879</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>all</Neighbor>
+            <Neighbor>are</Neighbor>
+            <Neighbor>four</Neighbor>
+            <Neighbor>more</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="others">
+        <Arpabet>AH1 DH ER0 Z</Arpabet>
+        <Morphemes>other +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.007281471</BiphAve>
+        <PSegAve>0.032076232</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="2" spelling="our">
+        <Arpabet>AW1 ER0</Arpabet>
+        <Morphemes>our</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0064371065</BiphAve>
+        <PSegAve>0.016203944</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>out</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="out">
+        <Arpabet>AW1 T</Arpabet>
+        <Morphemes>out</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0049477001</BiphAve>
+        <PSegAve>0.022331972</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>at</Neighbor>
+            <Neighbor>eat</Neighbor>
+            <Neighbor>it</Neighbor>
+            <Neighbor>our</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="oven">
+        <Arpabet>AH1 V AH0 N</Arpabet>
+        <Morphemes>oven</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014333476</BiphAve>
+        <PSegAve>0.04797364</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="paint">
+        <Arpabet>P EY1 N T</Arpabet>
+        <Morphemes>paint</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014145558</BiphAve>
+        <PSegAve>0.088545248</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="pale">
+        <Arpabet>P EY1 L</Arpabet>
+        <Morphemes>pale</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.010521477</BiphAve>
+        <PSegAve>0.065514416</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="paper">
+        <Arpabet>P EY1 P ER0</Arpabet>
+        <Morphemes>paper</Morphemes>
+        <Cognate>papel</Cognate>
+        <BiphAve>0.014145558</BiphAve>
+        <PSegAve>0.064749964</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="park">
+        <Arpabet>P AA1 R K</Arpabet>
+        <Morphemes>park</Morphemes>
+        <Cognate>parque</Cognate>
+        <BiphAve>0.0166758</BiphAve>
+        <PSegAve>0.061787337</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>dark</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="peach">
+        <Arpabet>P IY1 CH</Arpabet>
+        <Morphemes>peach</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012327881</BiphAve>
+        <PSegAve>0.050269648</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>beach</Neighbor>
+            <Neighbor>each</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="3" syllables="2" spelling="people">
+        <Arpabet>P IY1 P AH0 L</Arpabet>
+        <Morphemes>people</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.023888875</BiphAve>
+        <PSegAve>0.063525632</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="pine">
+        <Arpabet>P AY1 N</Arpabet>
+        <Morphemes>pine</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.081780493</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="pink">
+        <Arpabet>P IH1 NG K</Arpabet>
+        <Morphemes>pink</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0093480879</BiphAve>
+        <PSegAve>0.046723928</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="play">
+        <Arpabet>P L EY1</Arpabet>
+        <Morphemes>play</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012825429</BiphAve>
+        <PSegAve>0.030579491</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="playground">
+        <Arpabet>P L EY1 G R AW2 N D</Arpabet>
+        <Morphemes>play ground</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.084510803</BiphAve>
+        <PSegAve>0.087826103</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="puppy">
+        <Arpabet>P AH1 P IY0</Arpabet>
+        <Morphemes>puppy</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.007281471</BiphAve>
+        <PSegAve>0.086882062</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="right">
+        <Arpabet>R AY1 T</Arpabet>
+        <Morphemes>right</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012706802</BiphAve>
+        <PSegAve>0.060222805</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>light</Neighbor>
+            <Neighbor>sight</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="rose">
+        <Arpabet>R OW1 Z</Arpabet>
+        <Morphemes>rose</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0086737033</BiphAve>
+        <PSegAve>0.026713679</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>nose</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="same">
+        <Arpabet>S EY1 M</Arpabet>
+        <Morphemes>same</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0086737033</BiphAve>
+        <PSegAve>0.082011484</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>game</Neighbor>
+            <Neighbor>some</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="sandy">
+        <Arpabet>S AE1 N D IY0</Arpabet>
+        <Morphemes>sand +SUF</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.017205078</BiphAve>
+        <PSegAve>0.082109213</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="school">
+        <Arpabet>S K UW1 L</Arpabet>
+        <Morphemes>school</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0097175883</BiphAve>
+        <PSegAve>0.044024542</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="10" syllables="1" spelling="see">
+        <Arpabet>S IY1</Arpabet>
+        <Morphemes>see</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.016332507</BiphAve>
+        <PSegAve>0.089513108</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>be</Neighbor>
+            <Neighbor>me</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="2" syllables="2" spelling="seeing">
+        <Arpabet>S IY1 IH0 NG</Arpabet>
+        <Morphemes>see +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.016337499</BiphAve>
+        <PSegAve>0.058782548</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="8" syllables="1" spelling="sense">
+        <Arpabet>S EH1 N S</Arpabet>
+        <Morphemes>sense</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.042289913</BiphAve>
+        <PSegAve>0.10541648</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="8" syllables="2" spelling="senses">
+        <Arpabet>S EH1 N S IH0 Z</Arpabet>
+        <Morphemes>sense +THIRD</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.053677358</BiphAve>
+        <PSegAve>0.11410809</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="shade">
+        <Arpabet>SH EY1 D</Arpabet>
+        <Morphemes>shade</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.016181175</BiphAve>
+        <PSegAve>0.045109805</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>shades</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="8" syllables="1" spelling="shades">
+        <Arpabet>SH EY1 D Z</Arpabet>
+        <Morphemes>shade +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.017573146</BiphAve>
+        <PSegAve>0.04554598</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>shade</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="sight">
+        <Arpabet>S AY1 T</Arpabet>
+        <Morphemes>sight</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012706802</BiphAve>
+        <PSegAve>0.094017334</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>light</Neighbor>
+            <Neighbor>right</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="sister">
+        <Arpabet>S IH1 S T ER0</Arpabet>
+        <Morphemes>sister</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.025044577</BiphAve>
+        <PSegAve>0.083709717</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="3" syllables="1" spelling="skin">
+        <Arpabet>S K IH1 N</Arpabet>
+        <Morphemes>skin</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.017043827</BiphAve>
+        <PSegAve>0.058035657</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="8" syllables="1" spelling="smell">
+        <Arpabet>S M EH1 L</Arpabet>
+        <Morphemes>smell</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.021138765</BiphAve>
+        <PSegAve>0.055783659</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="smelling">
+        <Arpabet>S M EH1 L IH0 NG</Arpabet>
+        <Morphemes>smell +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.047879525</BiphAve>
+        <PSegAve>0.081840202</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="soap">
+        <Arpabet>S OW1 P</Arpabet>
+        <Morphemes>soap</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.065627478</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="some">
+        <Arpabet>S AH1 M</Arpabet>
+        <Morphemes>some</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.024954475</BiphAve>
+        <PSegAve>0.095111758</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>come</Neighbor>
+            <Neighbor>same</Neighbor>
+            <Neighbor>sun</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="someone">
+        <Arpabet>S AH1 M W AH2 N</Arpabet>
+        <Morphemes>some one</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.04021452</BiphAve>
+        <PSegAve>0.088107891</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="3" syllables="2" spelling="sometimes">
+        <Arpabet>S AH0 M T AY1 M Z</Arpabet>
+        <Morphemes>sometimes</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.065579116</BiphAve>
+        <PSegAve>0.10066085</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="stars">
+        <Arpabet>S T AA1 R Z</Arpabet>
+        <Morphemes>star +PLU</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.011349082</BiphAve>
+        <PSegAve>0.062456857</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="sun">
+        <Arpabet>S AH1 N</Arpabet>
+        <Morphemes>sun</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.02185455</BiphAve>
+        <PSegAve>0.12029637</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>one</Neighbor>
+            <Neighbor>some</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="tan">
+        <Arpabet>T AE1 N</Arpabet>
+        <Morphemes>tan</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01728577</BiphAve>
+        <PSegAve>0.082466461</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>can</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="6" syllables="1" spelling="taste">
+        <Arpabet>T EY1 S T</Arpabet>
+        <Morphemes>taste</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.028433627</BiphAve>
+        <PSegAve>0.07761135</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="tasting">
+        <Arpabet>T EY1 S T IH0 NG</Arpabet>
+        <Morphemes>taste +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.052256443</BiphAve>
+        <PSegAve>0.096391998</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="tell">
+        <Arpabet>T EH1 L</Arpabet>
+        <Morphemes>tell</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.0741162</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="3" syllables="1" spelling="that">
+        <Arpabet>DH AE1 T</Arpabet>
+        <Morphemes>that</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0082331439</BiphAve>
+        <PSegAve>0.068976432</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>at</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="13" syllables="1" spelling="the">
+        <Arpabet>DH AH0</Arpabet>
+        <Morphemes>the</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.010459158</BiphAve>
+        <PSegAve>0.082413547</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>a</Neighbor>
+            <Neighbor>they</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="their">
+        <Arpabet>DH EH1 R</Arpabet>
+        <Morphemes>their</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.034324039</BiphAve>
+        <PSegAve>0.083387405</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>fair</Neighbor>
+            <Neighbor>there</Neighbor>
+            <Neighbor>there's</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="7" syllables="1" spelling="there">
+        <Arpabet>DH EH1 R</Arpabet>
+        <Morphemes>there</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.034324039</BiphAve>
+        <PSegAve>0.083387405</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>fair</Neighbor>
+            <Neighbor>their</Neighbor>
+            <Neighbor>there's</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="3" syllables="1" spelling="there&apos;s">
+        <Arpabet>DH EH1 R Z</Arpabet>
+        <Morphemes>+CONT there is</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.028149545</BiphAve>
+        <PSegAve>0.074254178</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>their</Neighbor>
+            <Neighbor>there</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="they">
+        <Arpabet>DH EY1</Arpabet>
+        <Morphemes>they</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0049477001</BiphAve>
+        <PSegAve>0.06276314</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>day</Neighbor>
+            <Neighbor>the</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="this">
+        <Arpabet>DH IH1 S</Arpabet>
+        <Morphemes>this</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0086737033</BiphAve>
+        <PSegAve>0.06280534</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="three">
+        <Arpabet>TH R IY1</Arpabet>
+        <Morphemes>three</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01177363</BiphAve>
+        <PSegAve>0.029963294</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>tree</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="time">
+        <Arpabet>T AY1 M</Arpabet>
+        <Morphemes>time</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.0055737766</BiphAve>
+        <PSegAve>0.059672337</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>i'm</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="9" syllables="1" spelling="to">
+        <Arpabet>T UW1</Arpabet>
+        <Morphemes>to</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014616706</BiphAve>
+        <PSegAve>0.059311096</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>do</Neighbor>
+            <Neighbor>too</Neighbor>
+            <Neighbor>you</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="tongue">
+        <Arpabet>T AH1 NG</Arpabet>
+        <Morphemes>tongue</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01288213</BiphAve>
+        <PSegAve>0.067224808</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>touch</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="too">
+        <Arpabet>T UW1</Arpabet>
+        <Morphemes>too</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.014616706</BiphAve>
+        <PSegAve>0.059311096</PSegAve>
+        <Neighborhood size="3">
+            <Neighbor>do</Neighbor>
+            <Neighbor>to</Neighbor>
+            <Neighbor>you</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="9" syllables="1" spelling="touch">
+        <Arpabet>T AH1 CH</Arpabet>
+        <Morphemes>touch</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01894014</BiphAve>
+        <PSegAve>0.071263485</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>tongue</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="touching">
+        <Arpabet>T AH1 CH IH0 NG</Arpabet>
+        <Morphemes>touch +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.043356642</BiphAve>
+        <PSegAve>0.081208214</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="tree">
+        <Arpabet>T R IY1</Arpabet>
+        <Morphemes>tree</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.01177363</BiphAve>
+        <PSegAve>0.050413962</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>three</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="11" syllables="1" spelling="use">
+        <Arpabet>Y UW1 S</Arpabet>
+        <Morphemes>use</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.017070672</BiphAve>
+        <PSegAve>0.049526591</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>you</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="using">
+        <Arpabet>Y UW1 Z IH0 NG</Arpabet>
+        <Morphemes>use +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.040807784</BiphAve>
+        <PSegAve>0.059336782</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="2" spelling="very">
+        <Arpabet>V EH1 R IY0</Arpabet>
+        <Morphemes>very</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.026104644</BiphAve>
+        <PSegAve>0.083959855</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="water">
+        <Arpabet>W AO1 T ER0</Arpabet>
+        <Morphemes>water</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.007281471</BiphAve>
+        <PSegAve>0.066284217</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="what">
+        <Arpabet>W AH1 T</Arpabet>
+        <Morphemes>what</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.021308679</BiphAve>
+        <PSegAve>0.094215155</PSegAve>
+        <Neighborhood size="2">
+            <Neighbor>but</Neighbor>
+            <Neighbor>one</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="3" spelling="whatever">
+        <Arpabet>W AH2 T EH1 V ER0</Arpabet>
+        <Morphemes>what ever</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.040407531</BiphAve>
+        <PSegAve>0.077243246</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="10" syllables="1" spelling="when">
+        <Arpabet>W EH1 N</Arpabet>
+        <Morphemes>when</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.030386552</BiphAve>
+        <PSegAve>0.094047666</PSegAve>
+        <Neighborhood size="1">
+            <Neighbor>one</Neighbor>
+        </Neighborhood>
+    </W>
+    <W function="no" frequency="1" syllables="3" spelling="wherever">
+        <Arpabet>W EH0 R EH1 V ER0</Arpabet>
+        <Morphemes>wherever</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.044305287</BiphAve>
+        <PSegAve>0.073817693</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="8" syllables="1" spelling="with">
+        <Arpabet>W IH1 DH</Arpabet>
+        <Morphemes>with</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.010607399</BiphAve>
+        <PSegAve>0.045666352</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="working">
+        <Arpabet>W ER1 K IH0 NG</Arpabet>
+        <Morphemes>worker +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.037910383</BiphAve>
+        <PSegAve>0.064973235</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="1" spelling="world">
+        <Arpabet>W ER1 L D</Arpabet>
+        <Morphemes>world</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.012496325</BiphAve>
+        <PSegAve>0.046484083</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="1" syllables="2" spelling="wrapping">
+        <Arpabet>R AE1 P IH0 NG</Arpabet>
+        <Morphemes>wrap +PRESPART</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.03667346</BiphAve>
+        <PSegAve>0.061243247</PSegAve>
+        <Neighborhood size="0"/>
+    </W>
+    <W function="no" frequency="2" syllables="1" spelling="you">
+        <Arpabet>Y UW1</Arpabet>
+        <Morphemes>you</Morphemes>
+        <Cognate>XXX</Cognate>
+        <BiphAve>0.021485006</BiphAve>
+        <PSegAve>0.036716994</PSegAve>
+        <Neighborhood size="4">
+            <Neighbor>do</Neighbor>
+            <Neighbor>to</Neighbor>
+            <Neighbor>too</Neighbor>
+            <Neighbor>use</Neighbor>
+        </Neighborhood>
+    </W>
+</Dictionary>
