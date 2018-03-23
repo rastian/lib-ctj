@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -106,9 +111,32 @@ public class Dictionary {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
+	
+	public int save(Path path) {
+		try {
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			DOMSource src = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(path.toString()));
+			transformer.transform(src, result);
+			return 1;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public int save() {
+		return save(path);
+	}
+	
 	public ArrayList<DictElement> getElements(){
 		return entries;
 	}
