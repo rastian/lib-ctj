@@ -10,6 +10,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -21,6 +22,7 @@ import javafx.event.*;
 
 public class Main extends Application implements EventHandler<ActionEvent>{
 	private LibTabs libTabs = new LibTabs();
+	private DictTabs dictTabs = new DictTabs();
     Button newLib = new Button("New Library");
 	Button open = new Button("Open");
 	Button save = new Button("Save");
@@ -69,12 +71,18 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	FileChooser chooser = new FileChooser();
 	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
 	                	chooser.setInitialDirectory(new File(currentPath));
+	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
+	                	chooser.getExtensionFilters().add(xml);
 	                    File file = chooser.showOpenDialog(stage);
 	                    if (file != null) {
 	                    	Library libObj = new Library(file.toPath());
 	                        LibTab libTab = new LibTab(libObj, tabPane);
 	                        libTab.setName(libObj.getPath().getFileName().toString());
 	                        libTabs.addLibTab(libTab.getTab(), libTab);
+	                    	Dictionary dictObj = new Dictionary(file.toPath());
+	                    	DictTab dictTab = new DictTab(dictObj, tabPane);
+	                    	dictTab.setName(dictObj.getPath().getFileName().toString());
+	                    	dictTabs.addDictTab(dictTab.getTab(), dictTab);
 	                    }
 	                }
 	            });
@@ -142,6 +150,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	browse.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
 	     	                	FileChooser chooser = new FileChooser();
+	     	                	ExtensionFilter txt = new ExtensionFilter("Text Files", "*.txt");
+	    	                	chooser.getExtensionFilters().add(txt);
 	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() +"/test_files";
 	     	                	chooser.setInitialDirectory(new File(currentPath));
 	     	                    File file = chooser.showOpenDialog(stage);
@@ -178,13 +188,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent e) {
-					ArrayList<Integer> indexes = new ArrayList<Integer>();
 					Tab tab = tabPane.getSelectionModel().getSelectedItem();
 					LibTab libTab = libTabs.getLibTab(tab);
 					Library lib = libTab.getLib();
 					for(int i = 0; i < lib.size(); i++) {
 						if(libTab.getLibTable().getSelectionModel().getSelectedItems().contains(lib.getBook(i))) {
-							indexes.add(i);
+							libTab.delBook(i);
 						}
 					}
 					
@@ -281,12 +290,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	grid.setVgap(8);
 		            	grid.setHgap(10);
 		            	
-		            	ObservableList<String> options = 
+		            	ObservableList<Library> options = 
 		            		    FXCollections.observableArrayList(
-		            		        "Library 1",
-		            		        "Library 2",
-		            		        "Library 3"
+		            		        
 		            		    );
+		            	ObservableList<Tab> tabs = tabPane.getTabs();
+		            	for(int i = 0; i < tabs.size(); i++) {
+		            		options.add(libTabs.getLibTab(tabs.get(i)).getLib());
+		            	}
 		            	ComboBox comboBox = new ComboBox(options);
 		            	ComboBox comboBox2 = new ComboBox(options);
 		            	Label lib1 = new Label("First Library: ");

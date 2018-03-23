@@ -109,4 +109,10 @@ public class Dictionary {
 		}
 		
 	}
+	public ArrayList<DictElement> getElements(){
+		return entries;
+	}
+	public Path getPath() {
+		return path;
+	}
 }

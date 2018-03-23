@@ -14,6 +14,7 @@ import main.library.Book;
 import main.library.Library;
 
 public class LibTab {
+	private String name;
 	private int tabCount;
 	private Tab tab = new Tab();
 	Library libObj = new Library();
@@ -62,7 +63,15 @@ public class LibTab {
 			libObj.addBook(book);
 		}
 	}
-	public void setName(String name) {
+	public void delBook(int index) {
+		libObj.delete(index);
+		data.remove(index);
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String newName) {
+		name = newName;
 		tab.setText(name);
 	}
 	public int getLibCount() {
