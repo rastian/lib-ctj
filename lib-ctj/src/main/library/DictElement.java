@@ -41,7 +41,7 @@ public class DictElement {
 	public double getBiphAve() {return biphAve; }
 	public void setBiphAve(double biphAve) {this.biphAve = biphAve; }
 
-	public double getpSegAve() { return pSegAve; }
+	public double getPSegAve() { return pSegAve; }
 	public void setpSegAve(double pSegAve) { this.pSegAve = pSegAve; }
 
 	public String[] getNeighborhood() { if (neighborhood != null) return neighborhood; else return null; }
