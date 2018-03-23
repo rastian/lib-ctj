@@ -5,6 +5,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import javafx.application.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -75,14 +81,32 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	chooser.getExtensionFilters().add(xml);
 	                    File file = chooser.showOpenDialog(stage);
 	                    if (file != null) {
-	                    	Library libObj = new Library(file.toPath());
-	                        LibTab libTab = new LibTab(libObj, tabPane);
-	                        libTab.setName(libObj.getPath().getFileName().toString());
-	                        libTabs.addLibTab(libTab.getTab(), libTab);
-	                    	Dictionary dictObj = new Dictionary(file.toPath());
-	                    	DictTab dictTab = new DictTab(dictObj, tabPane);
-	                    	dictTab.setName(dictObj.getPath().getFileName().toString());
-	                    	dictTabs.addDictTab(dictTab.getTab(), dictTab);
+	                    	Document doc;
+	                    	Element root;
+	                    	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	                		DocumentBuilder dBuilder;
+	                    	try {
+	                    		dBuilder = dbFactory.newDocumentBuilder();
+	                			doc = dBuilder.parse(file.getPath());
+	                			doc.getDocumentElement().normalize();
+	                			
+	                			root = doc.getDocumentElement();
+	                			if(root.getTagName().equals("Literature")) {
+	                				Library libObj = new Library(file.toPath());
+	    	                        LibTab libTab = new LibTab(libObj, tabPane);
+	    	                        libTab.setName(libObj.getPath().getFileName().toString());
+	    	                        libTabs.addLibTab(libTab.getTab(), libTab);
+	                			}
+	                			if(root.getTagName().equals("Dictionary")) {
+	                				Dictionary dictObj = new Dictionary(file.toPath());
+	    	                    	DictTab dictTab = new DictTab(dictObj, tabPane);
+	    	                    	dictTab.setName(dictObj.getPath().getFileName().toString());
+	    	                    	dictTabs.addDictTab(dictTab.getTab(), dictTab);
+	                			}
+	                        } 
+	                    	catch (Exception ex) {
+	                            
+	                        }
 	                    }
 	                }
 	            });
