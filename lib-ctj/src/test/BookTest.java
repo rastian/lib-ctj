@@ -14,6 +14,7 @@ public class BookTest {
 				"Jean Richards",
 				"PK",
 				"978-0822559917",
+				"unknown",
 				"test_files/books/A Fruit is a Suitcase For Seeds.txt");
 		assertEquals(b.getTitle(), "A Fruit is a Suitcase for Seeds");
 		assertEquals(b.getAuthor(), "Jean Richards");
@@ -30,6 +31,7 @@ public class BookTest {
 				"Unicef",
 				"PK",
 				"978-0751339826",
+				"unknown",
 				"test_files/books/A life like mine.txt"
 				);
 		Book b2 = new Book(
@@ -37,6 +39,7 @@ public class BookTest {
 				"Unicef",
 				"PK",
 				"978-0751339826",
+				"unknown",
 				"test_files/books/A life like mine.txt"
 				);
 		assertEquals(b1.equals(b2), true);
@@ -49,6 +52,7 @@ public class BookTest {
 				"Unicef",
 				"PK",
 				"978-0751339826",
+				"unknown",
 				"test_files/books/A life like mine.txt"
 				);
 		Book b2 = new Book(
@@ -56,6 +60,7 @@ public class BookTest {
 				"Jean Richards",
 				"PK",
 				"978-0822559917",
+				"unknown",
 				"test_files/books/A Fruit is a Suitcase For Seeds.txt");
 		assertEquals(b1.equals(b2), false);
 	}
