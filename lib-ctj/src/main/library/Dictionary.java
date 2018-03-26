@@ -80,15 +80,13 @@ public class Dictionary {
 								tmpEntry.setpSegAve(Double.parseDouble(eNode.getTextContent().trim()));
 								break;
 							case "Neighborhood":
-								// do thing
-								//System.out.println(eNode.getTextContent().trim());
 								NodeList neighborList = eNode.getElementsByTagName("Neighbor");
 								String[] neighborhood = new String[neighborList.getLength()];
 								for (int k = 0; k < neighborList.getLength(); ++k) {
 									Node neighborNode = neighborList.item(k);
 									if (neighborNode.getNodeType() == Node.ELEMENT_NODE) {
 										Element neighborElem = (Element) neighborNode;
-										neighborhood[k] = neighborElem.getTextContent();
+										neighborhood[k] = neighborElem.getTextContent().trim();
 									}
 								}
 								tmpEntry.setNeighborhood(neighborhood);
