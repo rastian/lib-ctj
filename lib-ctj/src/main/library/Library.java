@@ -64,7 +64,26 @@ public class Library {
 					tmpBook.setAuthor(eBook.getAttribute("author").trim());
 					tmpBook.setAge(eBook.getAttribute("age").trim());
 					tmpBook.setIsbn(eBook.getAttribute("isbn13").trim());
-					tmpBook.setGenre(eBook.getAttribute("genre").equals("") ? "unknown" : eBook.getAttribute("genre"));
+					// Makes sure genre/complete fields exist and if not create and add the attributes to the DOM
+					// along with default values of genre="unknown" and complete="yes"
+					if (eBook.hasAttribute("complete")) {
+						tmpBook.setComplete(eBook.getAttribute("complete").trim().equals("yes"));
+					}
+					else {
+						Attr complete = doc.createAttribute("complete");
+						complete.setValue("yes");
+						tmpBook.setComplete(true);
+						eBook.setAttributeNode(complete);
+					}
+					if (eBook.hasAttribute("genre")) {
+						tmpBook.setGenre(eBook.getAttribute("genre").trim());
+					}
+					else {
+						Attr genre = doc.createAttribute("genre");
+						genre.setValue("unknown");
+						tmpBook.setGenre("unknown");
+						eBook.setAttributeNode(genre);
+					}
 
 					NodeList wordsNodeList = eBook.getChildNodes();
 					for (int j = 0; j < wordsNodeList.getLength(); ++j) {
@@ -143,16 +162,19 @@ public class Library {
 			Attr author = doc.createAttribute("author");
 			Attr title = doc.createAttribute("title");
 			Attr isbn = doc.createAttribute("isbn13");
+			Attr complete = doc.createAttribute("complete");
 			Attr genre = doc.createAttribute("genre");
 			age.setValue(book.getAge());
 			author.setValue(book.getAuthor());
 			title.setValue(book.getTitle());
 			isbn.setValue(book.getIsbn());
+			complete.setValue(book.isComplete() ? "yes" : "no");
 			genre.setValue(book.getGenre());
 			bookNode.setAttributeNode(age);
 			bookNode.setAttributeNode(author);
 			bookNode.setAttributeNode(title);
 			bookNode.setAttributeNode(isbn);
+			bookNode.setAttributeNode(complete);
 			bookNode.setAttributeNode(genre);
 			
 			/* Create Words Node */

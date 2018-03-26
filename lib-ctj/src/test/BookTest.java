@@ -14,6 +14,7 @@ public class BookTest {
 				"Jean Richards",
 				"PK",
 				"978-0822559917",
+				true,
 				"unknown",
 				"test_files/books/A Fruit is a Suitcase For Seeds.txt");
 		assertEquals(b.getTitle(), "A Fruit is a Suitcase for Seeds");
@@ -31,6 +32,7 @@ public class BookTest {
 				"Unicef",
 				"PK",
 				"978-0751339826",
+				true,
 				"unknown",
 				"test_files/books/A life like mine.txt"
 				);
@@ -39,6 +41,7 @@ public class BookTest {
 				"Unicef",
 				"PK",
 				"978-0751339826",
+				true,
 				"unknown",
 				"test_files/books/A life like mine.txt"
 				);
@@ -52,6 +55,7 @@ public class BookTest {
 				"Unicef",
 				"PK",
 				"978-0751339826",
+				true,
 				"unknown",
 				"test_files/books/A life like mine.txt"
 				);
@@ -60,6 +64,7 @@ public class BookTest {
 				"Jean Richards",
 				"PK",
 				"978-0822559917",
+				true,
 				"unknown",
 				"test_files/books/A Fruit is a Suitcase For Seeds.txt");
 		assertEquals(b1.equals(b2), false);
