@@ -1,6 +1,8 @@
 package main.library;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -71,7 +73,9 @@ public class Dictionary {
 								tmpEntry.setMorphemes(eNode.getTextContent().trim());
 								break;
 							case "Cognate":
-								tmpEntry.setCognate(eNode.getTextContent().trim());
+								String cognate = eNode.getTextContent().trim();
+								if (!cognate.equals("XXX"))
+									tmpEntry.setCognate(eNode.getTextContent().trim());
 								break;
 							case "BiphAve":
 								tmpEntry.setBiphAve(Double.parseDouble(eNode.getTextContent().trim()));
@@ -135,7 +139,40 @@ public class Dictionary {
 		return save(path);
 	}
 	
-	public ArrayList<DictElement> getElements(){
+	public int saveAsCSV(Path path) {
+		try {
+			FileWriter fw = new FileWriter(path.toString());
+			BufferedWriter bw = new BufferedWriter(fw);
+			
+			// Write header columns
+			bw.append(",ARPABET,Syllables,Frequency,Function Word,Morphemes,PSA,BIPHA,Cognate,Neighborhood,,,,,,\n");
+			// Write fields for each DictElem
+			for (DictElement e : entries) {
+				bw.append(e.getSpelling()).append(",");
+				bw.append(e.getArpabet()).append(",");
+				bw.append(Integer.toString(e.getSyllables())).append(",");
+				bw.append(Integer.toString(e.getFrequency())).append(",");
+				bw.append(e.isFunction() ? "TRUE" : "FALSE").append(",");
+				bw.append(e.getMorphemes()).append(",");
+				bw.append(Double.toString(e.getPSegAve())).append(",");
+				bw.append(Double.toString(e.getBiphAve())).append(",");
+				bw.append(e.getCognate() != null ? e.getCognate() : "").append(",");
+				bw.append(Integer.toString(e.getNeighborhood().length)).append(",");
+				for (String n : e.getNeighborhood()) {
+					bw.append(n).append(",");
+				}
+				bw.append("\n");
+			}
+			bw.close();
+			return 1;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public ArrayList<DictElement> getElements() {
 		return entries;
 	}
 	public Path getPath() {
