@@ -13,17 +13,19 @@ public class Book {
 	private String author;
 	private String age;
 	private String isbn;
+	private boolean complete;
 	private String genre;
 	private int uniqueWordCount;
 	private int totalWordCount;
 	private HashMap<String, Integer> wordMap;
 
-	public Book(String title, String author, String age, String isbn, String genre, String filename) { 
+	public Book(String title, String author, String age, String isbn, boolean complete, String genre, String filename) { 
 		try {
 			this.title = title;
 			this.author = author;
 			this.age = age;
 			this.isbn = isbn;
+			this.complete = complete;
 			this.genre = genre;
 
 			wordMap = new HashMap<>();
@@ -48,8 +50,8 @@ public class Book {
 	public Book() { }
 
 	public String toString() {
-		String s = String.format("Book[title='%s', author='%s', age='%s', isbn='%s', genre='%s', uniqueWordCount=%d, totalWordCount=%d]",
-				title, author, age, isbn, genre, uniqueWordCount, totalWordCount);
+		String s = String.format("Book[title='%s', author='%s', age='%s', isbn='%s', complete='%s' genre='%s', uniqueWordCount=%d, totalWordCount=%d]",
+				title, author, age, isbn, complete, genre, uniqueWordCount, totalWordCount);
 		return s;
 	}
 
@@ -71,7 +73,10 @@ public class Book {
 
 	public void setIsbn(String isbn) { this.isbn = isbn; }
 	public String getIsbn() { return isbn; }
-
+	
+	public void setComplete(boolean complete) { this.complete = complete; }
+	public boolean isComplete() { return complete; }
+	
 	public void setGenre(String genre) { this.genre = genre; }
 	public String getGenre() { return genre; }
 
