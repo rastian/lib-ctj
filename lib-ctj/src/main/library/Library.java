@@ -64,6 +64,7 @@ public class Library {
 					tmpBook.setAuthor(eBook.getAttribute("author").trim());
 					tmpBook.setAge(eBook.getAttribute("age").trim());
 					tmpBook.setIsbn(eBook.getAttribute("isbn13").trim());
+					tmpBook.setGenre(eBook.getAttribute("genre").equals("") ? "unknown" : eBook.getAttribute("genre"));
 
 					NodeList wordsNodeList = eBook.getChildNodes();
 					for (int j = 0; j < wordsNodeList.getLength(); ++j) {
@@ -142,14 +143,17 @@ public class Library {
 			Attr author = doc.createAttribute("author");
 			Attr title = doc.createAttribute("title");
 			Attr isbn = doc.createAttribute("isbn13");
+			Attr genre = doc.createAttribute("genre");
 			age.setValue(book.getAge());
 			author.setValue(book.getAuthor());
 			title.setValue(book.getTitle());
 			isbn.setValue(book.getIsbn());
+			genre.setValue(book.getGenre());
 			bookNode.setAttributeNode(age);
 			bookNode.setAttributeNode(author);
 			bookNode.setAttributeNode(title);
 			bookNode.setAttributeNode(isbn);
+			bookNode.setAttributeNode(genre);
 			
 			/* Create Words Node */
 			Element wordsNode = doc.createElement("Words");

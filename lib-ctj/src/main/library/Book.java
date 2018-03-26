@@ -13,16 +13,18 @@ public class Book {
 	private String author;
 	private String age;
 	private String isbn;
+	private String genre;
 	private int uniqueWordCount;
 	private int totalWordCount;
 	private HashMap<String, Integer> wordMap;
-	
-	public Book(String title, String author, String age, String isbn, String filename) { 
+
+	public Book(String title, String author, String age, String isbn, String genre, String filename) { 
 		try {
 			this.title = title;
 			this.author = author;
 			this.age = age;
 			this.isbn = isbn;
+			this.genre = genre;
 
 			wordMap = new HashMap<>();
 			// Get all words in text file given by filename
@@ -44,13 +46,13 @@ public class Book {
 	}
 
 	public Book() { }
-	
+
 	public String toString() {
-		String s = String.format("Book[title='%s', author='%s', age='%s', isbn='%s', uniqueWordCount=%d, totalWordCount=%d]",
-				title, author, age, isbn, uniqueWordCount, totalWordCount);
+		String s = String.format("Book[title='%s', author='%s', age='%s', isbn='%s', genre='%s', uniqueWordCount=%d, totalWordCount=%d]",
+				title, author, age, isbn, genre, uniqueWordCount, totalWordCount);
 		return s;
 	}
-	
+
 	public boolean equals(Book b) {
 		if (this.title.equals(b.title)) {
 			return this.isbn.equals(b.isbn);
@@ -60,26 +62,30 @@ public class Book {
 
 	public void  setTitle(String title) { this.title = title; }
 	public String getTitle() { return title; }
-	
+
 	public void setAuthor(String author) { this.author = author; }
 	public String getAuthor() { return author; }
-	
+
 	public void setAge(String age) { this.age = age; }
 	public String getAge() { return age; }
-	
+
 	public void setIsbn(String isbn) { this.isbn = isbn; }
 	public String getIsbn() { return isbn; }
-	
+
+	public void setGenre(String genre) { this.genre = genre; }
+	public String getGenre() { return genre; }
+
 	public void setUniqueWordCount(int uniqueWordCount) { this.uniqueWordCount = uniqueWordCount; }
 	public int getUniqueWordCount() { return uniqueWordCount; }
-	
+
 	public void setTotalWordCount(int totalWordCount) { this.totalWordCount = totalWordCount; }
 	public int getTotalWordCount() { return totalWordCount; }
-	
+
 	public HashMap<String, Integer> getWordMap() {
 		// returns copy of wordMap to prevent accidental changes
 		return (HashMap<String, Integer>)wordMap.entrySet().stream()
 				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
 	}
+
 	public void setWordMap(HashMap<String, Integer> wordMap) { this.wordMap = wordMap; }
 }
