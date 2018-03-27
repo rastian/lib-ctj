@@ -50,8 +50,7 @@ public class Book {
 	public Book() { }
 
 	public String toString() {
-		String s = String.format("Book[title='%s', author='%s', age='%s', isbn='%s', complete='%s' genre='%s', uniqueWordCount=%d, totalWordCount=%d]",
-				title, author, age, isbn, complete, genre, uniqueWordCount, totalWordCount);
+		String s = String.format("Book[title='%s', isbn='%s']", title, isbn);
 		return s;
 	}
 
