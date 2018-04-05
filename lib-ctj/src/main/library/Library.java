@@ -168,7 +168,7 @@ public class Library {
 			author.setValue(book.getAuthor());
 			title.setValue(book.getTitle());
 			isbn.setValue(book.getIsbn());
-			complete.setValue(book.getComplete() ? "yes" : "no");
+			complete.setValue(book.isComplete() ? "yes" : "no");
 			genre.setValue(book.getGenre());
 			bookNode.setAttributeNode(age);
 			bookNode.setAttributeNode(author);
@@ -253,6 +253,66 @@ public class Library {
 		}
 		return newLib;
 	}
+	
+	private boolean passesFilter(Book book, HashMap<String, Object> filterMap) {
+		for (String attr : filterMap.keySet()) {
+			switch (attr) {
+			case "title":
+				String title = book.getTitle().toLowerCase();
+				String fTitle = (String) filterMap.get(attr);
+				if (!title.contains(fTitle)) {
+					return false;
+				}
+				break;
+			case "author":
+				String author = book.getAuthor().toLowerCase();
+				String fAuthor = (String) filterMap.get(attr);
+				if (!author.contains(fAuthor)) {
+					return false;
+				}
+				break;
+			case "age":
+				String age = book.getAge().toLowerCase();
+				String fAge = (String) filterMap.get(attr);
+				if (!age.equals(fAge)) {
+					return false;
+				}
+				break;
+			case "isbn":
+				String isbn = book.getIsbn();
+				String fIsbn = (String) filterMap.get(attr);
+				if (!isbn.equals(fIsbn)) {
+					return false;
+				}
+				break;
+			case "complete":
+				boolean fComplete = (boolean) filterMap.get(attr);
+				if (book.isComplete() != fComplete) {
+					return false;
+				}
+				break;
+			case "genre":
+				String genre = book.getGenre().toLowerCase();
+				String fGenre = (String) filterMap.get(attr);
+				if (!genre.equals(fGenre)) {
+					return false;
+				}
+				break;
+			}
+		}
+		return true;
+	}
+	
+	public Library filter(HashMap<String, Object> filterMap) {
+		Library fLib = new Library();
+		for (Book b : books) {
+			if (passesFilter(b, filterMap)) {
+				fLib.addBook(b);
+			}
+		}
+		return fLib;
+	}
+	
 	
 	public int size() { return size; }
 
