@@ -201,8 +201,9 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
-	    	                	Dictionary dict;
-	    	                	dict.saveAsCSV(filePath.getText());
+	    	                	Dictionary dict = new Dictionary(Paths.get(filePath.getText()));
+	    	                	dict.saveAsCSV(Paths.get(filePath.getText()));
+	    	                	stageCSV.close();
 	    	                }
 	    	            });
 	                	HBox browser = new HBox(4, browse, filePath);
