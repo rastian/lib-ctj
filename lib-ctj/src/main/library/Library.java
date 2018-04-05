@@ -168,7 +168,7 @@ public class Library {
 			author.setValue(book.getAuthor());
 			title.setValue(book.getTitle());
 			isbn.setValue(book.getIsbn());
-			complete.setValue(book.isComplete() ? "yes" : "no");
+			complete.setValue(book.getComplete() ? "yes" : "no");
 			genre.setValue(book.getGenre());
 			bookNode.setAttributeNode(age);
 			bookNode.setAttributeNode(author);

@@ -56,7 +56,7 @@ public class DictTab {
         TableColumn pSegAveCol = new TableColumn("P Seg Ave");
         pSegAveCol.setCellValueFactory(new PropertyValueFactory<DictElement, Double>("pSegAve"));
         TableColumn neighborhoodCol = new TableColumn("Neighborhood");
-        neighborhoodCol.setCellValueFactory(new PropertyValueFactory<DictElement, String[]>("neighborhood"));
+        neighborhoodCol.setCellValueFactory(new PropertyValueFactory<DictElement, String[]>("neighborhoodDisplay"));
         dictData.setItems(data);
         dictData.getColumns().addAll(funcCol, freqCol, syllableCol, spellCol, arpabetCol, morphemeCol, cognateCol, biphAveCol, pSegAveCol, neighborhoodCol);
         tab.setContent(dictData);

@@ -12,6 +12,7 @@ public class DictElement {
 	private double pSegAve;
 	private String[] neighborhood;
 	
+	
 	public DictElement() {
 		neighborhood = null;
 	}
@@ -46,4 +47,15 @@ public class DictElement {
 
 	public String[] getNeighborhood() { if (neighborhood != null) return neighborhood; else return null; }
 	public void setNeighborhood(String[] neighborhood) { this.neighborhood = neighborhood; }
+	
+	public String getNeighborhoodDisplay() { 
+			String display = "";
+			if(neighborhood != null) {
+				for(int i = 0; i < neighborhood.length; i++) {
+					if(i != neighborhood.length - 1) display += neighborhood[i] + ", ";
+					else display += neighborhood[i];
+				}
+				return display;
+			}
+			else return null; }
 }

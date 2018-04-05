@@ -32,12 +32,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
     Button newLib = new Button("New Library");
 	Button open = new Button("Open");
 	Button save = new Button("Save");
-	Button delete = new Button("Delete");
+	Button saveCSV = new Button("Save as CSV");
 	Button addB = new Button("Add Book");
 	Button delB = new Button("Delete Books");
 	Button filter = new Button("Filter Books");
 	Button merge = new Button("Merge Libraries");
-	Button genD = new Button("Generate Dictionaries");
+	Button genD = new Button("Generate Dictionary");
 	
 	
 	public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	}
 	public void start(Stage primaryStage) throws Exception{
 		primaryStage.setTitle("libctj");
-		ToolBar toolbar = new ToolBar(newLib, open, save, delete, addB, delB, filter, merge, genD);
+		ToolBar toolbar = new ToolBar(newLib, open, save, saveCSV, addB, delB, filter, merge, genD);
 		
 		//Tabs
 		TabPane tabPane = new TabPane();
@@ -126,11 +126,13 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    
 	                }
 	            });
-		delete.setOnAction(e -> System.out.println("Deleted Library"));
+		saveCSV.setOnAction(e -> System.out.println("Deleted Library"));
 		addB.setOnAction(
 				new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(final ActionEvent e) {
+	                	final ToggleGroup completeGroup = new ToggleGroup();
+	                	boolean comp;
 	                	Stage stageAdd = new Stage();
 	                	stageAdd.setTitle("Add Book");
 	                	GridPane grid = new GridPane();
@@ -164,11 +166,35 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	TextField isbnInput = new TextField();
 	                	GridPane.setConstraints(isbnInput, 1, 3);
 	                	
+	                	Label genreLab = new Label("Genre: ");
+	                	GridPane.setConstraints(genreLab, 0, 4);
+	                	
+	                	TextField genreInput = new TextField();
+	                	GridPane.setConstraints(genreInput, 1, 4);
+	                	
+	                	Label completenessLab = new Label("Text Completeness: ");
+	                	GridPane.setConstraints(completenessLab, 0, 5);
+	                	
+	                	RadioButton completeButton = new RadioButton();
+	                	completeButton.setText("Complete");
+	                	completeButton.setSelected(true);
+	                	completeButton.setToggleGroup(completeGroup);
+	                	RadioButton incompleteButton = new RadioButton();
+	                	incompleteButton.setText("Incomplete");
+	                	incompleteButton.setToggleGroup(completeGroup);
+	                	if(completeGroup.getSelectedToggle() == completeButton) 
+	                		comp = true;
+	                	else comp = false;
+	                	HBox completeButtons = new HBox(4, completeButton, incompleteButton);
+	                	GridPane.setConstraints(completeButtons, 1, 5);
+	                	
 	                	Label fileLab = new Label("Text File: ");
-	                	GridPane.setConstraints(fileLab, 0, 4);
+	                	GridPane.setConstraints(fileLab, 0, 6);
 	                	
 	                	TextField filePath = new TextField();
-	                	GridPane.setConstraints(filePath, 2, 4);
+	                	
+	                	
+	                	filePath.setPrefWidth(250);
 	                	
 	                	Button browse = new Button("Browse");
 	                	browse.setOnAction(new EventHandler<ActionEvent>() {
@@ -194,15 +220,16 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                		LibTab libTab = libTabs.getLibTab(tab);
 	    	                		//When Null Pointer Exception Fixed, move .close() to next line after .addNewBook()
 	    	                		stageAdd.close();
-	    	                		libTab.addNewBook(new Book(titleInput.getText(), authInput.getText(), ageInput.getText(), isbnInput.getText(), filePath.getText()));
+	    	                		libTab.addNewBook(new Book(titleInput.getText(), authInput.getText(), ageInput.getText(), isbnInput.getText(), comp, genreInput.getText(), filePath.getText()));
 		    	                    
 	    	                	}
 	    	                }
 	    	            });
-	                	GridPane.setConstraints(browse, 1, 4);
-	                	GridPane.setConstraints(submit, 1, 5);
+	                	HBox browser = new HBox(4, browse, filePath);
+	                	GridPane.setConstraints(browser, 1, 6);
+	                	GridPane.setConstraints(submit, 1, 8);
 	                	
-	                	grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, fileLab, browse, submit);
+	                	grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, genreLab, genreInput, completenessLab, completeButtons, fileLab, browser, submit);
 	                	Scene scene = new Scene(grid, 500, 500);
 	                    stageAdd.setScene(scene);
 	                    stageAdd.show();

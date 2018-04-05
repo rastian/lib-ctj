@@ -74,7 +74,7 @@ public class Book {
 	public String getIsbn() { return isbn; }
 	
 	public void setComplete(boolean complete) { this.complete = complete; }
-	public boolean isComplete() { return complete; }
+	public boolean getComplete() { return complete; }
 	
 	public void setGenre(String genre) { this.genre = genre; }
 	public String getGenre() { return genre; }
