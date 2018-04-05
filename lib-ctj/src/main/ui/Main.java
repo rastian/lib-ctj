@@ -126,7 +126,95 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    
 	                }
 	            });
-		saveCSV.setOnAction(e -> System.out.println("Deleted Library"));
+		saveCSV.setOnAction(
+				new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(final ActionEvent e) {
+						Stage stageCSV = new Stage();
+	                	stageCSV.setTitle("Save Dictionary to .CSV");
+	                	GridPane grid = new GridPane();
+	                	grid.setPadding(new Insets(10, 10, 10, 10));
+	                	grid.setVgap(8);
+	                	grid.setHgap(10);
+	                	
+	                	Label title = new Label("Select the dictionary fields you want to save from: ");
+	                	GridPane.setConstraints(title, 0, 0);
+	                	
+	                	CheckBox function = new CheckBox();
+	                	function.setText("Function");
+	                	GridPane.setConstraints(function, 0, 1);
+	                	
+	                	CheckBox frequency = new CheckBox();
+	                	frequency.setText("Frequency");
+	                	GridPane.setConstraints(frequency, 0, 2);
+	                	
+	                	CheckBox syllables = new CheckBox();
+	                	syllables.setText("Syllables");
+	                	GridPane.setConstraints(syllables, 0, 3);
+	                	
+	                	CheckBox spelling = new CheckBox();
+	                	spelling.setText("Spelling");
+	                	GridPane.setConstraints(spelling, 0, 4);
+	                	
+	                	CheckBox arpabet = new CheckBox();
+	                	arpabet.setText("Arpabet");
+	                	GridPane.setConstraints(arpabet, 0, 5);
+	                	
+	                	CheckBox morphemes = new CheckBox();
+	                	morphemes.setText("Morphemes");
+	                	GridPane.setConstraints(morphemes, 0, 6);
+	                	
+	                	CheckBox cognate = new CheckBox();
+	                	cognate.setText("Cognate");
+	                	GridPane.setConstraints(cognate, 0, 7);
+	                	
+	                	CheckBox biphAve = new CheckBox();
+	                	biphAve.setText("BiphAve");
+	                	GridPane.setConstraints(biphAve, 0, 8);
+	                	
+	                	CheckBox pSegAve = new CheckBox();
+	                	pSegAve.setText("P Seg Ave");
+	                	GridPane.setConstraints(pSegAve, 0, 9);
+	                	
+	                	CheckBox neighborhood = new CheckBox();
+	                	neighborhood.setText("Neighborhood");
+	                	GridPane.setConstraints(neighborhood, 0, 10);
+	                	
+	                	TextField filePath = new TextField();
+	                	filePath.setPrefWidth(250);
+	                	
+	                	Button browse = new Button("Browse");
+	                	browse.setOnAction(new EventHandler<ActionEvent>() {
+	                		 public void handle(final ActionEvent e) {
+	     	                	FileChooser chooser = new FileChooser();
+	     	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
+	    	                	chooser.getExtensionFilters().add(xml);
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() +"/test_files";
+	     	                	chooser.setInitialDirectory(new File(currentPath));
+	     	                    File file = chooser.showOpenDialog(stage);
+	     	                    if (file != null) {
+	     	                        filePath.setText(file.getPath());
+	     	                    }
+	     	                }
+	                	});
+	                	Button submit = new Button("Submit");
+	                	submit.setOnAction(new EventHandler<ActionEvent>() {
+	    	                @Override
+	    	                public void handle(final ActionEvent a) {
+	    	                	Dictionary dict;
+	    	                	dict.saveAsCSV(filePath.getText());
+	    	                }
+	    	            });
+	                	HBox browser = new HBox(4, browse, filePath);
+	                	GridPane.setConstraints(browser, 0, 11);
+	                	GridPane.setConstraints(submit, 0, 12);
+	                	
+	                	grid.getChildren().addAll(title, function, frequency, syllables, spelling, arpabet, morphemes, cognate, biphAve, pSegAve, neighborhood, browser, submit);
+	                	Scene scene = new Scene(grid, 500, 500);
+	                    stageCSV.setScene(scene);
+	                    stageCSV.show();
+					}
+				});
 		addB.setOnAction(
 				new EventHandler<ActionEvent>() {
 	                @Override
