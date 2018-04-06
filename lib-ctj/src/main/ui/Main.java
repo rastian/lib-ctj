@@ -368,6 +368,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(final ActionEvent e) {
+						Tab tab = tabPane.getSelectionModel().getSelectedItem();
+						LibTab libTab = libTabs.getLibTab(tab);
+						Library lib = libTab.getLib();
+						HashMap<String, Object> filterMap = new HashMap<String,Object>();
 						Stage stageFilter = new Stage();
 	                	stageFilter.setTitle("Filter Books");
 	                	GridPane grid = new GridPane();
@@ -376,7 +380,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	grid.setHgap(10);
 	                	
 	                	Button submit = new Button("Filter");
-	                	submit.setOnAction(a-> System.out.println("Library Filtered"));
+	                	
 	                	
 	                	Label titleLab = new Label("Title: ");
 	                	GridPane.setConstraints(titleLab, 0, 0);
@@ -399,56 +403,82 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	TextField isbnInput = new TextField();
 	                	GridPane.setConstraints(isbnInput, 1, 3);
 	                	
+	                	Label genreLab = new Label("Genre: ");
+	                	GridPane.setConstraints(genreLab, 0, 4);
+	                	TextField genreInput = new TextField();
+	                	GridPane.setConstraints(genreInput, 1, 4);
+	                	
+	                	Label completeLab = new Label("Complete: ");
+	                	GridPane.setConstraints(completeLab, 0, 5);
+	                	ToggleGroup completeGroup = new ToggleGroup();
+	                	RadioButton completeButton = new RadioButton();
+	                	completeButton.setText("Complete");
+	                	completeButton.setSelected(false);
+	                	completeButton.setToggleGroup(completeGroup);
+	                	RadioButton incompleteButton = new RadioButton();
+	                	incompleteButton.setText("Incomplete");
+	                	incompleteButton.setToggleGroup(completeGroup);
+	                	
+	                	HBox completeButtons = new HBox(4, completeButton, incompleteButton);
+	                	GridPane.setConstraints(completeButtons, 1, 5);
+	                	
 	                	Label uniqueLab = new Label("Unique Words: ");
-	                	GridPane.setConstraints(uniqueLab, 0, 4);
+	                	GridPane.setConstraints(uniqueLab, 0, 6);
 	                	
-	                	Label uniqueEqualLab = new Label("=");
-	                	GridPane.setConstraints(uniqueEqualLab, 1,4);
+	                	Label uniqueEqualLab = new Label("= ");
 	                	TextField uniqueEqualInput = new TextField();
-	                	GridPane.setConstraints(uniqueEqualInput, 1, 5);
+	                	HBox uniqueEqual = new HBox(4, uniqueEqualLab, uniqueEqualInput);
+	                	GridPane.setConstraints(uniqueEqual, 1, 6);
 	                	
-	                	Label uniqueGreaterLab = new Label(">");
-	                	GridPane.setConstraints(uniqueGreaterLab, 1, 6);
+	                	Label uniqueGreaterLab = new Label("> ");
 	                	TextField uniqueGreaterInput = new TextField();
-	                	GridPane.setConstraints(uniqueGreaterInput, 1, 7);
+	                	HBox uniqueGreater = new HBox(4, uniqueGreaterLab, uniqueGreaterInput);
+	                	GridPane.setConstraints(uniqueGreater, 1, 7);
 	                	
-	                	Label uniqueLessLab = new Label("<");
-	                	GridPane.setConstraints(uniqueLessLab, 1, 8);
+	                	Label uniqueLessLab = new Label("< ");
 	                	TextField uniqueLessInput = new TextField();
-	                	GridPane.setConstraints(uniqueLessInput, 1, 9);
+	                	HBox uniqueLess = new HBox(4, uniqueLessLab, uniqueLessInput);
+	                	GridPane.setConstraints(uniqueLess, 1, 8);
 	                	
 	                	Label totalLab = new Label("Total Words: ");
-	                	GridPane.setConstraints(totalLab, 0, 10);
+	                	GridPane.setConstraints(totalLab, 0, 9);
 	                	
-	                	Label totalEqualLab = new Label("=");
-	                	GridPane.setConstraints(totalEqualLab, 1,10);
+	                	Label totalEqualLab = new Label("= ");
 	                	TextField totalEqualInput = new TextField();
-	                	GridPane.setConstraints(totalEqualInput, 1, 11);
+	                	HBox totalEqual = new HBox(4, totalEqualLab, totalEqualInput);
+	                	GridPane.setConstraints(totalEqual, 1, 9);
 	                	
-	                	Label totalGreaterLab = new Label(">");
-	                	GridPane.setConstraints(totalGreaterLab, 1, 12);
+	                	Label totalGreaterLab = new Label("> ");
 	                	TextField totalGreaterInput = new TextField();
-	                	GridPane.setConstraints(totalGreaterInput, 1, 13);
+	                	HBox totalGreater = new HBox(4, totalGreaterLab, totalGreaterInput);
+	                	GridPane.setConstraints(totalGreater, 1, 10);
 	                	
-	                	Label totalLessLab = new Label("<");
-	                	GridPane.setConstraints(totalLessLab, 1, 14);
+	                	Label totalLessLab = new Label("< ");
 	                	TextField totalLessInput = new TextField();
-	                	GridPane.setConstraints(totalLessInput, 1, 15);
+	                	HBox totalLess = new HBox(4, totalLessLab, totalLessInput);
+	                	GridPane.setConstraints(totalLess, 1, 11);
 	                	
-	                	Label genreLab = new Label("Genre: ");
-	                	GridPane.setConstraints(genreLab, 2, 0);
-	                	TextField genreInput = new TextField();
-	                	GridPane.setConstraints(genreInput, 3, 0);
+	                	GridPane.setConstraints(submit, 1, 12);
+	                	isbnInput.setPrefWidth(200);
 	                	
-	                	Label completeLab = new Label ("Compete: ");
-	                	GridPane.setConstraints(completeLab, 2, 1);
-	                	TextField completeInput = new TextField();
-	                	GridPane.setConstraints(completeInput, 3, 1);
+	                	submit.setOnAction(new EventHandler<ActionEvent>() {
+	    					@Override
+	    					public void handle(final ActionEvent e) {
+	    						filterMap.put("title", titleInput.getText());
+	    						filterMap.put("author", authInput.getText());
+	    						filterMap.put("age", ageInput.getText());
+	    						filterMap.put("isbn", isbnInput.getText());
+	    						filterMap.put("genre", genreInput.getText());
+	    						if(completeButton.isSelected()) filterMap.put("complete", true);
+	    						if(incompleteButton.isSelected()) filterMap.put("complete", false);
+	    						HashMap<Character, Integer> uniqueMap = new HashMap<Character, Integer>();
+	    						libTab.setLib(lib.filter(filterMap));
+	    						
+	    					}
+	                	});
 	                	
-	                	GridPane.setConstraints(submit, 1, 16);
-	                	
-	                	grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueEqualLab, uniqueEqualInput, uniqueGreaterLab, uniqueGreaterInput, uniqueLessLab, uniqueLessInput, totalLab, totalEqualLab, totalEqualInput, totalGreaterLab, totalGreaterInput, totalLessLab, totalLessInput, genreLab, genreInput, completeLab, completeInput, submit);
-	                	Scene scene = new Scene(grid, 750, 600);
+	                	grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueEqual, uniqueGreater, uniqueLess, totalLab, totalEqual, totalGreater, totalLess, genreLab, genreInput, completeLab, completeButtons, submit);
+	                	Scene scene = new Scene(grid, 325, 500);
 	                    stageFilter.setScene(scene);
 	                    stageFilter.show();
 					}

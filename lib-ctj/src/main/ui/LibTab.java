@@ -132,6 +132,10 @@ public class LibTab {
 	}
 	public void setLib(Library newLib) {
 		libObj = newLib;
+		data.clear();
+		for(int i = 0; i < libObj.size(); i++) {
+			data.add(libObj.getBook(i));
+		}
 	}
 	public boolean getIsSaved() {
 		return isSaved;
