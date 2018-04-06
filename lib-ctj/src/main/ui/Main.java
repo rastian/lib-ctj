@@ -13,6 +13,8 @@ import org.w3c.dom.Element;
 
 import javafx.application.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
@@ -55,6 +57,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		//Open/Save File Stuff
 		final FileChooser fileChooser = new FileChooser();
 		Stage stage = new Stage(); //For Open/Save File
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent e) {
+				e.consume();
+			}
+		});
 		FileChooser openLD = new FileChooser(); 
 		openLD.setTitle("Select Library or Dictionary XML File to Open");
 		//Button Actions
@@ -224,8 +232,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(final ActionEvent e) {
-	                	final ToggleGroup completeGroup = new ToggleGroup();
-	                	boolean comp;
+	                	ToggleGroup completeGroup = new ToggleGroup();
+	                	Boolean comp;
 	                	Stage stageAdd = new Stage();
 	                	stageAdd.setTitle("Add Book");
 	                	GridPane grid = new GridPane();
@@ -275,9 +283,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	RadioButton incompleteButton = new RadioButton();
 	                	incompleteButton.setText("Incomplete");
 	                	incompleteButton.setToggleGroup(completeGroup);
-	                	if(completeGroup.getSelectedToggle() == completeButton) 
-	                		comp = true;
-	                	else comp = false;
+	                	
 	                	HBox completeButtons = new HBox(4, completeButton, incompleteButton);
 	                	GridPane.setConstraints(completeButtons, 1, 5);
 	                	
@@ -308,7 +314,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
+	    	                	final boolean comp;
 	    	                	if(!tabPane.getTabs().isEmpty()) {
+	    	                		if(completeButton.isSelected()) {
+	    	                			comp = true;
+	    	                		}
+	    	                		else comp = false;
 	    	                		Tab tab = tabPane.getSelectionModel().getSelectedItem();
 	    	                		LibTab libTab = libTabs.getLibTab(tab);
 	    	                		//When Null Pointer Exception Fixed, move .close() to next line after .addNewBook()
