@@ -75,6 +75,13 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						LibTab libTab = new LibTab(libObj, tabPane, stage);
 				        //Tabs
 						libTabs.addLibTab(libTab.getTab(), libTab);
+						libTab.getTab().setOnClosed(new EventHandler<Event>() {
+							@Override
+						    public void handle(Event e) 
+						    {
+								libTabs.deleteLibTab(libTab.getTab(), libTab);
+						    }
+						});
 						libTab.setName("Lib" + libTabs.getTabCount());
 					}
 				});

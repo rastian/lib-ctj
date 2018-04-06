@@ -71,6 +71,7 @@ public class LibTab {
 		        }
 		    }
 		});
+		
 		isSaved = false;
 		libData.setEditable(true);
 		libObj = lib;
