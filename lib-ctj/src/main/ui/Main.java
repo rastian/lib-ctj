@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.StringConverter;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -430,28 +431,39 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	grid.setVgap(8);
 		            	grid.setHgap(10);
 		            	
-		            	ObservableList<Library> options = 
-		            		    FXCollections.observableArrayList(
-		            		        
-		            		    );
+		            	ChoiceBox<LibChoice> lib1 = new ChoiceBox();
+		            	ChoiceBox<LibChoice> lib2 = new ChoiceBox();
+		            	lib1.setConverter(new LibChoiceConverter());
+		            	lib2.setConverter(new LibChoiceConverter());
+		            	
 		            	ObservableList<Tab> tabs = tabPane.getTabs();
 		            	for(int i = 0; i < tabs.size(); i++) {
-		            		options.add(libTabs.getLibTab(tabs.get(i)).getLib());
+		            		lib1.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
+		            		lib2.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
+		            		
 		            	}
-		            	ComboBox comboBox = new ComboBox(options);
-		            	ComboBox comboBox2 = new ComboBox(options);
-		            	Label lib1 = new Label("First Library: ");
-	                	GridPane.setConstraints(lib1, 0, 0);
-		            	GridPane.setConstraints(comboBox, 1, 0);
 		            	
-		            	Label lib2 = new Label("Library to Merge with: ");
-		            	GridPane.setConstraints(lib2, 0,1);
-		            	GridPane.setConstraints(comboBox2, 1, 1);
+		            	Label libLab1 = new Label("First Library: ");
+	                	GridPane.setConstraints(libLab1, 0, 0);
+		            	GridPane.setConstraints(lib1, 1, 0);
+		            	
+		            	Label libLab2 = new Label("Library to Merge with: ");
+		            	GridPane.setConstraints(libLab2, 0,1);
+		            	GridPane.setConstraints(lib2, 1, 1);
 		            	
 		            	Button submit = new Button("Merge");
 		            	GridPane.setConstraints(submit, 0, 2);
-		            	submit.setOnAction(a-> System.out.println("Libraries Merged"));
-		            	grid.getChildren().addAll(lib1, comboBox, lib2, comboBox2, submit);
+		            	submit.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(final ActionEvent e) {
+								Library newLib = getChoice(lib1).merge(getChoice(lib2));
+			            		LibTab libTab = new LibTab(newLib, tabPane);
+						        //Tabs
+								libTabs.addLibTab(libTab.getTab(), libTab);
+								libTab.setName("Lib" + libTabs.getTabCount());
+							}
+		            	});
+		            	grid.getChildren().addAll(libLab1, lib1, libLab2, lib2, submit);
 		            	Scene scene = new Scene(grid, 500, 500);
 		                stageMerge.setScene(scene);
 		                stageMerge.show();
@@ -470,4 +482,18 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	}
 	@Override
 	public void handle(ActionEvent event) {}
+	private Library getChoice(ChoiceBox<LibChoice> c) {
+		Library lib = c.getValue().getLibrary();
+		return lib;
+	}
+	public class LibChoiceConverter extends StringConverter<LibChoice> {
+
+		  public LibChoice fromString(String string) {
+		    	return new LibChoice(new Library(), string);
+		  }
+
+		  public String toString(LibChoice myClassinstance) {
+		    	return myClassinstance.getName();
+		  }
+		}
 }
