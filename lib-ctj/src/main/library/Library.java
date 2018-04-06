@@ -260,42 +260,66 @@ public class Library {
 			case "title":
 				String title = book.getTitle().toLowerCase();
 				String fTitle = (String) filterMap.get(attr);
-				if (!title.contains(fTitle)) {
-					return false;
-				}
+				if (!title.contains(fTitle)) return false;
 				break;
 			case "author":
 				String author = book.getAuthor().toLowerCase();
 				String fAuthor = (String) filterMap.get(attr);
-				if (!author.contains(fAuthor)) {
-					return false;
-				}
+				if (!author.contains(fAuthor)) return false;
 				break;
 			case "age":
 				String age = book.getAge().toLowerCase();
 				String fAge = (String) filterMap.get(attr);
-				if (!age.equals(fAge)) {
-					return false;
-				}
+				if (!age.equals(fAge)) return false;
 				break;
 			case "isbn":
 				String isbn = book.getIsbn();
 				String fIsbn = (String) filterMap.get(attr);
-				if (!isbn.equals(fIsbn)) {
-					return false;
-				}
+				if (!isbn.equals(fIsbn)) return false;
 				break;
 			case "complete":
 				boolean fComplete = (boolean) filterMap.get(attr);
-				if (book.isComplete() != fComplete) {
-					return false;
-				}
+				if (book.isComplete() != fComplete) return false;
 				break;
 			case "genre":
 				String genre = book.getGenre().toLowerCase();
 				String fGenre = (String) filterMap.get(attr);
-				if (!genre.equals(fGenre)) {
-					return false;
+				if (!genre.equals(fGenre)) return false;
+				break;
+			case "uniqueWordCount":
+				int uniqueWordCount = book.getUniqueWordCount();
+				HashMap<Character, Integer> funcMap = (HashMap<Character, Integer>) filterMap.get(attr);
+				for (char func : funcMap.keySet()) {
+					int fCount = funcMap.get(func);
+					switch (func) {
+					case '=':
+						if (uniqueWordCount != fCount) return false;
+						break;
+					case '>':
+						if (uniqueWordCount < fCount) return false;
+						break;
+					case '<':
+						if (uniqueWordCount > fCount) return false;
+						break;
+					}
+				}
+				break;
+			case "totalWordCount":
+				int totalWordCount = book.getTotalWordCount();
+				funcMap = (HashMap<Character, Integer>) filterMap.get(attr);
+				for (char func : funcMap.keySet()) {
+					int fCount = funcMap.get(func);
+					switch (func) {
+					case '=':
+						if (totalWordCount != fCount) return false;
+						break;
+					case '>':
+						if (totalWordCount < fCount) return false;
+						break;
+					case '<':
+						if (totalWordCount > fCount) return false;
+						break;
+					}
 				}
 				break;
 			}
