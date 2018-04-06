@@ -13,10 +13,13 @@ import org.w3c.dom.Element;
 
 import javafx.application.*;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.StringConverter;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -54,6 +57,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		//Open/Save File Stuff
 		final FileChooser fileChooser = new FileChooser();
 		Stage stage = new Stage(); //For Open/Save File
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent e) {
+				e.consume();
+			}
+		});
 		FileChooser openLD = new FileChooser(); 
 		openLD.setTitle("Select Library or Dictionary XML File to Open");
 		//Button Actions
@@ -63,9 +72,16 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 					public void handle(final ActionEvent e) {
 						//Table Stuff
 						Library libObj = new Library();
-						LibTab libTab = new LibTab(libObj, tabPane);
+						LibTab libTab = new LibTab(libObj, tabPane, stage);
 				        //Tabs
 						libTabs.addLibTab(libTab.getTab(), libTab);
+						libTab.getTab().setOnClosed(new EventHandler<Event>() {
+							@Override
+						    public void handle(Event e) 
+						    {
+								libTabs.deleteLibTab(libTab.getTab(), libTab);
+						    }
+						});
 						libTab.setName("Lib" + libTabs.getTabCount());
 					}
 				});
@@ -93,9 +109,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                			root = doc.getDocumentElement();
 	                			if(root.getTagName().equals("Literature")) {
 	                				Library libObj = new Library(file.toPath());
-	    	                        LibTab libTab = new LibTab(libObj, tabPane);
+	    	                        LibTab libTab = new LibTab(libObj, tabPane, stage);
 	    	                        libTab.setName(libObj.getPath().getFileName().toString());
 	    	                        libTabs.addLibTab(libTab.getTab(), libTab);
+	    	                        libTab.setIsSaved(true);
 	                			}
 	                			if(root.getTagName().equals("Dictionary")) {
 	                				Dictionary dictObj = new Dictionary(file.toPath());
@@ -122,6 +139,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    LibTab libTab = libTabs.getLibTab(tab);
 	                    Library libObj = libTab.getLib();
 	                    libObj.save(file.toPath());
+	                    libTab.setName(file.getName());
+	                    libTab.setIsSaved(true);
 	                    
 	                    
 	                }
@@ -220,8 +239,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(final ActionEvent e) {
-	                	final ToggleGroup completeGroup = new ToggleGroup();
-	                	boolean comp;
+	                	ToggleGroup completeGroup = new ToggleGroup();
+	                	Boolean comp;
 	                	Stage stageAdd = new Stage();
 	                	stageAdd.setTitle("Add Book");
 	                	GridPane grid = new GridPane();
@@ -271,9 +290,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	RadioButton incompleteButton = new RadioButton();
 	                	incompleteButton.setText("Incomplete");
 	                	incompleteButton.setToggleGroup(completeGroup);
-	                	if(completeGroup.getSelectedToggle() == completeButton) 
-	                		comp = true;
-	                	else comp = false;
+	                	
 	                	HBox completeButtons = new HBox(4, completeButton, incompleteButton);
 	                	GridPane.setConstraints(completeButtons, 1, 5);
 	                	
@@ -291,7 +308,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	     	                	FileChooser chooser = new FileChooser();
 	     	                	ExtensionFilter txt = new ExtensionFilter("Text Files", "*.txt");
 	    	                	chooser.getExtensionFilters().add(txt);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() +"/test_files";
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() +"/test_files/books";
 	     	                	chooser.setInitialDirectory(new File(currentPath));
 	     	                    File file = chooser.showOpenDialog(stage);
 	     	                    if (file != null) {
@@ -304,7 +321,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
+	    	                	final boolean comp;
 	    	                	if(!tabPane.getTabs().isEmpty()) {
+	    	                		if(completeButton.isSelected()) {
+	    	                			comp = true;
+	    	                		}
+	    	                		else comp = false;
 	    	                		Tab tab = tabPane.getSelectionModel().getSelectedItem();
 	    	                		LibTab libTab = libTabs.getLibTab(tab);
 	    	                		//When Null Pointer Exception Fixed, move .close() to next line after .addNewBook()
@@ -411,10 +433,20 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	TextField totalLessInput = new TextField();
 	                	GridPane.setConstraints(totalLessInput, 1, 15);
 	                	
+	                	Label genreLab = new Label("Genre: ");
+	                	GridPane.setConstraints(genreLab, 2, 0);
+	                	TextField genreInput = new TextField();
+	                	GridPane.setConstraints(genreInput, 3, 0);
+	                	
+	                	Label completeLab = new Label ("Compete: ");
+	                	GridPane.setConstraints(completeLab, 2, 1);
+	                	TextField completeInput = new TextField();
+	                	GridPane.setConstraints(completeInput, 3, 1);
+	                	
 	                	GridPane.setConstraints(submit, 1, 16);
 	                	
-	                	grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueEqualLab, uniqueEqualInput, uniqueGreaterLab, uniqueGreaterInput, uniqueLessLab, uniqueLessInput, totalLab, totalEqualLab, totalEqualInput, totalGreaterLab, totalGreaterInput, totalLessLab, totalLessInput, submit);
-	                	Scene scene = new Scene(grid, 1000, 600);
+	                	grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueEqualLab, uniqueEqualInput, uniqueGreaterLab, uniqueGreaterInput, uniqueLessLab, uniqueLessInput, totalLab, totalEqualLab, totalEqualInput, totalGreaterLab, totalGreaterInput, totalLessLab, totalLessInput, genreLab, genreInput, completeLab, completeInput, submit);
+	                	Scene scene = new Scene(grid, 750, 600);
 	                    stageFilter.setScene(scene);
 	                    stageFilter.show();
 					}
@@ -430,28 +462,39 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	grid.setVgap(8);
 		            	grid.setHgap(10);
 		            	
-		            	ObservableList<Library> options = 
-		            		    FXCollections.observableArrayList(
-		            		        
-		            		    );
+		            	ChoiceBox<LibChoice> lib1 = new ChoiceBox();
+		            	ChoiceBox<LibChoice> lib2 = new ChoiceBox();
+		            	lib1.setConverter(new LibChoiceConverter());
+		            	lib2.setConverter(new LibChoiceConverter());
+		            	
 		            	ObservableList<Tab> tabs = tabPane.getTabs();
 		            	for(int i = 0; i < tabs.size(); i++) {
-		            		options.add(libTabs.getLibTab(tabs.get(i)).getLib());
+		            		lib1.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
+		            		lib2.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
+		            		
 		            	}
-		            	ComboBox comboBox = new ComboBox(options);
-		            	ComboBox comboBox2 = new ComboBox(options);
-		            	Label lib1 = new Label("First Library: ");
-	                	GridPane.setConstraints(lib1, 0, 0);
-		            	GridPane.setConstraints(comboBox, 1, 0);
 		            	
-		            	Label lib2 = new Label("Library to Merge with: ");
-		            	GridPane.setConstraints(lib2, 0,1);
-		            	GridPane.setConstraints(comboBox2, 1, 1);
+		            	Label libLab1 = new Label("First Library: ");
+	                	GridPane.setConstraints(libLab1, 0, 0);
+		            	GridPane.setConstraints(lib1, 1, 0);
+		            	
+		            	Label libLab2 = new Label("Library to Merge with: ");
+		            	GridPane.setConstraints(libLab2, 0,1);
+		            	GridPane.setConstraints(lib2, 1, 1);
 		            	
 		            	Button submit = new Button("Merge");
 		            	GridPane.setConstraints(submit, 0, 2);
-		            	submit.setOnAction(a-> System.out.println("Libraries Merged"));
-		            	grid.getChildren().addAll(lib1, comboBox, lib2, comboBox2, submit);
+		            	submit.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(final ActionEvent e) {
+								Library newLib = getChoice(lib1).merge(getChoice(lib2));
+			            		LibTab libTab = new LibTab(newLib, tabPane, stage);
+						        //Tabs
+								libTabs.addLibTab(libTab.getTab(), libTab);
+								libTab.setName("Lib" + libTabs.getTabCount());
+							}
+		            	});
+		            	grid.getChildren().addAll(libLab1, lib1, libLab2, lib2, submit);
 		            	Scene scene = new Scene(grid, 500, 500);
 		                stageMerge.setScene(scene);
 		                stageMerge.show();
@@ -470,4 +513,18 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	}
 	@Override
 	public void handle(ActionEvent event) {}
+	private Library getChoice(ChoiceBox<LibChoice> c) {
+		Library lib = c.getValue().getLibrary();
+		return lib;
+	}
+	public class LibChoiceConverter extends StringConverter<LibChoice> {
+
+		  public LibChoice fromString(String string) {
+		    	return new LibChoice(new Library(), string);
+		  }
+
+		  public String toString(LibChoice myClassinstance) {
+		    	return myClassinstance.getName();
+		  }
+	}
 }

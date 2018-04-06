@@ -14,6 +14,10 @@ public class LibTabs {
 		libMap.put(tab, libTab);
 		tabCount++;
 	}
+	public void deleteLibTab(Tab tab, LibTab libTab) {
+		libMap.remove(tab, libTab);
+		tabCount --;
+	}
 	public LibTab getLibTab(Tab tab) {
 		return libMap.get(tab);
 	}
