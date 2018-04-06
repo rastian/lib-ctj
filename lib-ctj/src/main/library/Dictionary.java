@@ -34,7 +34,7 @@ public class Dictionary {
 	private Document doc;
 	private Element root;
 	
-	enum DictField {
+	public enum DictField {
 		FUNCTION,
 		FREQUENCY,
 		SYLLABLES,
@@ -176,9 +176,6 @@ public class Dictionary {
 			FileWriter fw = new FileWriter(path.toString().replaceAll(".xml", ".csv"));
 			BufferedWriter bw = new BufferedWriter(fw);
 			
-			int a = 5;
-			int b = 7;
-			int max = a > b ? a : b;
 			
 			// Write Header Columns
 			StringBuffer header = new StringBuffer(",");

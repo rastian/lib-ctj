@@ -30,6 +30,7 @@ import javafx.geometry.*;
 import javafx.event.*;
 
 public class Main extends Application implements EventHandler<ActionEvent>{
+	
 	private LibTabs libTabs = new LibTabs();
 	private DictTabs dictTabs = new DictTabs();
     Button newLib = new Button("New Library");
@@ -149,6 +150,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(final ActionEvent e) {
+						ArrayList<Dictionary.DictField> fields = new ArrayList<Dictionary.DictField>();
 						Stage stageCSV = new Stage();
 	                	stageCSV.setTitle("Save Dictionary to .CSV");
 	                	GridPane grid = new GridPane();
@@ -221,8 +223,18 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
 	    	                	if(filePath.getText().equals(null)) a.consume();
+	    	                	if(function.isSelected()) fields.add(Dictionary.DictField.FUNCTION);
+	    	                	if(frequency.isSelected()) fields.add(Dictionary.DictField.FREQUENCY);
+	    	                	if(syllables.isSelected()) fields.add(Dictionary.DictField.SYLLABLES);
+	    	                	if(spelling.isSelected()) fields.add(Dictionary.DictField.SPELLING);
+	    	                	if(arpabet.isSelected()) fields.add(Dictionary.DictField.ARPABET);
+	    	                	if(morphemes.isSelected()) fields.add(Dictionary.DictField.MORPHEMES);
+	    	                	if(cognate.isSelected()) fields.add(Dictionary.DictField.COGNATE);
+	    	                	if(biphAve.isSelected()) fields.add(Dictionary.DictField.BIPHAVE);
+	    	                	if(pSegAve.isSelected()) fields.add(Dictionary.DictField.PSEGAVE);
+	    	                	if(neighborhood.isSelected()) fields.add(Dictionary.DictField.NEIGHBORHOOD);
 	    	                	Dictionary dict = new Dictionary(Paths.get(filePath.getText()));
-	    	                	dict.saveAsCSV(Paths.get(filePath.getText()));
+	    	                	dict.saveAsCSV(Paths.get(filePath.getText()),fields);
 	    	                	stageCSV.close();
 	    	                	
 	    	                }
