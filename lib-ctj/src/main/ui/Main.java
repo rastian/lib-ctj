@@ -48,7 +48,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 
 	}
 	public void start(Stage primaryStage) throws Exception{
-		primaryStage.setTitle("libctj");
+		primaryStage.setTitle("LIB-CTJ");
 		ToolBar toolbar = new ToolBar(newLib, open, save, saveCSV, addB, delB, filter, merge, genD);
 		
 		//Tabs
