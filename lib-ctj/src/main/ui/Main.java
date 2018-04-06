@@ -292,7 +292,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	     	                	FileChooser chooser = new FileChooser();
 	     	                	ExtensionFilter txt = new ExtensionFilter("Text Files", "*.txt");
 	    	                	chooser.getExtensionFilters().add(txt);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() +"/test_files";
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() +"/test_files/books";
 	     	                	chooser.setInitialDirectory(new File(currentPath));
 	     	                    File file = chooser.showOpenDialog(stage);
 	     	                    if (file != null) {
@@ -412,10 +412,20 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	TextField totalLessInput = new TextField();
 	                	GridPane.setConstraints(totalLessInput, 1, 15);
 	                	
+	                	Label genreLab = new Label("Genre: ");
+	                	GridPane.setConstraints(genreLab, 2, 0);
+	                	TextField genreInput = new TextField();
+	                	GridPane.setConstraints(genreInput, 3, 0);
+	                	
+	                	Label completeLab = new Label ("Compete: ");
+	                	GridPane.setConstraints(completeLab, 2, 1);
+	                	TextField completeInput = new TextField();
+	                	GridPane.setConstraints(completeInput, 3, 1);
+	                	
 	                	GridPane.setConstraints(submit, 1, 16);
 	                	
-	                	grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueEqualLab, uniqueEqualInput, uniqueGreaterLab, uniqueGreaterInput, uniqueLessLab, uniqueLessInput, totalLab, totalEqualLab, totalEqualInput, totalGreaterLab, totalGreaterInput, totalLessLab, totalLessInput, submit);
-	                	Scene scene = new Scene(grid, 1000, 600);
+	                	grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueEqualLab, uniqueEqualInput, uniqueGreaterLab, uniqueGreaterInput, uniqueLessLab, uniqueLessInput, totalLab, totalEqualLab, totalEqualInput, totalGreaterLab, totalGreaterInput, totalLessLab, totalLessInput, genreLab, genreInput, completeLab, completeInput, submit);
+	                	Scene scene = new Scene(grid, 750, 600);
 	                    stageFilter.setScene(scene);
 	                    stageFilter.show();
 					}
