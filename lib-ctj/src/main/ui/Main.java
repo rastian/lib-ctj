@@ -64,7 +64,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 					public void handle(final ActionEvent e) {
 						//Table Stuff
 						Library libObj = new Library();
-						LibTab libTab = new LibTab(libObj, tabPane);
+						LibTab libTab = new LibTab(libObj, tabPane, stage);
 				        //Tabs
 						libTabs.addLibTab(libTab.getTab(), libTab);
 						libTab.setName("Lib" + libTabs.getTabCount());
@@ -94,9 +94,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                			root = doc.getDocumentElement();
 	                			if(root.getTagName().equals("Literature")) {
 	                				Library libObj = new Library(file.toPath());
-	    	                        LibTab libTab = new LibTab(libObj, tabPane);
+	    	                        LibTab libTab = new LibTab(libObj, tabPane, stage);
 	    	                        libTab.setName(libObj.getPath().getFileName().toString());
 	    	                        libTabs.addLibTab(libTab.getTab(), libTab);
+	    	                        libTab.setIsSaved(true);
 	                			}
 	                			if(root.getTagName().equals("Dictionary")) {
 	                				Dictionary dictObj = new Dictionary(file.toPath());
@@ -123,6 +124,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    LibTab libTab = libTabs.getLibTab(tab);
 	                    Library libObj = libTab.getLib();
 	                    libObj.save(file.toPath());
+	                    libTab.setName(file.getName());
+	                    libTab.setIsSaved(true);
 	                    
 	                    
 	                }
@@ -467,7 +470,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							@Override
 							public void handle(final ActionEvent e) {
 								Library newLib = getChoice(lib1).merge(getChoice(lib2));
-			            		LibTab libTab = new LibTab(newLib, tabPane);
+			            		LibTab libTab = new LibTab(newLib, tabPane, stage);
 						        //Tabs
 								libTabs.addLibTab(libTab.getTab(), libTab);
 								libTab.setName("Lib" + libTabs.getTabCount());
@@ -505,5 +508,5 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		  public String toString(LibChoice myClassinstance) {
 		    	return myClassinstance.getName();
 		  }
-		}
+	}
 }
