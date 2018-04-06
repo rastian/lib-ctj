@@ -1,11 +1,16 @@
 package main.library;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,6 +33,19 @@ public class Dictionary {
 	private int size;
 	private Document doc;
 	private Element root;
+	
+	enum DictField {
+		FUNCTION,
+		FREQUENCY,
+		SYLLABLES,
+		SPELLING,
+		ARPABET,
+		MORPHEMES,
+		COGNATE,
+		BIPHAVE,
+		PSEGAVE,
+		NEIGHBORHOOD
+	}
 	
 	public Dictionary(Path dictXMLPath) {
 		path = dictXMLPath;
@@ -116,6 +134,20 @@ public class Dictionary {
 		}	
 	}
 	
+	public Dictionary(Library lib) {
+		try {
+			// Create temporary library xml file
+			Path tmpLibPath = Files.createTempFile("tmp-lib", ".xml");
+			lib.save(tmpLibPath);
+			File tmpLibFile = tmpLibPath.toFile();
+			tmpLibFile.deleteOnExit();
+			
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public int save(Path path) {
 		try {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -139,30 +171,49 @@ public class Dictionary {
 		return save(path);
 	}
 	
-	public int saveAsCSV(Path path) {
+	public int saveAsCSV(Path path, ArrayList<DictField> fields) {
 		try {
 			FileWriter fw = new FileWriter(path.toString().replaceAll(".xml", ".csv"));
 			BufferedWriter bw = new BufferedWriter(fw);
 			
-			// Write header columns
-			bw.append(",ARPABET,Syllables,Frequency,Function Word,Morphemes,PSA,BIPHA,Cognate,Neighborhood,,,,,,\n");
+			int a = 5;
+			int b = 7;
+			int max = a > b ? a : b;
+			
+			// Write Header Columns
+			StringBuffer header = new StringBuffer(",");
+			header.append(fields.contains(DictField.ARPABET) ? "ARPABET," : "");
+			header.append(fields.contains(DictField.SYLLABLES) ? "Syllables," : "");
+			header.append(fields.contains(DictField.FREQUENCY) ? "Frequency," : "");
+			header.append(fields.contains(DictField.FUNCTION) ? "Function word," : "");
+			header.append(fields.contains(DictField.MORPHEMES) ? "Morphemes," : "");
+			header.append(fields.contains(DictField.PSEGAVE) ? "PSA," : "");
+			header.append(fields.contains(DictField.BIPHAVE) ? "BIPHA," : "");
+			header.append(fields.contains(DictField.COGNATE) ? "Cognate," : "");
+			header.append(fields.contains(DictField.NEIGHBORHOOD) ? "Neighborhood,,,,,," : "");
+			header.append("\n");
+			bw.append(header);
+
 			// Write fields for each DictElem
 			for (DictElement e : entries) {
 				bw.append(e.getSpelling()).append(",");
-				bw.append(e.getArpabet()).append(",");
-				bw.append(Integer.toString(e.getSyllables())).append(",");
-				bw.append(Integer.toString(e.getFrequency())).append(",");
-				bw.append(e.isFunction() ? "TRUE" : "FALSE").append(",");
-				bw.append(e.getMorphemes()).append(",");
-				bw.append(Double.toString(e.getPSegAve())).append(",");
-				bw.append(Double.toString(e.getBiphAve())).append(",");
-				bw.append(e.getCognate() != null ? e.getCognate() : "").append(",");
+				bw.append(fields.contains(DictField.ARPABET) ? e.getArpabet() + "," : "");
+				bw.append(fields.contains(DictField.SYLLABLES) ? Integer.toString(e.getSyllables()) + "," : "");
+				bw.append(fields.contains(DictField.FREQUENCY) ? Integer.toString(e.getFrequency()) + "," : "");
+				bw.append(fields.contains(DictField.FUNCTION) ? (e.isFunction() ? "TRUE" : "FALSE") + "," : "");
+				bw.append(fields.contains(DictField.MORPHEMES) ? e.getMorphemes() : "");
+				bw.append(fields.contains(DictField.PSEGAVE) ? Double.toString(e.getPSegAve()) + "," : "");
+				bw.append(fields.contains(DictField.BIPHAVE) ? Double.toString(e.getBiphAve()) + "," : "");
+				bw.append(fields.contains(DictField.COGNATE) ? (e.getCognate() != null ? e.getCognate() : "") + "," : "");
 				bw.append(Integer.toString(e.getNeighborhood().length)).append(",");
-				for (String n : e.getNeighborhood()) {
-					bw.append(n).append(",");
+				if (fields.contains(DictField.NEIGHBORHOOD)) {
+					for (String n : e.getNeighborhood()) {
+						bw.append(n).append(",");
+					}
 				}
 				bw.append("\n");
 			}
+
 			bw.close();
 			return 1;
 		}
@@ -170,6 +221,20 @@ public class Dictionary {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+	
+	public int saveAsCSV(Path path) {
+		ArrayList<DictField> fields = new ArrayList<>();
+		fields.add(DictField.ARPABET);
+		fields.add(DictField.SYLLABLES);
+		fields.add(DictField.FREQUENCY);
+		fields.add(DictField.FUNCTION);
+		fields.add(DictField.MORPHEMES);
+		fields.add(DictField.PSEGAVE);
+		fields.add(DictField.BIPHAVE);
+		fields.add(DictField.COGNATE);
+		fields.add(DictField.NEIGHBORHOOD);
+		return saveAsCSV(path, fields);
 	}
 	
 	public ArrayList<DictElement> getElements() {
