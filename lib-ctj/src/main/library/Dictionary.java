@@ -141,7 +141,7 @@ public class Dictionary {
 	
 	public int saveAsCSV(Path path) {
 		try {
-			FileWriter fw = new FileWriter(path.toString());
+			FileWriter fw = new FileWriter(path.toString().replaceAll(".xml", ".csv"));
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			// Write header columns
