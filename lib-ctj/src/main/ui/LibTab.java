@@ -131,7 +131,12 @@ public class LibTab {
 		return libObj;
 	}
 	public void setLib(Library newLib) {
-		libObj = newLib;
+		while(libObj.size()> 0) {
+			libObj.delete(0);
+		}
+		for(int i = 0; i < newLib.size(); i++) {
+			libObj.addBook(newLib.getBook(i));
+		}
 		data.clear();
 		for(int i = 0; i < libObj.size(); i++) {
 			data.add(libObj.getBook(i));
