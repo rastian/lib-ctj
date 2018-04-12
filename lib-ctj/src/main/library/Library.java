@@ -2,6 +2,9 @@ package main.library;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.xml.parsers.DocumentBuilder; 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,19 +22,26 @@ import org.w3c.dom.Element;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException; 
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.*;
 
 public class Library {
 	private Path path;
-	private ArrayList<Book> books;
+	private List<Book> books;
 	private int size;
 	private Document doc;
 	private Element root;
+	
+	public enum FilterFuncs {
+		// Used for filtering string fields
+		CONTAINS, STARTS_WITH, ENDS_WITH,
+		// Used for filtering numeric fields
+		EQUALS, LESS_THAN, GREATER_THAN
+	}
+
+	public enum BookFields {
+		TITLE, AUTHOR, AGE, ISBN, COMPLETE, GENRE, UNIQUE_WORD_COUNT, TOTAL_WORD_COUNT
+	}
 	
 	public Library(Path libXMLPath) {
 		path = libXMLPath;
@@ -254,85 +264,138 @@ public class Library {
 		return newLib;
 	}
 	
-	private boolean passesFilter(Book book, HashMap<String, Object> filterMap) {
-		for (String attr : filterMap.keySet()) {
-			switch (attr) {
-			case "title":
-				String title = book.getTitle().toLowerCase();
-				String fTitle = (String) filterMap.get(attr);
-				if (!title.contains(fTitle)) return false;
-				break;
-			case "author":
-				String author = book.getAuthor().toLowerCase();
-				String fAuthor = (String) filterMap.get(attr);
-				if (!author.contains(fAuthor)) return false;
-				break;
-			case "age":
-				String age = book.getAge().toLowerCase();
-				String fAge = (String) filterMap.get(attr);
-				if (!age.equals(fAge)) return false;
-				break;
-			case "isbn":
-				String isbn = book.getIsbn();
-				String fIsbn = (String) filterMap.get(attr);
-				if (!isbn.equals(fIsbn)) return false;
-				break;
-			case "complete":
-				boolean fComplete = (boolean) filterMap.get(attr);
-				if (book.isComplete() != fComplete) return false;
-				break;
-			case "genre":
-				String genre = book.getGenre().toLowerCase();
-				String fGenre = (String) filterMap.get(attr);
-				if (!genre.equals(fGenre)) return false;
-				break;
-			case "uniqueWordCount":
-				int uniqueWordCount = book.getUniqueWordCount();
-				HashMap<Character, Integer> funcMap = (HashMap<Character, Integer>) filterMap.get(attr);
-				for (char func : funcMap.keySet()) {
-					int fCount = funcMap.get(func);
-					switch (func) {
-					case '=':
-						if (uniqueWordCount != fCount) return false;
-						break;
-					case '>':
-						if (uniqueWordCount < fCount) return false;
-						break;
-					case '<':
-						if (uniqueWordCount > fCount) return false;
-						break;
-					}
+	public Library filter(HashMap<BookFields, Object> filterMap) {
+		Library fLib = new Library();
+		List<Book> filteredBooks = books.stream().collect(Collectors.toList());
+		for (BookFields field : filterMap.keySet()) {
+			Object[] filterArr;
+			FilterFuncs func;
+			switch (field) {
+			case TITLE:
+				filterArr = (Object[])filterMap.get(field);
+				func = (FilterFuncs)filterArr[0];
+				String fTitle = (String)filterArr[1];
+				switch (func) {
+				case CONTAINS:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getTitle().contains(fTitle)).collect(Collectors.toList());
+					break;
+				case STARTS_WITH:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getTitle().startsWith(fTitle)).collect(Collectors.toList());
+					break;
+				case ENDS_WITH:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getTitle().endsWith(fTitle)).collect(Collectors.toList());
+					break;
 				}
 				break;
-			case "totalWordCount":
-				int totalWordCount = book.getTotalWordCount();
-				funcMap = (HashMap<Character, Integer>) filterMap.get(attr);
-				for (char func : funcMap.keySet()) {
-					int fCount = funcMap.get(func);
-					switch (func) {
-					case '=':
-						if (totalWordCount != fCount) return false;
-						break;
-					case '>':
-						if (totalWordCount < fCount) return false;
-						break;
-					case '<':
-						if (totalWordCount > fCount) return false;
-						break;
-					}
+			case AUTHOR:
+				filterArr = (Object[])filterMap.get(field);
+				func = (FilterFuncs)filterArr[0];
+				String fAuthor = (String)filterArr[1];
+				switch (func) {
+				case CONTAINS:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getAuthor().contains(fAuthor)).collect(Collectors.toList());
+					break;
+				case STARTS_WITH:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getAuthor().startsWith(fAuthor)).collect(Collectors.toList());
+					break;
+				case ENDS_WITH:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getAuthor().endsWith(fAuthor)).collect(Collectors.toList());
+					break;
+				}
+				break;
+			case AGE:
+				filterArr = (Object[])filterMap.get(field);
+				func = (FilterFuncs)filterArr[0];
+				String fAge = (String)filterArr[1];
+				switch (func) {
+				case EQUALS:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getAge().equals(fAge)).collect(Collectors.toList());
+					break;
+				}
+				break;
+			case ISBN:
+				filterArr = (Object[])filterMap.get(field);
+				func = (FilterFuncs)filterArr[0];
+				String fIsbn = (String)filterArr[1];
+				switch (func) {
+				case EQUALS:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getIsbn().equals(fIsbn)).collect(Collectors.toList());
+					break;
+				}
+				break;
+			case COMPLETE:
+				filterArr = (Object[])filterMap.get(field);
+				func = (FilterFuncs)filterArr[0];
+				boolean fComplete = (boolean)filterArr[1];
+				switch (func) {
+				case EQUALS:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> (b.isComplete() == fComplete)).collect(Collectors.toList());
+					break;
+				}
+				break;
+			case GENRE:
+				filterArr = (Object[])filterMap.get(field);
+				func = (FilterFuncs)filterArr[0];
+				String fGenre = (String)filterArr[1];
+				switch (func) {
+				case EQUALS:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getGenre().equals(fGenre)).collect(Collectors.toList());
+					break;
+				}
+				break;
+			case UNIQUE_WORD_COUNT:
+				filterArr = (Object[])filterMap.get(field);
+				func = (FilterFuncs)filterArr[0];
+				int fUniqueWordCount = (int)filterArr[1];
+				switch (func) {
+				case EQUALS:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getUniqueWordCount() == fUniqueWordCount).collect(Collectors.toList());
+					break;
+				case GREATER_THAN:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getUniqueWordCount() > fUniqueWordCount).collect(Collectors.toList());
+					break;
+				case LESS_THAN:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getUniqueWordCount() < fUniqueWordCount).collect(Collectors.toList());
+					break;
+				}
+				break;
+			case TOTAL_WORD_COUNT:
+				filterArr = (Object[])filterMap.get(field);
+				func = (FilterFuncs)filterArr[0];
+				int fTotalWordCount = (int)filterArr[1];
+				switch (func) {
+				case EQUALS:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getTotalWordCount() == fTotalWordCount).collect(Collectors.toList());
+					break;
+				case GREATER_THAN:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getTotalWordCount() > fTotalWordCount).collect(Collectors.toList());
+					break;
+				case LESS_THAN:
+					filteredBooks = filteredBooks.stream()
+						.filter(b -> b.getTotalWordCount() < fTotalWordCount).collect(Collectors.toList());
+					break;
 				}
 				break;
 			}
 		}
-		return true;
-	}
-	
-	public Library filter(HashMap<String, Object> filterMap) {
-		Library fLib = new Library();
-		for (Book b : books) {
-			if (passesFilter(b, filterMap)) {
-				fLib.addBook(b);
-			}
+		// Add all books to the filtered library using .addBook to make sure Doc Tree is updated
+		for (Book b : filteredBooks) {
+			fLib.addBook(b);
 		}
 		return fLib;
 	}
