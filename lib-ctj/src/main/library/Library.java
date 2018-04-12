@@ -313,44 +313,36 @@ public class Library {
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
 				String fAge = (String)filterArr[1];
-				switch (func) {
-				case EQUALS:
+				if (func == FilterFuncs.EQUALS) {
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getAge().equals(fAge)).collect(Collectors.toList());
-					break;
+							.filter(b -> b.getAge().equals(fAge)).collect(Collectors.toList());
 				}
 				break;
 			case ISBN:
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
 				String fIsbn = (String)filterArr[1];
-				switch (func) {
-				case EQUALS:
+				if (func == FilterFuncs.EQUALS) {
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getIsbn().equals(fIsbn)).collect(Collectors.toList());
-					break;
+							.filter(b -> b.getIsbn().equals(fIsbn)).collect(Collectors.toList());
 				}
 				break;
 			case COMPLETE:
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
 				boolean fComplete = (boolean)filterArr[1];
-				switch (func) {
-				case EQUALS:
+				if (func == FilterFuncs.EQUALS) {
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> (b.isComplete() == fComplete)).collect(Collectors.toList());
-					break;
+							.filter(b -> b.isComplete() == fComplete).collect(Collectors.toList());
 				}
 				break;
 			case GENRE:
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
 				String fGenre = (String)filterArr[1];
-				switch (func) {
-				case EQUALS:
+				if (func == FilterFuncs.EQUALS) {
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getGenre().equals(fGenre)).collect(Collectors.toList());
-					break;
+							.filter(b -> b.getGenre().equals(fGenre)).collect(Collectors.toList());
 				}
 				break;
 			case UNIQUE_WORD_COUNT:
