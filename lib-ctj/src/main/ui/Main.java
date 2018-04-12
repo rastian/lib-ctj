@@ -383,7 +383,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						Tab tab = tabPane.getSelectionModel().getSelectedItem();
 						LibTab libTab = libTabs.getLibTab(tab);
 						Library lib = libTab.getLib();
-						HashMap<String, Object> filterMap = new HashMap<String,Object>();
+						HashMap<Library.BookFields, Object> filterMap = new HashMap<>();
 						Stage stageFilter = new Stage();
 	                	stageFilter.setTitle("Filter Books");
 	                	GridPane grid = new GridPane();
@@ -476,14 +476,24 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    					@Override
 	    					public void handle(final ActionEvent e) {
-	    						filterMap.put("title", titleInput.getText());
-	    						filterMap.put("author", authInput.getText());
-	    						filterMap.put("age", ageInput.getText());
-	    						filterMap.put("isbn", isbnInput.getText());
-	    						filterMap.put("genre", genreInput.getText());
-	    						if(completeButton.isSelected()) filterMap.put("complete", true);
-	    						if(incompleteButton.isSelected()) filterMap.put("complete", false);
-	    						HashMap<Character, Integer> uniqueMap = new HashMap<Character, Integer>();
+	    						filterMap.put(Library.BookFields.TITLE, 
+	    								new Object[] {Library.FilterFuncs.CONTAINS, titleInput.getText()});
+	    						filterMap.put(Library.BookFields.AUTHOR, 
+	    								new Object[] {Library.FilterFuncs.CONTAINS, authInput.getText()});
+	    						filterMap.put(Library.BookFields.AGE, 
+	    								new Object[] {Library.FilterFuncs.CONTAINS, ageInput.getText()});
+	    						filterMap.put(Library.BookFields.ISBN, 
+	    								new Object[] {Library.FilterFuncs.EQUALS, isbnInput.getText()});
+	    						filterMap.put(Library.BookFields.GENRE, 
+	    								new Object[] {Library.FilterFuncs.EQUALS, genreInput.getText()});
+	    						if (completeButton.isSelected()) {
+		    						filterMap.put(Library.BookFields.COMPLETE, 
+		    								new Object[] {Library.FilterFuncs.EQUALS, true});
+	    						}
+	    						if (incompleteButton.isSelected()) {
+	    							filterMap.put(Library.BookFields.COMPLETE, 
+		    								new Object[] {Library.FilterFuncs.EQUALS, false});
+	    						}
 	    						libTab.setLib(lib.filter(filterMap));
 	    						
 	    					}
