@@ -78,22 +78,22 @@ public class LibTab {
 		for(int i = 0; i < lib.size(); i++) {
 			data.add(lib.getBook(i));
 		}
-		TableColumn titleCol = new TableColumn("Title");
-        titleCol.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
-        TableColumn authorCol = new TableColumn("Author");
-        authorCol.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-        TableColumn isbnCol = new TableColumn("ISBN-13");
-        isbnCol.setCellValueFactory(new PropertyValueFactory<Book, String>("isbn"));
-        TableColumn ageCol = new TableColumn("Age");
-        ageCol.setCellValueFactory(new PropertyValueFactory<Book, String>("age"));
-        TableColumn completeCol = new TableColumn("Complete");
-        completeCol.setCellValueFactory(new PropertyValueFactory<Book, Boolean>("complete"));
-        TableColumn genreCol = new TableColumn("Genre");
-        genreCol.setCellValueFactory(new PropertyValueFactory<Book, String>("genre"));
-        TableColumn uniqueCol = new TableColumn("Unique Words");
-        uniqueCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("uniqueWordCount"));
-        TableColumn totalCol = new TableColumn("Total Words");
-        totalCol.setCellValueFactory(new PropertyValueFactory<Book, Integer>("totalWordCount"));
+		TableColumn<Book, String> titleCol = new TableColumn<>("Title");
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        TableColumn<Book, String> authorCol = new TableColumn<>("Author");
+        authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
+        TableColumn<Book, String> isbnCol = new TableColumn<>("ISBN-13");
+        isbnCol.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        TableColumn<Book, String> ageCol = new TableColumn<>("Age");
+        ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
+        TableColumn<Book, Boolean> completeCol = new TableColumn<>("Complete");
+        completeCol.setCellValueFactory(new PropertyValueFactory<>("complete"));
+        TableColumn<Book, String> genreCol = new TableColumn<>("Genre");
+        genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        TableColumn<Book, Integer> uniqueCol = new TableColumn<>("Unique Words");
+        uniqueCol.setCellValueFactory(new PropertyValueFactory<>("uniqueWordCount"));
+        TableColumn<Book, Integer> totalCol = new TableColumn<>("Total Words");
+        totalCol.setCellValueFactory(new PropertyValueFactory<>("totalWordCount"));
         
         libData.setItems(data);
         libData.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, completeCol, genreCol, uniqueCol, totalCol);
