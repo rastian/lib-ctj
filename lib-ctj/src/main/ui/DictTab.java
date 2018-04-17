@@ -37,28 +37,33 @@ public class DictTab {
 		for(int i = 0; i < dict.getElements().size(); i++) {
 			data.add(dict.getElements().get(i));
 		}
-        TableColumn spellCol = new TableColumn("Spelling");
-        spellCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("spelling"));
-		TableColumn funcCol = new TableColumn("Function");
-        funcCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("function"));
-        TableColumn freqCol = new TableColumn("Frequency");
-        freqCol.setCellValueFactory(new PropertyValueFactory<DictElement, Integer>("frequency"));
-        TableColumn syllableCol = new TableColumn("Syllables");
-        syllableCol.setCellValueFactory(new PropertyValueFactory<DictElement, Integer>("syllables"));
-        TableColumn arpabetCol = new TableColumn("Arpabet");
-        arpabetCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("arpabet"));
-        TableColumn morphemeCol = new TableColumn("Morphemes");
-        morphemeCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("morphemes"));
-        TableColumn cognateCol = new TableColumn("Cognate");
-        cognateCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("cognate"));
-        TableColumn biphAveCol = new TableColumn("BiphAve");
-        biphAveCol.setCellValueFactory(new PropertyValueFactory<DictElement, Double>("biphAve"));
-        TableColumn pSegAveCol = new TableColumn("P Seg Ave");
-        pSegAveCol.setCellValueFactory(new PropertyValueFactory<DictElement, Double>("pSegAve"));
-        TableColumn neighborhoodCol = new TableColumn("Neighborhood");
-        neighborhoodCol.setCellValueFactory(new PropertyValueFactory<DictElement, String[]>("neighborhoodDisplay"));
+        TableColumn<DictElement, String> spellCol = new TableColumn<>("Spelling");
+        spellCol.setCellValueFactory(new PropertyValueFactory<>("spelling"));
+		TableColumn<DictElement, String> funcCol = new TableColumn<>("Function");
+        funcCol.setCellValueFactory(new PropertyValueFactory<>("function"));
+        TableColumn<DictElement, Integer> freqCol = new TableColumn<>("Frequency");
+        freqCol.setCellValueFactory(new PropertyValueFactory<>("frequency"));
+        TableColumn<DictElement, Integer> syllableCol = new TableColumn<>("Syllables");
+        syllableCol.setCellValueFactory(new PropertyValueFactory<>("syllables"));
+        TableColumn<DictElement, String> arpabetCol = new TableColumn<>("Arpabet");
+        arpabetCol.setCellValueFactory(new PropertyValueFactory<>("arpabet"));
+        TableColumn<DictElement, String> morphemeCol = new TableColumn<>("Morphemes");
+        morphemeCol.setCellValueFactory(new PropertyValueFactory<>("morphemes"));
+        TableColumn<DictElement, String> cognateCol = new TableColumn<>("Cognate");
+        cognateCol.setCellValueFactory(new PropertyValueFactory<>("cognate"));
+        TableColumn<DictElement, Double> biphAveCol = new TableColumn<>("BiphAve");
+        biphAveCol.setCellValueFactory(new PropertyValueFactory<>("biphAve"));
+        TableColumn<DictElement, Double> pSegAveCol = new TableColumn<>("P Seg Ave");
+        pSegAveCol.setCellValueFactory(new PropertyValueFactory<>("pSegAve"));
+        TableColumn<DictElement, String[]> neighborhoodCol = new TableColumn<>("Neighborhood");
+        neighborhoodCol.setCellValueFactory(new PropertyValueFactory<>("neighborhoodDisplay"));
         dictData.setItems(data);
-        dictData.getColumns().addAll(spellCol, funcCol, freqCol, syllableCol, arpabetCol, morphemeCol, cognateCol, biphAveCol, pSegAveCol, neighborhoodCol);
+        dictData.getColumns().addAll(
+        		spellCol, funcCol, 
+        		freqCol, syllableCol, 
+        		arpabetCol, morphemeCol, 
+        		cognateCol, biphAveCol, 
+        		pSegAveCol, neighborhoodCol);
         tab.setContent(dictData);
         pane.getTabs().add(tab);
 	}
