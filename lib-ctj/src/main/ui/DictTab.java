@@ -37,14 +37,14 @@ public class DictTab {
 		for(int i = 0; i < dict.getElements().size(); i++) {
 			data.add(dict.getElements().get(i));
 		}
+        TableColumn spellCol = new TableColumn("Spelling");
+        spellCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("spelling"));
 		TableColumn funcCol = new TableColumn("Function");
         funcCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("function"));
         TableColumn freqCol = new TableColumn("Frequency");
         freqCol.setCellValueFactory(new PropertyValueFactory<DictElement, Integer>("frequency"));
         TableColumn syllableCol = new TableColumn("Syllables");
         syllableCol.setCellValueFactory(new PropertyValueFactory<DictElement, Integer>("syllables"));
-        TableColumn spellCol = new TableColumn("Spelling");
-        spellCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("spelling"));
         TableColumn arpabetCol = new TableColumn("Arpabet");
         arpabetCol.setCellValueFactory(new PropertyValueFactory<DictElement, String>("arpabet"));
         TableColumn morphemeCol = new TableColumn("Morphemes");
@@ -58,7 +58,7 @@ public class DictTab {
         TableColumn neighborhoodCol = new TableColumn("Neighborhood");
         neighborhoodCol.setCellValueFactory(new PropertyValueFactory<DictElement, String[]>("neighborhoodDisplay"));
         dictData.setItems(data);
-        dictData.getColumns().addAll(funcCol, freqCol, syllableCol, spellCol, arpabetCol, morphemeCol, cognateCol, biphAveCol, pSegAveCol, neighborhoodCol);
+        dictData.getColumns().addAll(spellCol, funcCol, freqCol, syllableCol, arpabetCol, morphemeCol, cognateCol, biphAveCol, pSegAveCol, neighborhoodCol);
         tab.setContent(dictData);
         pane.getTabs().add(tab);
 	}
