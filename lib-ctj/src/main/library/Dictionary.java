@@ -1,16 +1,13 @@
 package main.library;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,22 +26,14 @@ import org.xml.sax.SAXException;
 
 public class Dictionary {
 	private Path path;
-	private ArrayList<DictElement> entries;
+	private List<DictElement> entries;
 	private int size;
 	private Document doc;
 	private Element root;
 	
 	public enum DictField {
-		FUNCTION,
-		FREQUENCY,
-		SYLLABLES,
-		SPELLING,
-		ARPABET,
-		MORPHEMES,
-		COGNATE,
-		BIPHAVE,
-		PSEGAVE,
-		NEIGHBORHOOD
+		FUNCTION, FREQUENCY, SYLLABLES, SPELLING, ARPABET, MORPHEMES,
+		COGNATE, BIPHAVE, PSEGAVE, NEIGHBORHOOD
 	}
 	
 	public Dictionary(Path dictXMLPath) {
@@ -171,7 +160,7 @@ public class Dictionary {
 		return save(path);
 	}
 	
-	public int saveAsCSV(Path path, ArrayList<DictField> fields) {
+	public int saveAsCSV(Path path, List<DictField> fields) {
 		try {
 			FileWriter fw = new FileWriter(path.toString().replaceAll(".xml", ".csv"));
 			BufferedWriter bw = new BufferedWriter(fw);
@@ -221,7 +210,7 @@ public class Dictionary {
 	}
 	
 	public int saveAsCSV(Path path) {
-		ArrayList<DictField> fields = new ArrayList<>();
+		List<DictField> fields = new ArrayList<>();
 		fields.add(DictField.ARPABET);
 		fields.add(DictField.SYLLABLES);
 		fields.add(DictField.FREQUENCY);
@@ -234,7 +223,7 @@ public class Dictionary {
 		return saveAsCSV(path, fields);
 	}
 	
-	public ArrayList<DictElement> getElements() {
+	public List<DictElement> getElements() {
 		return entries;
 	}
 	public Path getPath() {
