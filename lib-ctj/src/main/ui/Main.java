@@ -370,6 +370,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 					for(int i = 0; i < lib.size(); i++) {
 						if(libTab.getLibTable().getSelectionModel().getSelectedItems().contains(lib.getBook(i))) {
 							libTab.delBook(i);
+							i = 0;
 						}
 					}
 					
@@ -545,8 +546,23 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            }
 		        });
 		
-		genD.setOnAction(e -> System.out.println("Generate Dictionary"));
-		
+		genD.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(final ActionEvent e) {
+				try {
+					String o = " -old old.xml ";
+					String n = "new.xml";
+					String l = " -lit lib.xml ";
+					String c = " -cmu cmu.txt ";
+					Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"build_dictionary.exe"+ o + c + l + n);
+					
+					
+				}
+				catch(Exception ex){
+					System.out.println(ex);
+				}
+			}
+		});
 		//Main Panes/Show Stage
 		BorderPane mainPane = new BorderPane();
 		mainPane.setTop(toolbar);

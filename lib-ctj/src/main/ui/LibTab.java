@@ -121,6 +121,9 @@ public class LibTab {
 		name = newName;
 		tab.setText(name);
 	}
+	public ObservableList<Book> getBookList(){
+		return data;
+	}
 	public int getLibCount() {
 		return tabCount;
 	}
