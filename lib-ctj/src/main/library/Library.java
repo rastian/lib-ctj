@@ -274,57 +274,57 @@ public class Library {
 			case TITLE:
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
-				String fTitle = (String)filterArr[1];
+				String fTitle = ((String)filterArr[1]).toLowerCase();
 				switch (func) {
 				case CONTAINS:
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getTitle().contains(fTitle)).collect(Collectors.toList());
+						.filter(b -> b.getTitle().toLowerCase().contains(fTitle)).collect(Collectors.toList());
 					break;
 				case STARTS_WITH:
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getTitle().startsWith(fTitle)).collect(Collectors.toList());
+						.filter(b -> b.getTitle().toLowerCase().startsWith(fTitle)).collect(Collectors.toList());
 					break;
 				case ENDS_WITH:
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getTitle().endsWith(fTitle)).collect(Collectors.toList());
+						.filter(b -> b.getTitle().toLowerCase().endsWith(fTitle)).collect(Collectors.toList());
 					break;
 				}
 				break;
 			case AUTHOR:
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
-				String fAuthor = (String)filterArr[1];
+				String fAuthor = ((String)filterArr[1]).toLowerCase();
 				switch (func) {
 				case CONTAINS:
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getAuthor().contains(fAuthor)).collect(Collectors.toList());
+						.filter(b -> b.getAuthor().toLowerCase().contains(fAuthor)).collect(Collectors.toList());
 					break;
 				case STARTS_WITH:
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getAuthor().startsWith(fAuthor)).collect(Collectors.toList());
+						.filter(b -> b.getAuthor().toLowerCase().startsWith(fAuthor)).collect(Collectors.toList());
 					break;
 				case ENDS_WITH:
 					filteredBooks = filteredBooks.stream()
-						.filter(b -> b.getAuthor().endsWith(fAuthor)).collect(Collectors.toList());
+						.filter(b -> b.getAuthor().toLowerCase().endsWith(fAuthor)).collect(Collectors.toList());
 					break;
 				}
 				break;
 			case AGE:
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
-				String fAge = (String)filterArr[1];
+				String fAge = ((String)filterArr[1]).toLowerCase();
 				if (func == FilterFuncs.EQUALS) {
 					filteredBooks = filteredBooks.stream()
-							.filter(b -> b.getAge().equals(fAge)).collect(Collectors.toList());
+							.filter(b -> b.getAge().toLowerCase().equals(fAge)).collect(Collectors.toList());
 				}
 				break;
 			case ISBN:
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
-				String fIsbn = (String)filterArr[1];
+				String fIsbn = ((String)filterArr[1]).toLowerCase();
 				if (func == FilterFuncs.EQUALS) {
 					filteredBooks = filteredBooks.stream()
-							.filter(b -> b.getIsbn().equals(fIsbn)).collect(Collectors.toList());
+							.filter(b -> b.getIsbn().toLowerCase().equals(fIsbn)).collect(Collectors.toList());
 				}
 				break;
 			case COMPLETE:
@@ -339,10 +339,10 @@ public class Library {
 			case GENRE:
 				filterArr = (Object[])filterMap.get(field);
 				func = (FilterFuncs)filterArr[0];
-				String fGenre = (String)filterArr[1];
+				String fGenre = ((String)filterArr[1]).toLowerCase();
 				if (func == FilterFuncs.EQUALS) {
 					filteredBooks = filteredBooks.stream()
-							.filter(b -> b.getGenre().equals(fGenre)).collect(Collectors.toList());
+							.filter(b -> b.getGenre().toLowerCase().equals(fGenre)).collect(Collectors.toList());
 				}
 				break;
 			case UNIQUE_WORD_COUNT:
