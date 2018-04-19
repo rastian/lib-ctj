@@ -476,16 +476,31 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    					@Override
 	    					public void handle(final ActionEvent e) {
-	    						filterMap.put(Library.BookFields.TITLE, 
-	    								new Object[] {Library.FilterFuncs.CONTAINS, titleInput.getText()});
-	    						filterMap.put(Library.BookFields.AUTHOR, 
-	    								new Object[] {Library.FilterFuncs.CONTAINS, authInput.getText()});
-	    						filterMap.put(Library.BookFields.AGE, 
-	    								new Object[] {Library.FilterFuncs.CONTAINS, ageInput.getText()});
-	    						filterMap.put(Library.BookFields.ISBN, 
-	    								new Object[] {Library.FilterFuncs.EQUALS, isbnInput.getText()});
-	    						filterMap.put(Library.BookFields.GENRE, 
-	    								new Object[] {Library.FilterFuncs.EQUALS, genreInput.getText()});
+	    						String titleInputTxt = titleInput.getText().trim();
+	    						if (!titleInputTxt.isEmpty()) {
+	    							filterMap.put(Library.BookFields.TITLE,
+	    									new Object[] {Library.FilterFuncs.CONTAINS, titleInputTxt});
+	    						}
+	    						String authInputTxt = authInput.getText().trim();
+	    						if (!authInputTxt.isEmpty()) {
+	    							filterMap.put(Library.BookFields.AUTHOR, 
+	    									new Object[] {Library.FilterFuncs.CONTAINS, authInputTxt});
+	    						}
+	    						String ageInputTxt = ageInput.getText().trim();
+	    						if (!ageInputTxt.isEmpty()) {
+	    							filterMap.put(Library.BookFields.AGE, 
+		    								new Object[] {Library.FilterFuncs.CONTAINS, ageInputTxt});
+	    						}
+	    						String isbnInputTxt = isbnInput.getText().trim();
+	    						if (!isbnInputTxt.isEmpty()) {
+		    						filterMap.put(Library.BookFields.ISBN, 
+		    								new Object[] {Library.FilterFuncs.EQUALS, isbnInputTxt});
+	    						}
+	    						String genreInputTxt = genreInput.getText().trim();
+	    						if (!genreInputTxt.isEmpty()) {
+		    						filterMap.put(Library.BookFields.GENRE, 
+		    								new Object[] {Library.FilterFuncs.EQUALS, genreInputTxt});	
+	    						}
 	    						if (completeButton.isSelected()) {
 		    						filterMap.put(Library.BookFields.COMPLETE, 
 		    								new Object[] {Library.FilterFuncs.EQUALS, true});
