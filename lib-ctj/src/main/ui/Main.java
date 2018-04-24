@@ -659,10 +659,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		    						LibTab fLibTab = new LibTab(filteredLibrary, tabPane, stage);
 		    						fLibTab.setName(filteredLibrary.getPath().getFileName().toString());
 		    						libTabs.addLibTab(fLibTab.getTab(), fLibTab);
-		    						libTab.setIsSaved(false);
+		    						fLibTab.setIsSaved(false);
 		    						stageFilter.close();
-									libTab.setLib(lib.filter(filterMap));
-									libTab.setIsSaved(false);
 								}
 							});
 						
@@ -718,6 +716,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 									libTabs.addLibTab(libTab.getTab(), libTab);
 									libTab.setName("Lib" + libTabs.getTabCount());
 									libTab.setIsSaved(false);
+									stageMerge.close();
 								}
 								if(lib1.getSelectionModel().isEmpty() || lib2.getSelectionModel().isEmpty()) {
 									Alert alert = new Alert(Alert.AlertType.ERROR);

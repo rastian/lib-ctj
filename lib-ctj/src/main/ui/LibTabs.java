@@ -30,4 +30,7 @@ public class LibTabs {
 		}
 		return false;
 	}
+	public HashMap<Tab, LibTab> getlibMap(){
+		return libMap;
+	}
 }
