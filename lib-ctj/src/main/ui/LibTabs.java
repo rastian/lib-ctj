@@ -24,4 +24,10 @@ public class LibTabs {
 	public int getTabCount() {
 		return tabCount;
 	}
+	public boolean isEmpty() {
+		if(tabCount == 0) {
+			return true;
+		}
+		return false;
+	}
 }
