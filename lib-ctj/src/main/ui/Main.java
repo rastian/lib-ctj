@@ -655,6 +655,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 										filterMap.put(Library.BookFields.COMPLETE, 
 		    								new Object[] {Library.FilterFuncs.EQUALS, false});
 									}
+									Library filteredLibrary = lib.filter(filterMap);
+		    						LibTab fLibTab = new LibTab(filteredLibrary, tabPane, stage);
+		    						fLibTab.setName(filteredLibrary.getPath().getFileName().toString());
+		    						libTabs.addLibTab(fLibTab.getTab(), fLibTab);
+		    						libTab.setIsSaved(false);
+		    						stageFilter.close();
 									libTab.setLib(lib.filter(filterMap));
 									libTab.setIsSaved(false);
 								}
@@ -665,8 +671,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							stageFilter.setScene(scene);
 							stageFilter.show();
 						}
-					}
-				});
+
+					}});
+	    						
+	                	
 		merge.setOnAction(
 				new EventHandler<ActionEvent>() {
 					@Override
