@@ -509,8 +509,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    							filterMap.put(Library.BookFields.COMPLETE, 
 		    								new Object[] {Library.FilterFuncs.EQUALS, false});
 	    						}
-	    						libTab.setLib(lib.filter(filterMap));
-	    						
+	    						Library filteredLibrary = lib.filter(filterMap);
+	    						LibTab fLibTab = new LibTab(filteredLibrary, tabPane, stage);
+	    						fLibTab.setName(filteredLibrary.getPath().getFileName().toString());
+	    						libTabs.addLibTab(fLibTab.getTab(), fLibTab);
+	    						libTab.setIsSaved(false);
+	    						stageFilter.close();
 	    					}
 	                	});
 	                	
