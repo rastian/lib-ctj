@@ -135,6 +135,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	FileChooser chooser = new FileChooser();
 	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
 	                	chooser.setInitialDirectory(new File(currentPath));
+	                	chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml"));
 	                    File file = chooser.showSaveDialog(stage);
 	                    Tab tab = tabPane.getSelectionModel().getSelectedItem();
 	                    LibTab libTab = libTabs.getLibTab(tab);
