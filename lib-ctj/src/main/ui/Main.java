@@ -658,7 +658,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 									}
 									Library filteredLibrary = lib.filter(filterMap);
 		    						LibTab fLibTab = new LibTab(filteredLibrary, tabPane, stage);
-		    						fLibTab.setName(filteredLibrary.getPath().getFileName().toString());
+		    						fLibTab.setName("filtered-" + lib.getPath().getFileName());
 		    						libTabs.addLibTab(fLibTab.getTab(), fLibTab);
 		    						fLibTab.setIsSaved(false);
 		    						stageFilter.close();
