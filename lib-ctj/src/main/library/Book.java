@@ -1,5 +1,6 @@
 package main.library;
 
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class Book {
 
 			wordMap = new HashMap<>();
 			// Get all words in text file given by filename
-			Stream<String> words = Files.lines(Paths.get(filename))
+			Stream<String> words = Files.lines(Paths.get(filename), Charset.defaultCharset())
 					.flatMap(line -> Stream.of(line.split("[\\s+ ,.!;?\r\n\\h]")))
 					.filter(word -> word.length() > 0)
 					.map(word -> word.toLowerCase().trim());
