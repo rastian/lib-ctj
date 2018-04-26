@@ -522,15 +522,28 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent e) {
-					Tab tab = tabPane.getSelectionModel().getSelectedItem();
-					LibTab libTab = libTabs.getLibTab(tab);
-					Library lib = libTab.getLib();
-					libTab.setIsSaved(false);
-					ObservableList<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
-					lib.delete(selected);
-					libTab.getData().removeAll(selected);
-					
-					
+					if(!tabPane.getSelectionModel().isEmpty()) {
+						Alert alert = new Alert(AlertType.CONFIRMATION);
+		            	alert.setTitle("Delete Books");
+		            	alert.setHeaderText("Are you sure you want to delete selected books?");
+		            	ButtonType yes = new ButtonType("Yes");
+		            	ButtonType no = new ButtonType("No");
+		            	alert.getButtonTypes().setAll(yes, no);
+		            	Optional <ButtonType> result = alert.showAndWait();
+		            	if(result.get() == no) {
+		            		e.consume();
+		            	}
+						if(result.get()==yes) {
+							Tab tab = tabPane.getSelectionModel().getSelectedItem();
+							LibTab libTab = libTabs.getLibTab(tab);
+							Library lib = libTab.getLib();
+							libTab.setIsSaved(false);
+							ObservableList<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
+							lib.delete(selected);
+							libTab.getData().removeAll(selected);
+							e.consume();
+						}
+					}
 				}
 			});
 		filter.setOnAction(
