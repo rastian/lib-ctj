@@ -139,6 +139,7 @@ public class Library {
 		DocumentBuilder dBuilder;
 		size = 0;
 		try {
+			path = Files.createTempFile("new-", ".xml");
 			dBuilder = dbFactory.newDocumentBuilder();
 			doc = dBuilder.newDocument();
 			
