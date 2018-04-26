@@ -37,7 +37,7 @@ import javafx.geometry.*;
 import javafx.event.*;
 
 public class Main extends Application implements EventHandler<ActionEvent>{
-	
+	private TabIdentifier tabID = new TabIdentifier();
 	private LibTabs libTabs = new LibTabs();
 	private DictTabs dictTabs = new DictTabs();
     Button newLib = new Button("New Library");
@@ -97,6 +97,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						Library libObj = new Library();
 						LibTab libTab = new LibTab(libObj, tabPane, stage);
 				        //Tabs
+						tabID.addID(libTab.getTab(), "Lib");
 						libTabs.addLibTab(libTab.getTab(), libTab);
 						libTab.getTab().setOnClosed(new EventHandler<Event>() {
 							@Override
@@ -146,7 +147,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                @Override
 	                public void handle(final ActionEvent e) {
 	                	FileChooser chooser = new FileChooser();
-	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
+	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
 	                	chooser.getExtensionFilters().add(xml);
@@ -206,6 +207,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                        	merge.setDisable(false);
 	    	                        }
 	    	                        libTab.setIsSaved(true);
+	    	                        tabID.addID(libTab.getTab(), "Lib");
 	                			}
 	                			if(root.getTagName().equals("Dictionary")) {
 	                				Dictionary dictObj = new Dictionary(file.toPath());
@@ -239,6 +241,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                    			addB.setDisable(false);
 	    	                    		}
 	    	                    	});
+	    	                    	tabID.addID(dictTab.getTab(), "Dict");
 	                			}
 	                        } 
 	                    	catch (Exception ex) {
@@ -252,7 +255,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                @Override
 	                public void handle(final ActionEvent e) {
 	                	FileChooser chooser = new FileChooser();
-	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
+	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                	chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml"));
 	                    File file = chooser.showSaveDialog(stage);
@@ -457,7 +460,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	     	                	FileChooser chooser = new FileChooser();
 	     	                	ExtensionFilter txt = new ExtensionFilter("Text Files", "*.txt");
 	    	                	chooser.getExtensionFilters().add(txt);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() +"/test_files/books";
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 	     	                	chooser.setInitialDirectory(new File(currentPath));
 	     	                    File file = chooser.showOpenDialog(stage);
 	     	                    if (file != null) {
@@ -685,6 +688,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		    						fLibTab.setName("filtered-" + lib.getPath().getFileName());
 		    						libTabs.addLibTab(fLibTab.getTab(), fLibTab);
 		    						fLibTab.setIsSaved(false);
+		    						tabID.addID(tab, "Lib");
 		    						stageFilter.close();
 								}
 							});
@@ -718,9 +722,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	
 		            	ObservableList<Tab> tabs = tabPane.getTabs();
 		            	for(int i = 0; i < tabs.size(); i++) {
-		            		lib1.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
-		            		lib2.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
-		            		
+		            		if(tabID.getID(tabs.get(i)).equals("Lib")) {
+		            			lib1.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
+		            			lib2.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
+		            		}
 		            	}
 		            	
 		            	Label libLab1 = new Label("First Library: ");
@@ -743,6 +748,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 									libTabs.addLibTab(libTab.getTab(), libTab);
 									libTab.setName("Lib" + libTabs.getTabCount());
 									libTab.setIsSaved(false);
+									tabID.addID(libTab.getTab(), "Lib");
 									stageMerge.close();
 								}
 								if(lib1.getSelectionModel().isEmpty() || lib2.getSelectionModel().isEmpty()) {
