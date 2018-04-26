@@ -700,6 +700,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	ChoiceBox<LibChoice> lib2 = new ChoiceBox();
 		            	lib1.setConverter(new LibChoiceConverter());
 		            	lib2.setConverter(new LibChoiceConverter());
+		            	lib1.getStylesheets().add(getClass().getResource("choice.css").toExternalForm());
+		            	lib2.getStylesheets().add(getClass().getResource("choice.css").toExternalForm());
 		            	
 		            	ObservableList<Tab> tabs = tabPane.getTabs();
 		            	for(int i = 0; i < tabs.size(); i++) {
@@ -738,7 +740,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							}
 		            	});
 		            	grid.getChildren().addAll(libLab1, lib1, libLab2, lib2, submit);
-		            	Scene scene = new Scene(grid, 250, 120);
+		            	Scene scene = new Scene(grid, 300, 120);
 		                stageMerge.setScene(scene);
 		                stageMerge.show();
 		            }
