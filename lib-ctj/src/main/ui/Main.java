@@ -327,25 +327,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	TextField filePath = new TextField();
 	                	filePath.setPrefWidth(250);
 	                	
-	                	Button browse = new Button("Browse");
-	                	browse.setOnAction(new EventHandler<ActionEvent>() {
-	                		 public void handle(final ActionEvent e) {
-	     	                	FileChooser chooser = new FileChooser();
-	     	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
-	    	                	chooser.getExtensionFilters().add(xml);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() +"/test_files";
-	     	                	chooser.setInitialDirectory(new File(currentPath));
-	     	                    File file = chooser.showOpenDialog(stage);
-	     	                    if (file != null) {
-	     	                        filePath.setText(file.getPath());
-	     	                    }
-	     	                }
-	                	});
+	                	
 	                	Button submit = new Button("Submit");
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
-	    	                	if(filePath.getText().equals(null)) a.consume();
+	    	                	Dictionary dict = dictTabs.getDictTab(tabPane.getSelectionModel().getSelectedItem()).getDict();
 	    	                	if(function.isSelected()) fields.add(Dictionary.DictField.FUNCTION);
 	    	                	if(frequency.isSelected()) fields.add(Dictionary.DictField.FREQUENCY);
 	    	                	if(syllables.isSelected()) fields.add(Dictionary.DictField.SYLLABLES);
@@ -356,17 +343,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                	if(biphAve.isSelected()) fields.add(Dictionary.DictField.BIPHAVE);
 	    	                	if(pSegAve.isSelected()) fields.add(Dictionary.DictField.PSEGAVE);
 	    	                	if(neighborhood.isSelected()) fields.add(Dictionary.DictField.NEIGHBORHOOD);
-	    	                	Dictionary dict = new Dictionary(Paths.get(filePath.getText()));
-	    	                	dict.saveAsCSV(Paths.get(filePath.getText()),fields);
+	    	                	dict.saveAsCSV(dict.getPath(),fields);
 	    	                	stageCSV.close();
 	    	                	
 	    	                }
 	    	            });
-	                	HBox browser = new HBox(4, browse, filePath);
-	                	GridPane.setConstraints(browser, 0, 11);
-	                	GridPane.setConstraints(submit, 0, 12);
+	                	GridPane.setConstraints(submit, 0, 11);
 	                	
-	                	grid.getChildren().addAll(title, function, frequency, syllables, spelling, arpabet, morphemes, cognate, biphAve, pSegAve, neighborhood, browser, submit);
+	                	grid.getChildren().addAll(title, function, frequency, syllables, spelling, arpabet, morphemes, cognate, biphAve, pSegAve, neighborhood, submit);
 	                	Scene scene = new Scene(grid, 500, 500);
 	                    stageCSV.setScene(scene);
 	                    stageCSV.show();
