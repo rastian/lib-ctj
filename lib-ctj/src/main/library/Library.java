@@ -217,16 +217,41 @@ public class Library {
 			bookNode.appendChild(wordsNode);
 		}
 	}
+
 	public void delete(ObservableList<Book> selected) {
+		NodeList bookNodes = root.getElementsByTagName("Book");
+		for (Book book : selected) {
+			String title = book.getTitle();
+			String isbn = book.getIsbn();
+			System.out.println("Deleting '" + title + "' '" +  isbn + "'");
+			for (int i = 0; i < bookNodes.getLength(); ++i) {
+				Element bookNode = (Element) bookNodes.item(i);
+				if (bookNode.getAttribute("title").trim().equals(title) && bookNode.getAttribute("isbn13").trim().equals(isbn)) {
+					System.out.println("Book Node: '" + bookNode.getAttribute("title") + "' '" + bookNode.getAttribute("isbn13") + "'");
+					root.removeChild((Node)bookNode);
+				}
+			}
+		}
 		books.removeAll(selected);
-		size-=selected.size();
+		size -= selected.size();
+		root.setAttribute("count", Integer.toString(size));
+		
 	}
+
 	public Book delete(int index) {
 		if (index <= size) {
 			// Find book to be deleted
 			Book b = books.get(index);
 			books.remove(index);
 			--size;
+			NodeList bookNodes = root.getElementsByTagName("Book");
+			for (int i = 0; i < bookNodes.getLength(); ++i) {
+				Element bookNode = (Element) bookNodes.item(i);
+				if (bookNode.getAttribute("title").trim().equals(b.getTitle()) && bookNode.getAttribute("isbn13").trim().equals(b.getIsbn())) {
+					root.removeChild((Node)bookNode);
+				}
+			}
+			root.setAttribute("count", Integer.toString(size));
 			return b;
 		}
 		else {
