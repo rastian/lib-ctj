@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,6 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.geometry.*;
 import javafx.event.*;
@@ -63,10 +65,22 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		//Open/Save File Stuff
 		final FileChooser fileChooser = new FileChooser();
 		Stage stage = new Stage(); //For Open/Save File
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent e) {
-				e.consume();
+				if(!libTabs.isSaved()) {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+	            	alert.setTitle("Unsaved Libraries");
+	            	alert.setHeaderText("You have unsaved libraries. Do you want to leave without saving?");
+	            	ButtonType yes = new ButtonType("Yes");
+	            	ButtonType no = new ButtonType("No");
+	            	alert.getButtonTypes().setAll(yes, no);
+	            	Optional <ButtonType> result = alert.showAndWait();
+	            	if(result.get() == no) {
+	            		e.consume();
+	            	}
+				}
+				
 			}
 		});
 		FileChooser openLD = new FileChooser(); 
@@ -512,12 +526,9 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 					LibTab libTab = libTabs.getLibTab(tab);
 					Library lib = libTab.getLib();
 					libTab.setIsSaved(false);
-					for(int i = 0; i < lib.size(); i++) {
-						if(libTab.getLibTable().getSelectionModel().getSelectedItems().contains(lib.getBook(i))) {
-							libTab.delBook(i);
-							i = 0;
-						}
-					}
+					ObservableList<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
+					lib.delete(selected);
+					libTab.getData().removeAll(selected);
 					
 					
 				}

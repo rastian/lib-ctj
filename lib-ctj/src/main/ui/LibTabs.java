@@ -33,4 +33,12 @@ public class LibTabs {
 	public HashMap<Tab, LibTab> getlibMap(){
 		return libMap;
 	}
+	public boolean isSaved() {
+		for(HashMap.Entry<Tab, LibTab> entry : libMap.entrySet()) {
+			if(!entry.getValue().getIsSaved()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

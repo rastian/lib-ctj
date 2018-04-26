@@ -151,4 +151,7 @@ public class LibTab {
 	public void setIsSaved(boolean bool) {
 		isSaved = bool;
 	}
+	public ObservableList<Book> getData(){
+		return data;
+	}
 }

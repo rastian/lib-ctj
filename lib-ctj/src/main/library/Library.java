@@ -25,7 +25,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.xml.sax.SAXException; 
+import org.xml.sax.SAXException;
+
+import javafx.collections.ObservableList; 
 
 public class Library {
 	private Path path;
@@ -214,7 +216,10 @@ public class Library {
 			bookNode.appendChild(wordsNode);
 		}
 	}
-	
+	public void delete(ObservableList<Book> selected) {
+		books.removeAll(selected);
+		size-=selected.size();
+	}
 	public Book delete(int index) {
 		if (index <= size) {
 			// Find book to be deleted
