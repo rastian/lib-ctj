@@ -1,9 +1,8 @@
-package main.library;
+package main.ui;
 
 import java.util.HashMap;
 
 import javafx.scene.control.Tab;
-import main.ui.LibTab;
 
 public class TabIdentifier {
 	private HashMap<Tab, String> tabIDs;
