@@ -191,8 +191,8 @@ public class Dictionary {
 				bw.append(fields.contains(DictField.PSEGAVE) ? Double.toString(e.getPSegAve()) + "," : "");
 				bw.append(fields.contains(DictField.BIPHAVE) ? Double.toString(e.getBiphAve()) + "," : "");
 				bw.append(fields.contains(DictField.COGNATE) ? (e.getCognate() != null ? e.getCognate() : "") + "," : "");
-				bw.append(Integer.toString(e.getNeighborhood().length)).append(",");
 				if (fields.contains(DictField.NEIGHBORHOOD)) {
+					bw.append(Integer.toString(e.getNeighborhood().length)).append(",");
 					for (String n : e.getNeighborhood()) {
 						bw.append(n).append(",");
 					}
