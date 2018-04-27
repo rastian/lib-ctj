@@ -297,6 +297,19 @@ public class Library {
 		return newLib;
 	}
 	
+	public static Library merge(List<Library> libs) {
+		Library newLib = new Library();
+		for (Library lib : libs) {
+			for (int i = 0; i < lib.size(); ++i) {
+				Book b = lib.getBook(i);
+				if (!newLib.hasDuplicate(b)) {
+					newLib.addBook(b);
+				}
+			}
+		}
+		return newLib;
+	}
+	
 	public Library filter(HashMap<BookFields, Object> filterMap) {
 		try {
 			Library fLib = new Library();
