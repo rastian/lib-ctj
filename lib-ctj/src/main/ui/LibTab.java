@@ -58,7 +58,7 @@ public class LibTab {
                 	Optional <ButtonType> result = alert.showAndWait();
                 	if(result.get() == yes) {
                 		FileChooser chooser = new FileChooser();
-	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString()+"/test_files";
+	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                    File file = chooser.showSaveDialog(stage);
 	                    libObj.save(file.toPath());
@@ -110,10 +110,6 @@ public class LibTab {
 			isSaved = false;
 		}
 	}
-	public void delBook(int index) {
-		libObj.delete(index);
-		data.remove(index);
-	}
 	public String getName() {
 		return name;
 	}
@@ -133,18 +129,7 @@ public class LibTab {
 	public Library getLib() {
 		return libObj;
 	}
-	public void setLib(Library newLib) {
-		while(libObj.size()> 0) {
-			libObj.delete(0);
-		}
-		for(int i = 0; i < newLib.size(); i++) {
-			libObj.addBook(newLib.getBook(i));
-		}
-		data.clear();
-		for(int i = 0; i < libObj.size(); i++) {
-			data.add(libObj.getBook(i));
-		}
-	}
+	
 	public boolean getIsSaved() {
 		return isSaved;
 	}

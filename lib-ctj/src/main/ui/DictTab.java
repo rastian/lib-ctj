@@ -33,6 +33,7 @@ public class DictTab {
 		        
 		    }
 		});
+		dictObj = dict;
 		dictData.setEditable(true);
 		for(int i = 0; i < dict.getElements().size(); i++) {
 			data.add(dict.getElements().get(i));
