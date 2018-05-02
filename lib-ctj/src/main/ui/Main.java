@@ -626,6 +626,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							submit.setOnAction(new EventHandler<ActionEvent>() {
 								@Override
 								public void handle(final ActionEvent e) {
+									Library filteredLib = new Library();
 									String titleInputTxt = titleInput.getText().trim();
 									if (!titleInputTxt.isEmpty()) {
 										filterMap.put(Library.BookFields.TITLE,
@@ -639,7 +640,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 									String ageInputTxt = ageInput.getText().trim();
 									if (!ageInputTxt.isEmpty()) {
 										filterMap.put(Library.BookFields.AGE, 
-											new Object[] {Library.FilterFuncs.CONTAINS, ageInputTxt});
+											new Object[] {Library.FilterFuncs.EQUALS, ageInputTxt});
 									}
 									String isbnInputTxt = isbnInput.getText().trim();
 									if (!isbnInputTxt.isEmpty()) {
