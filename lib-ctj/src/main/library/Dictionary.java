@@ -4,8 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +32,8 @@ public class Dictionary {
 	private Element root;
 	
 	public enum DictField {
-		FUNCTION, FREQUENCY, SYLLABLES, SPELLING, ARPABET, MORPHEMES,
-		COGNATE, BIPHAVE, PSEGAVE, NEIGHBORHOOD
+		SPELLING, ARPABET, SYLLABLES, FREQUENCY, FUNCTION, 
+		MORPHEMES, PSEGAVE, BIPHAVE, COGNATE, NEIGHBORHOOD
 	}
 	
 	public Dictionary(Path dictXMLPath) {
@@ -122,21 +122,40 @@ public class Dictionary {
 			e.printStackTrace();
 		}	
 	}
-	
+
 	public Dictionary(Library lib) {
+		final Path userDir = Paths.get(System.getProperty("user.home")).resolve("lib-ctj");
 		try {
-			// Create temporary library xml file
-			Path tmpLibPath = Files.createTempFile("tmp-lib", ".xml");
-			lib.save(tmpLibPath);
-			File tmpLibFile = tmpLibPath.toFile();
-			tmpLibFile.deleteOnExit();
-			
+			try {
+				String newDictName = "dict-" + lib.getPath().getFileName().toString();
+				String newDictPath = lib.getPath().getParent().resolve(newDictName).toString();
+				ProcessBuilder pb = new ProcessBuilder(
+						// the executable
+						userDir.resolve("build_dictionary.exe").toString(), 
+						// new dict name
+						newDictPath,
+						// the cmu dict
+						"-cmu", userDir.resolve("cmu-dict-0.0.7.txt").toString(),
+						// the library
+						"-lit", lib.getPath().toAbsolutePath().toString(),
+						// the master dictionary
+						"-old", userDir.resolve("dictionary-pk2g4-Aug-3rd-incomplete.xml").toString()
+						);
+				pb.redirectErrorStream(true);
+				System.out.println(newDictName + " generating...");
+				Process p = pb.start();
+				p.waitFor();
+				System.out.println(newDictName + " generated");
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int save(Path path) {
 		try {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -165,7 +184,6 @@ public class Dictionary {
 			FileWriter fw = new FileWriter(path.toString().replaceAll(".xml", ".csv"));
 			BufferedWriter bw = new BufferedWriter(fw);
 			
-			
 			// Write Header Columns
 			StringBuffer header = new StringBuffer(",");
 			header.append(fields.contains(DictField.ARPABET) ? "ARPABET," : "");
@@ -187,7 +205,7 @@ public class Dictionary {
 				bw.append(fields.contains(DictField.SYLLABLES) ? Integer.toString(e.getSyllables()) + "," : "");
 				bw.append(fields.contains(DictField.FREQUENCY) ? Integer.toString(e.getFrequency()) + "," : "");
 				bw.append(fields.contains(DictField.FUNCTION) ? (e.isFunction() ? "TRUE" : "FALSE") + "," : "");
-				bw.append(fields.contains(DictField.MORPHEMES) ? e.getMorphemes() : "");
+				bw.append(fields.contains(DictField.MORPHEMES) ? e.getMorphemes() + ",": "");
 				bw.append(fields.contains(DictField.PSEGAVE) ? Double.toString(e.getPSegAve()) + "," : "");
 				bw.append(fields.contains(DictField.BIPHAVE) ? Double.toString(e.getBiphAve()) + "," : "");
 				bw.append(fields.contains(DictField.COGNATE) ? (e.getCognate() != null ? e.getCognate() : "") + "," : "");
@@ -211,15 +229,9 @@ public class Dictionary {
 	
 	public int saveAsCSV(Path path) {
 		List<DictField> fields = new ArrayList<>();
-		fields.add(DictField.ARPABET);
-		fields.add(DictField.SYLLABLES);
-		fields.add(DictField.FREQUENCY);
-		fields.add(DictField.FUNCTION);
-		fields.add(DictField.MORPHEMES);
-		fields.add(DictField.PSEGAVE);
-		fields.add(DictField.BIPHAVE);
-		fields.add(DictField.COGNATE);
-		fields.add(DictField.NEIGHBORHOOD);
+		for (DictField field : DictField.values()) {
+			fields.add(field);
+		}
 		return saveAsCSV(path, fields);
 	}
 	
