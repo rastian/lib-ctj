@@ -30,6 +30,7 @@ import org.xml.sax.SAXException;
 import javafx.collections.ObservableList; 
 
 public class Library {
+	private String name;
 	private Path path;
 	private List<Book> books;
 	private int size;
@@ -452,7 +453,10 @@ public class Library {
 	public Path getPath() { return path; }
 
 	public Book getBook(int index) { return books.get(index); }
-
+	
+	public String getName() {return name; }
+	public void setName(String name) { this.name = name; }
+	
 	public boolean isEmpty() {
 		return size == 0;
 	}

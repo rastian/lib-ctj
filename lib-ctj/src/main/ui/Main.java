@@ -105,7 +105,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						    {
 								if(libTabs.getTabCount()==1)
 									filter.setDisable(true);
-								if(libTabs.getTabCount() == 2)
 									merge.setDisable(true);
 								libTabs.deleteLibTab(libTab.getTab(), libTab);
 						    }
@@ -119,8 +118,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                         genD.setDisable(false);
                         save.setDisable(false);
                         filter.setDisable(false);
-                        if(libTabs.getTabCount()>=2)
-                        	merge.setDisable(false);
+                        merge.setDisable(false);
 						tab.setOnSelectionChanged(event -> {
                             if (tab.isSelected()) {
                                 saveCSV.setDisable(true);
@@ -128,17 +126,13 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                                 delB.setDisable(false);
                                 genD.setDisable(false);
                                 save.setDisable(false);
+                            	merge.setDisable(false);
                                 if(libTabs.getTabCount()>=1)
                                 	filter.setDisable(false);
-                                if(libTabs.getTabCount()>=2)
-                                	merge.setDisable(false);
                             }
                         });
 						libTab.setName("Lib" + libTabs.getTabCount());
-						filter.setDisable(false);
-						if(libTabs.getTabCount()==2) {
-							merge.setDisable(false);
-						}
+						libObj.setName(libTab.getName());
 					}
 				});
 		
@@ -167,6 +161,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                				Library libObj = new Library(file.toPath());
 	    	                        LibTab libTab = new LibTab(libObj, tabPane, stage);
 	    	                        libTab.setName(libObj.getPath().getFileName().toString());
+	    	                        libObj.setName(libTab.getName());
 	    	                        libTabs.addLibTab(libTab.getTab(), libTab);
 	    	                        Tab tab = libTab.getTab();
 	    	                        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
@@ -177,8 +172,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                                genD.setDisable(false);
 	                                save.setDisable(false);
 	                                filter.setDisable(false);
-	                                if(libTabs.getTabCount()>=2)
-	                                	merge.setDisable(false);
+                                	merge.setDisable(false);
 	    	                        tab.setOnSelectionChanged(event -> {
 	    	                            if (tab.isSelected()) {
 	    	                                saveCSV.setDisable(true);
@@ -187,8 +181,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                                genD.setDisable(false);
 	    	                                save.setDisable(false);
 	    	                                filter.setDisable(false);
-	    	                                if(libTabs.getTabCount()>=2)
-	    	                                	merge.setDisable(false);
+	    	                                merge.setDisable(false);
 	    	                            }
 	    	                        });
 	    	                        tab.setOnClosed(new EventHandler<Event>() {
@@ -197,15 +190,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    							    {
 	    									if(libTabs.getTabCount()==1)
 	    										filter.setDisable(true);
-	    									if(libTabs.getTabCount() == 2)
 	    										merge.setDisable(true);
 	    									libTabs.deleteLibTab(libTab.getTab(), libTab);
 	    							    }
 	    							});
 	    	                        filter.setDisable(false);
-	    	                        if(libTabs.getTabCount()==2) {
-	    	                        	merge.setDisable(false);
-	    	                        }
+	    	                        merge.setDisable(false);
 	    	                        libTab.setIsSaved(true);
 	    	                        tabID.addID(libTab.getTab(), "Lib");
 	                			}
@@ -264,6 +254,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    Library libObj = libTab.getLib();
 	                    libObj.save(file.toPath());
 	                    libTab.setName(file.getName());
+	                    libObj.setName(libTab.getName());
 	                    libTab.setIsSaved(true);
 	                    
 	                    
@@ -478,6 +469,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		    							    }
 		    							});
 		    							libTab.setName("Lib" + libTabs.getTabCount());
+		    							libObj.setName(libTab.getName());
 	    	                		}
 		    	                	if(!tabPane.getTabs().isEmpty()) {
 		    	                		if(completeButton.isSelected()) {
@@ -670,15 +662,16 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 									Library filteredLibrary = lib.filter(filterMap);
 		    						LibTab fLibTab = new LibTab(filteredLibrary, tabPane, stage);
 		    						fLibTab.setName("filtered-" + lib.getPath().getFileName());
+		    						fLibTab.getLib().setName(fLibTab.getName());
 		    						libTabs.addLibTab(fLibTab.getTab(), fLibTab);
 		    						fLibTab.setIsSaved(false);
-		    						tabID.addID(tab, "Lib");
+		    						tabID.addID(fLibTab.getTab(), "Lib");
 		    						stageFilter.close();
 								}
 							});
 						
 							grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueEqual, uniqueGreater, uniqueLess, totalLab, totalEqual, totalGreater, totalLess, genreLab, genreInput, completeLab, completeButtons, submit);
-							Scene scene = new Scene(grid, 325, 500);
+							Scene scene = new Scene(grid, 350, 500);
 							stageFilter.setScene(scene);
 							stageFilter.show();
 						}
@@ -697,53 +690,58 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	grid.setVgap(8);
 		            	grid.setHgap(10);
 		            	
-		            	ChoiceBox<LibChoice> lib1 = new ChoiceBox();
-		            	ChoiceBox<LibChoice> lib2 = new ChoiceBox();
-		            	lib1.setConverter(new LibChoiceConverter());
-		            	lib2.setConverter(new LibChoiceConverter());
-		            	lib1.getStylesheets().add(getClass().getResource("choice.css").toExternalForm());
-		            	lib2.getStylesheets().add(getClass().getResource("choice.css").toExternalForm());
+		            	
 		            	
 		            	ObservableList<Tab> tabs = tabPane.getTabs();
+		            	ObservableList<Library> data =
+		            	        FXCollections.observableArrayList(
+		            	        	
+		            	            
+		            	        );
+
+		            	MultiSelectTableView<Library> libs = new MultiSelectTableView<Library>();
+		        		TableColumn<Library, String> libCol = new TableColumn<>("Library");
+		                libCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		            	for(int i = 0; i < tabs.size(); i++) {
 		            		if(tabID.getID(tabs.get(i)).equals("Lib")) {
-		            			lib1.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
-		            			lib2.getItems().add(new LibChoice(libTabs.getLibTab(tabs.get(i)).getLib(), libTabs.getLibTab(tabs.get(i)).getName()));
+		            			data.add(libTabs.getLibTab(tabs.get(i)).getLib());
 		            		}
 		            	}
-		            	
-		            	Label libLab1 = new Label("First Library: ");
+		            	libs.setItems(data);
+		            	libs.getColumns().add(libCol);
+		            	Label libLab1 = new Label("Select Libraries to Merge:");
 	                	GridPane.setConstraints(libLab1, 0, 0);
-		            	GridPane.setConstraints(lib1, 1, 0);
 		            	
-		            	Label libLab2 = new Label("Library to Merge with: ");
-		            	GridPane.setConstraints(libLab2, 0,1);
-		            	GridPane.setConstraints(lib2, 1, 1);
+		            	GridPane.setConstraints(libs, 1, 1);
 		            	
 		            	Button submit = new Button("Merge");
 		            	GridPane.setConstraints(submit, 0, 2);
 		            	submit.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(final ActionEvent e) {
-								if(!lib1.getSelectionModel().isEmpty() || !lib2.getSelectionModel().isEmpty()) {
-									Library newLib = getChoice(lib1).merge(getChoice(lib2));
-				            		LibTab libTab = new LibTab(newLib, tabPane, stage);
-							        //Tabs
-									libTabs.addLibTab(libTab.getTab(), libTab);
-									libTab.setName("Lib" + libTabs.getTabCount());
-									libTab.setIsSaved(false);
-									tabID.addID(libTab.getTab(), "Lib");
-									stageMerge.close();
-								}
-								if(lib1.getSelectionModel().isEmpty() || lib2.getSelectionModel().isEmpty()) {
+								if(libs.getSelectionModel().isEmpty()) {
 									Alert alert = new Alert(Alert.AlertType.ERROR);
 	    	                        alert.setHeaderText("Libraries not selected");
 	    	                        alert.showAndWait();
 								}
+								else {
+									Library temp = new Library();
+									Library newLib = temp.merge(libs.getSelectionModel().getSelectedItems());
+									LibTab libTab = new LibTab(newLib, tabPane, stage);
+									//Tabs
+									libTabs.addLibTab(libTab.getTab(), libTab);
+									libTab.setName("Lib" + libTabs.getTabCount());
+									libTab.getLib().setName(libTab.getName());
+									libTab.setIsSaved(false);
+									tabID.addID(libTab.getTab(), "Lib");
+									stageMerge.close();
+								}
+								
+								
 							}
 		            	});
-		            	grid.getChildren().addAll(libLab1, lib1, libLab2, lib2, submit);
-		            	Scene scene = new Scene(grid, 300, 120);
+		            	grid.getChildren().addAll(libLab1, libs, submit);
+		            	Scene scene = new Scene(grid, 500, 400);
 		                stageMerge.setScene(scene);
 		                stageMerge.show();
 		            }
