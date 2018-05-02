@@ -86,7 +86,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		FileChooser openLD = new FileChooser(); 
 		openLD.setTitle("Select Library or Dictionary XML File to Open");
 		filter.disableProperty().set(libTabs.isEmpty());
-		merge.disableProperty().set(libTabs.getTabCount() < 2);
+		merge.disableProperty().set(libTabs.isEmpty());
 		saveCSV.setDisable(true);
 		//Button Actions
 		newLib.setOnAction( 
