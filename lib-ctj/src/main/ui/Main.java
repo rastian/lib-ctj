@@ -663,32 +663,32 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 									String uniqueEqualTxt = uniqueEqualInput.getText().trim();
 									if (!uniqueEqualTxt.isEmpty()) {
 										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.EQUALS, genreInputTxt});	
+		    								new Object[] {Library.FilterFuncs.EQUALS, Integer.parseInt(uniqueEqualTxt)});	
 									}
 									String uniqueGreaterTxt = uniqueGreaterInput.getText().trim();
 									if (!uniqueGreaterTxt.isEmpty()) {
 										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.GREATER_THAN, genreInputTxt});	
+		    								new Object[] {Library.FilterFuncs.GREATER_THAN, Integer.parseInt(uniqueGreaterTxt)});	
 									}
 									String uniqueLessTxt = uniqueLessInput.getText().trim();
 									if (!uniqueLessTxt.isEmpty()) {
 										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.LESS_THAN, genreInputTxt});	
+		    								new Object[] {Library.FilterFuncs.LESS_THAN, Integer.parseInt(uniqueLessTxt)});	
 									}
 									String totalEqualTxt = totalEqualInput.getText().trim();
 									if (!totalEqualTxt.isEmpty()) {
 										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.EQUALS, genreInputTxt});	
+		    								new Object[] {Library.FilterFuncs.EQUALS, Integer.parseInt(totalEqualTxt)});	
 									}
 									String totalGreaterTxt = totalGreaterInput.getText().trim();
 									if (!totalGreaterTxt.isEmpty()) {
 										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.GREATER_THAN, genreInputTxt});	
+		    								new Object[] {Library.FilterFuncs.GREATER_THAN, Integer.parseInt(totalGreaterTxt)});	
 									}
 									String totalLessTxt = totalLessInput.getText().trim();
 									if (!totalLessTxt.isEmpty()) {
 										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.LESS_THAN, genreInputTxt});	
+		    								new Object[] {Library.FilterFuncs.LESS_THAN, Integer.parseInt(totalLessTxt)});	
 									}
 									Library filteredLibrary = lib.filter(filterMap);
 		    						LibTab fLibTab = new LibTab(filteredLibrary, tabPane, stage);
