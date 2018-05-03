@@ -88,6 +88,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		filter.disableProperty().set(libTabs.isEmpty());
 		merge.disableProperty().set(libTabs.isEmpty());
 		saveCSV.setDisable(true);
+		genD.setDisable(true);
 		//Button Actions
 		newLib.setOnAction( 
 				new EventHandler<ActionEvent>() {
@@ -115,7 +116,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						saveCSV.setDisable(true);
                         addB.setDisable(false);
                         delB.setDisable(false);
-                        genD.setDisable(false);
+                        genD.setDisable(true);
                         save.setDisable(false);
                         filter.setDisable(false);
                         merge.setDisable(false);
@@ -124,11 +125,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                                 saveCSV.setDisable(true);
                                 addB.setDisable(false);
                                 delB.setDisable(false);
-                                genD.setDisable(false);
                                 save.setDisable(false);
                             	merge.setDisable(false);
                                 if(libTabs.getTabCount()>=1)
                                 	filter.setDisable(false);
+                                if(libTab.getIsSaved()) {
+                                	genD.setDisable(false);
+                                }
+                                else genD.setDisable(true);
                             }
                         });
 						libTab.setName("Lib" + libTabs.getTabCount());
@@ -257,7 +261,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    libObj.setName(libTab.getName());
 	                    libObj.setPath(file.toPath());
 	                    libTab.setIsSaved(true);
-	                    
+	                    genD.setDisable(false);
 	                    
 	                }
 	            });
@@ -785,12 +789,30 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				try {
 					if (libTabs.getTabCount() > 0) {
 						Tab tab = tabPane.getSelectionModel().getSelectedItem();
+						tab.setOnSelectionChanged(event -> {
+                            if (tab.isSelected()) {
+                                saveCSV.setDisable(false);
+                                genD.setDisable(true);
+                                addB.setDisable(true);
+                                delB.setDisable(true);
+                                filter.setDisable(true);
+                                merge.setDisable(true);
+                                save.setDisable(true);
+                            }
+                        });
+                    	tab.setOnClosed(event -> {
+                    		if(dictTabs.getTabCount()==0) {
+                    			save.setDisable(false);
+                    			addB.setDisable(false);
+                    		}
+                    	});
 						LibTab libTab = libTabs.getLibTab(tab);
 						Library lib = libTab.getLib();
 						Dictionary newDict = Dictionary.Dictionary(lib);
 						DictTab newDictTab = new DictTab(newDict, tabPane);
 						newDictTab.setName(newDict.getPath().getFileName().toString());
 						dictTabs.addDictTab(newDictTab.getTab(), newDictTab);
+						
 					}
 				}
 				catch(Exception ex){
