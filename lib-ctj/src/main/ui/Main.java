@@ -255,6 +255,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    libObj.save(file.toPath());
 	                    libTab.setName(file.getName());
 	                    libObj.setName(libTab.getName());
+	                    libObj.setPath(file.toPath());
 	                    libTab.setIsSaved(true);
 	                    
 	                    
