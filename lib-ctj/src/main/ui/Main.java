@@ -660,6 +660,36 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 										filterMap.put(Library.BookFields.COMPLETE, 
 		    								new Object[] {Library.FilterFuncs.EQUALS, false});
 									}
+									String uniqueEqualTxt = uniqueEqualInput.getText().trim();
+									if (!uniqueEqualTxt.isEmpty()) {
+										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
+		    								new Object[] {Library.FilterFuncs.EQUALS, genreInputTxt});	
+									}
+									String uniqueGreaterTxt = uniqueGreaterInput.getText().trim();
+									if (!uniqueGreaterTxt.isEmpty()) {
+										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
+		    								new Object[] {Library.FilterFuncs.GREATER_THAN, genreInputTxt});	
+									}
+									String uniqueLessTxt = uniqueLessInput.getText().trim();
+									if (!uniqueLessTxt.isEmpty()) {
+										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
+		    								new Object[] {Library.FilterFuncs.LESS_THAN, genreInputTxt});	
+									}
+									String totalEqualTxt = totalEqualInput.getText().trim();
+									if (!totalEqualTxt.isEmpty()) {
+										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
+		    								new Object[] {Library.FilterFuncs.EQUALS, genreInputTxt});	
+									}
+									String totalGreaterTxt = totalGreaterInput.getText().trim();
+									if (!totalGreaterTxt.isEmpty()) {
+										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
+		    								new Object[] {Library.FilterFuncs.GREATER_THAN, genreInputTxt});	
+									}
+									String totalLessTxt = totalLessInput.getText().trim();
+									if (!totalLessTxt.isEmpty()) {
+										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
+		    								new Object[] {Library.FilterFuncs.LESS_THAN, genreInputTxt});	
+									}
 									Library filteredLibrary = lib.filter(filterMap);
 		    						LibTab fLibTab = new LibTab(filteredLibrary, tabPane, stage);
 		    						fLibTab.setName("filtered-" + lib.getPath().getFileName());
