@@ -342,7 +342,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	GridPane.setConstraints(submit, 0, 11);
 	                	
 	                	grid.getChildren().addAll(title, function, frequency, syllables, spelling, arpabet, morphemes, cognate, biphAve, pSegAve, neighborhood, submit);
-	                	Scene scene = new Scene(grid, 500, 500);
+	                	Scene scene = new Scene(grid, 350, 350);
 	                    stageCSV.setScene(scene);
 	                    stageCSV.show();
 					}
@@ -713,7 +713,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	Label libLab1 = new Label("Select Libraries to Merge:");
 	                	GridPane.setConstraints(libLab1, 0, 0);
 		            	
-		            	GridPane.setConstraints(libs, 1, 1);
+		            	GridPane.setConstraints(libs, 0, 1);
 		            	
 		            	Button submit = new Button("Merge");
 		            	GridPane.setConstraints(submit, 0, 2);
@@ -742,7 +742,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							}
 		            	});
 		            	grid.getChildren().addAll(libLab1, libs, submit);
-		            	Scene scene = new Scene(grid, 500, 400);
+		            	Scene scene = new Scene(grid, 300, 400);
 		                stageMerge.setScene(scene);
 		                stageMerge.show();
 		            }
