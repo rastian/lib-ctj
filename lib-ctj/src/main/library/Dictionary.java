@@ -123,17 +123,17 @@ public class Dictionary {
 		}	
 	}
 
-	public Dictionary(Library lib) {
+	public static Dictionary Dictionary(Library lib) {
 		final Path userDir = Paths.get(System.getProperty("user.home")).resolve("lib-ctj");
 		try {
 			try {
 				String newDictName = "dict-" + lib.getPath().getFileName().toString();
-				String newDictPath = lib.getPath().getParent().resolve(newDictName).toString();
+				Path newDictPath = lib.getPath().getParent().resolve(newDictName);
 				ProcessBuilder pb = new ProcessBuilder(
 						// the executable
 						userDir.resolve("build_dictionary.exe").toString(), 
 						// new dict name
-						newDictPath,
+						newDictPath.toAbsolutePath().toString(),
 						// the cmu dict
 						"-cmu", userDir.resolve("cmu-dict-0.0.7.txt").toString(),
 						// the library
@@ -146,6 +146,7 @@ public class Dictionary {
 				Process p = pb.start();
 				p.waitFor();
 				System.out.println(newDictName + " generated");
+				return new Dictionary(newDictPath);
 			}
 			catch (InterruptedException e) {
 				e.printStackTrace();
@@ -154,6 +155,7 @@ public class Dictionary {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	public int save(Path path) {

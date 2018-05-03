@@ -751,21 +751,18 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			@Override
 			public void handle(final ActionEvent e) {
 				try {
-					if(libTabs.getTabCount()!=0) {
-						String o = " -old old.xml ";
-						LibTab libTab = libTabs.getLibTab(tabPane.getSelectionModel().getSelectedItem());
-						
-						String l = " -lit " + libTab.getLib().getPath().toString() +" ";
-						String c = " -cmu cmu.txt ";
-						Process p = Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"build_dictionary.exe"+ o + c + l);
-						
+					if (libTabs.getTabCount() > 0) {
+						Tab tab = tabPane.getSelectionModel().getSelectedItem();
+						LibTab libTab = libTabs.getLibTab(tab);
+						Library lib = libTab.getLib();
+						Dictionary newDict = Dictionary.Dictionary(lib);
+						DictTab newDictTab = new DictTab(newDict, tabPane);
+						newDictTab.setName(newDict.getPath().getFileName().toString());
+						dictTabs.addDictTab(newDictTab.getTab(), newDictTab);
 					}
-					
-					
-					
 				}
 				catch(Exception ex){
-					System.out.println(ex);
+					ex.printStackTrace();
 				}
 			}
 		});
