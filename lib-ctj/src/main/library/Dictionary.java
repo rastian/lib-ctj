@@ -123,39 +123,46 @@ public class Dictionary {
 		}	
 	}
 
-	public static Dictionary Dictionary(Library lib) {
+	public static Dictionary Dictionary(Library lib, Path newDictPath, Path cmuPath, Path masterDictPath) {
 		final Path userDir = Paths.get(System.getProperty("user.home")).resolve("lib-ctj");
 		try {
-			try {
-				String newDictName = "dict-" + lib.getPath().getFileName().toString();
-				Path newDictPath = lib.getPath().getParent().resolve(newDictName);
-				ProcessBuilder pb = new ProcessBuilder(
-						// the executable
-						userDir.resolve("build_dictionary.exe").toString(), 
-						// new dict name
-						newDictPath.toAbsolutePath().toString(),
-						// the cmu dict
-						"-cmu", userDir.resolve("cmu-dict-0.0.7.txt").toString(),
-						// the library
-						"-lit", lib.getPath().toAbsolutePath().toString(),
-						// the master dictionary
-						"-old", userDir.resolve("dictionary-pk2g4-Aug-3rd-incomplete.xml").toString()
+			String buildDictExePathStr = userDir.resolve("build_dictionary.exe").toString();
+			String newDictPathStr = newDictPath.toAbsolutePath().toString();
+			String cmuPathStr = cmuPath.toAbsolutePath().toString();
+			String libPathStr = lib.getPath().toAbsolutePath().toString();
+			ProcessBuilder pb;
+			if (masterDictPath == null) {
+				pb = new ProcessBuilder(
+						buildDictExePathStr,
+						newDictPathStr,
+						"-cmu", cmuPathStr,
+						"-lit", libPathStr
 						);
-				pb.redirectErrorStream(true);
-				System.out.println(newDictName + " generating...");
-				Process p = pb.start();
-				p.waitFor();
-				System.out.println(newDictName + " generated");
-				return new Dictionary(newDictPath);
 			}
-			catch (InterruptedException e) {
-				e.printStackTrace();
+			else {
+				pb = new ProcessBuilder(
+						buildDictExePathStr,
+						newDictPathStr,
+						"-cmu", cmuPathStr,
+						"-lit", libPathStr,
+						"-old", masterDictPath.toAbsolutePath().toString()
+						);
 			}
+			pb.redirectErrorStream(true);
+			System.out.println(newDictPathStr + " generating...");
+			Process p = pb.start();
+			p.waitFor();
+			System.out.println(newDictPathStr + " generated");
+			return new Dictionary(newDictPath);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		catch (InterruptedException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public int save(Path path) {
