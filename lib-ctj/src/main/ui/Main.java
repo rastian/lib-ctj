@@ -605,17 +605,17 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							Label totalLab = new Label("Total Words: ");
 							GridPane.setConstraints(totalLab, 0, 8);
 							
-							Label totalGreaterLab = new Label("> ");
+							Label totalGreaterLab = new Label(">=");
 							TextField totalGreaterInput = new TextField();
 							HBox totalGreater = new HBox(4, totalGreaterLab, totalGreaterInput);
-							GridPane.setConstraints(totalGreater, 1, 9);
+							GridPane.setConstraints(totalGreater, 1, 8);
 							
-							Label totalLessLab = new Label("< ");
+							Label totalLessLab = new Label("<=");
 							TextField totalLessInput = new TextField();
 							HBox totalLess = new HBox(4, totalLessLab, totalLessInput);
-							GridPane.setConstraints(totalLess, 1, 10);
+							GridPane.setConstraints(totalLess, 1, 9);
 							
-							GridPane.setConstraints(submit, 1, 11);
+							GridPane.setConstraints(submit, 1, 10);
 							isbnInput.setPrefWidth(200);
 							
 							submit.setOnAction(new EventHandler<ActionEvent>() {
