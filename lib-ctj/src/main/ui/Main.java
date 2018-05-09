@@ -592,40 +592,30 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							Label uniqueLab = new Label("Unique Words: ");
 							GridPane.setConstraints(uniqueLab, 0, 6);
 							
-							Label uniqueEqualLab = new Label("= ");
-							TextField uniqueEqualInput = new TextField();
-							HBox uniqueEqual = new HBox(4, uniqueEqualLab, uniqueEqualInput);
-							GridPane.setConstraints(uniqueEqual, 1, 6);
-							
-							Label uniqueGreaterLab = new Label("> ");
+							Label uniqueGreaterLab = new Label(">=");
 							TextField uniqueGreaterInput = new TextField();
 							HBox uniqueGreater = new HBox(4, uniqueGreaterLab, uniqueGreaterInput);
-							GridPane.setConstraints(uniqueGreater, 1, 7);
+							GridPane.setConstraints(uniqueGreater, 1, 6);
 							
-							Label uniqueLessLab = new Label("< ");
+							Label uniqueLessLab = new Label("<=");
 							TextField uniqueLessInput = new TextField();
 							HBox uniqueLess = new HBox(4, uniqueLessLab, uniqueLessInput);
-							GridPane.setConstraints(uniqueLess, 1, 8);
+							GridPane.setConstraints(uniqueLess, 1, 7);
 							
 							Label totalLab = new Label("Total Words: ");
-							GridPane.setConstraints(totalLab, 0, 9);
-							
-							Label totalEqualLab = new Label("= ");
-							TextField totalEqualInput = new TextField();
-							HBox totalEqual = new HBox(4, totalEqualLab, totalEqualInput);
-							GridPane.setConstraints(totalEqual, 1, 9);
+							GridPane.setConstraints(totalLab, 0, 8);
 							
 							Label totalGreaterLab = new Label("> ");
 							TextField totalGreaterInput = new TextField();
 							HBox totalGreater = new HBox(4, totalGreaterLab, totalGreaterInput);
-							GridPane.setConstraints(totalGreater, 1, 10);
+							GridPane.setConstraints(totalGreater, 1, 9);
 							
 							Label totalLessLab = new Label("< ");
 							TextField totalLessInput = new TextField();
 							HBox totalLess = new HBox(4, totalLessLab, totalLessInput);
-							GridPane.setConstraints(totalLess, 1, 11);
+							GridPane.setConstraints(totalLess, 1, 10);
 							
-							GridPane.setConstraints(submit, 1, 12);
+							GridPane.setConstraints(submit, 1, 11);
 							isbnInput.setPrefWidth(200);
 							
 							submit.setOnAction(new EventHandler<ActionEvent>() {
@@ -711,7 +701,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 										tCountFilterMap.put(FilterFuncs.LESS_THAN, Integer.parseInt(tWordUpperLimit));
 									}
 									if (!tCountFilterMap.isEmpty()) {
-										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, tCountFilterMap);
+										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, tCountFilterMap);
 									}
 
 									Library fLib = lib.filter(filterMap);
@@ -725,7 +715,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 								}
 							});
 						
-							grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueEqual, uniqueGreater, uniqueLess, totalLab, totalEqual, totalGreater, totalLess, genreLab, genreInput, completeLab, completeButtons, submit);
+							grid.getChildren().addAll(titleLab, titleInput, authLab, authInput, ageLab, ageInput, isbnLab, isbnInput, uniqueLab, uniqueGreater, uniqueLess, totalLab, totalGreater, totalLess, genreLab, genreInput, completeLab, completeButtons, submit);
 							Scene scene = new Scene(grid, 350, 500);
 							stageFilter.setScene(scene);
 							stageFilter.show();
