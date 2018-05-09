@@ -1,5 +1,6 @@
 package main.ui;
 import main.library.*;
+import main.library.Library.FilterFuncs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -547,8 +548,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							grid.setHgap(10);
 	                	
 							Button submit = new Button("Filter");
-	                	
-	                	
+
 							Label titleLab = new Label("Title: ");
 							GridPane.setConstraints(titleLab, 0, 0);
 							TextField titleInput = new TextField();
@@ -631,73 +631,92 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							submit.setOnAction(new EventHandler<ActionEvent>() {
 								@Override
 								public void handle(final ActionEvent e) {
-									Library filteredLib = new Library();
+									HashMap<Library.BookFields, Object> filterMap = new HashMap<>();
+									
 									String titleInputTxt = titleInput.getText().trim();
-									if (!titleInputTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.TITLE,
-											new Object[] {Library.FilterFuncs.CONTAINS, titleInputTxt});
+									String[] fTitles = titleInputTxt.split(";");
+									if (fTitles.length > 0) {
+										// ensure inputs are all lowercase and trimmed of whitespace
+										for (int i = 0; i < fTitles.length; ++i) 
+											fTitles[i] = fTitles[i].toLowerCase().trim();
+										filterMap.put(Library.BookFields.TITLE, 
+												new Object[] {Library.FilterFuncs.CONTAINS, fTitles});	
 									}
-									String authInputTxt = authInput.getText().trim();
-									if (!authInputTxt.isEmpty()) {
+									
+									String authorInputTxt = authInput.getText().trim();
+									String[] fAuthors = authorInputTxt.split(";");
+									if (fAuthors.length > 0) {
+										for (int i = 0; i < fAuthors.length; ++i)
+											fAuthors[i] = fAuthors[i].toLowerCase().trim();
 										filterMap.put(Library.BookFields.AUTHOR, 
-											new Object[] {Library.FilterFuncs.CONTAINS, authInputTxt});
+												new Object[] {Library.FilterFuncs.CONTAINS, fAuthors});
 									}
+									
 									String ageInputTxt = ageInput.getText().trim();
-									if (!ageInputTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.AGE, 
-											new Object[] {Library.FilterFuncs.EQUALS, ageInputTxt});
+									String[] fAges = ageInputTxt.split(";");
+									if (fAges.length > 0) {
+										for (int i = 0; i < fAges.length; ++i)
+											fAges[i] = fAges[i].toLowerCase().trim();
+										filterMap.put(Library.BookFields.AGE,
+												new Object[] {Library.FilterFuncs.EQUALS, fAges});
 									}
+									
 									String isbnInputTxt = isbnInput.getText().trim();
-									if (!isbnInputTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.ISBN, 
-		    								new Object[] {Library.FilterFuncs.EQUALS, isbnInputTxt});
+									String[] fIsbns = isbnInputTxt.split(";");
+									if (fIsbns.length > 0) {
+										for (int i = 0; i < fIsbns.length; ++i)
+											fIsbns[i] = fIsbns[i].toLowerCase().trim();
+										filterMap.put(Library.BookFields.ISBN,
+												new Object[] {Library.FilterFuncs.EQUALS, fIsbns});
 									}
+									
 									String genreInputTxt = genreInput.getText().trim();
-									if (!genreInputTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.GENRE, 
-		    								new Object[] {Library.FilterFuncs.EQUALS, genreInputTxt});	
+									String[] fGenres = genreInputTxt.split(";");
+									if (fGenres.length > 0) {
+										for (int i = 0; i < fGenres.length; ++i)
+											fGenres[i] = fGenres[i].toLowerCase().trim();
+										filterMap.put(Library.BookFields.GENRE,
+												new Object[] {Library.FilterFuncs.EQUALS, fGenres});
 									}
+									
 									if (completeButton.isSelected()) {
 										filterMap.put(Library.BookFields.COMPLETE, 
-		    								new Object[] {Library.FilterFuncs.EQUALS, true});
+			    								new Object[] {Library.FilterFuncs.EQUALS, true});
 									}
 									if (incompleteButton.isSelected()) {
 										filterMap.put(Library.BookFields.COMPLETE, 
-		    								new Object[] {Library.FilterFuncs.EQUALS, false});
+			    								new Object[] {Library.FilterFuncs.EQUALS, false});
 									}
-									String uniqueEqualTxt = uniqueEqualInput.getText().trim();
-									if (!uniqueEqualTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.EQUALS, Integer.parseInt(uniqueEqualTxt)});	
+									
+									HashMap<FilterFuncs, Integer> uCountFilterMap = new HashMap<>();
+									String uWordLowerLimit = uniqueGreaterInput.getText().trim();
+									if (!uWordLowerLimit.isEmpty()) {
+										uCountFilterMap.put(FilterFuncs.GREATER_THAN, Integer.parseInt(uWordLowerLimit));
 									}
-									String uniqueGreaterTxt = uniqueGreaterInput.getText().trim();
-									if (!uniqueGreaterTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.GREATER_THAN, Integer.parseInt(uniqueGreaterTxt)});	
+									String uWordUpperLimit = uniqueLessInput.getText().trim();
+									if (!uWordUpperLimit.isEmpty()) {
+										uCountFilterMap.put(FilterFuncs.LESS_THAN, Integer.parseInt(uWordUpperLimit));
 									}
-									String uniqueLessTxt = uniqueLessInput.getText().trim();
-									if (!uniqueLessTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.LESS_THAN, Integer.parseInt(uniqueLessTxt)});	
+									if (!uCountFilterMap.isEmpty()) {
+										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, uCountFilterMap);
 									}
-									String totalEqualTxt = totalEqualInput.getText().trim();
-									if (!totalEqualTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.EQUALS, Integer.parseInt(totalEqualTxt)});	
+									
+									HashMap<FilterFuncs, Integer> tCountFilterMap = new HashMap<>();
+									String tWordLowerLimit = totalGreaterInput.getText().trim();
+									if (!tWordLowerLimit.isEmpty()) {
+										tCountFilterMap.put(FilterFuncs.GREATER_THAN, Integer.parseInt(tWordLowerLimit));
 									}
-									String totalGreaterTxt = totalGreaterInput.getText().trim();
-									if (!totalGreaterTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.GREATER_THAN, Integer.parseInt(totalGreaterTxt)});	
+									String tWordUpperLimit = totalLessInput.getText().trim();
+									if (!tWordUpperLimit.isEmpty()) {
+										tCountFilterMap.put(FilterFuncs.LESS_THAN, Integer.parseInt(tWordUpperLimit));
 									}
-									String totalLessTxt = totalLessInput.getText().trim();
-									if (!totalLessTxt.isEmpty()) {
-										filterMap.put(Library.BookFields.TOTAL_WORD_COUNT, 
-		    								new Object[] {Library.FilterFuncs.LESS_THAN, Integer.parseInt(totalLessTxt)});	
+									if (!tCountFilterMap.isEmpty()) {
+										filterMap.put(Library.BookFields.UNIQUE_WORD_COUNT, tCountFilterMap);
 									}
-									Library filteredLibrary = lib.filter(filterMap);
-		    						LibTab fLibTab = new LibTab(filteredLibrary, tabPane, stage);
-		    						fLibTab.setName("filtered-" + lib.getPath().getFileName());
+
+									Library fLib = lib.filter(filterMap);
+		    						LibTab fLibTab = new LibTab(fLib, tabPane, stage);
+		    						fLibTab.setName(fLib.getPath().getFileName().toString());
 		    						fLibTab.getLib().setName(fLibTab.getName());
 		    						libTabs.addLibTab(fLibTab.getTab(), fLibTab);
 		    						fLibTab.setIsSaved(false);
