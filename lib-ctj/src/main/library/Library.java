@@ -207,7 +207,9 @@ public class Library {
 			// Set individual word nodes
 			Element word;
 			HashMap<String, Integer> wordMap = book.getWordMap();
-			for (String w : wordMap.keySet()) {
+			String[] sortedWords = (String[]) wordMap.keySet().toArray();
+			Arrays.sort(sortedWords);
+			for (String w : sortedWords) {
 				word = doc.createElement("W");
 				Attr freq = doc.createAttribute("freq");
 				freq.setValue(Integer.toString(wordMap.get(w)));
