@@ -539,7 +539,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							Tab tab = tabPane.getSelectionModel().getSelectedItem();
 							LibTab libTab = libTabs.getLibTab(tab);
 							Library lib = libTab.getLib();
-							HashMap<Library.BookFields, Object> filterMap = new HashMap<>();
 							Stage stageFilter = new Stage();
 							stageFilter.setTitle("Filter Books");
 							GridPane grid = new GridPane();
@@ -622,47 +621,50 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 								@Override
 								public void handle(final ActionEvent e) {
 									HashMap<Library.BookFields, Object> filterMap = new HashMap<>();
-									
+
 									String titleInputTxt = titleInput.getText().trim();
 									String[] fTitles = titleInputTxt.split(";");
-									if (fTitles.length > 0) {
+									System.out.println("ftitle length: " +fTitles.length);
+									System.out.println("'" + fTitles[0] + "'");
+									if (fTitles.length > 0 && !fTitles[0].isEmpty()) {
 										// ensure inputs are all lowercase and trimmed of whitespace
 										for (int i = 0; i < fTitles.length; ++i) 
 											fTitles[i] = fTitles[i].toLowerCase().trim();
 										filterMap.put(Library.BookFields.TITLE, 
 												new Object[] {Library.FilterFuncs.CONTAINS, fTitles});	
 									}
-									
+
 									String authorInputTxt = authInput.getText().trim();
 									String[] fAuthors = authorInputTxt.split(";");
-									if (fAuthors.length > 0) {
+									System.out.println("fauthor length: " + fAuthors.length);
+									if (fAuthors.length > 0 && !fAuthors[0].isEmpty()) {
 										for (int i = 0; i < fAuthors.length; ++i)
 											fAuthors[i] = fAuthors[i].toLowerCase().trim();
 										filterMap.put(Library.BookFields.AUTHOR, 
 												new Object[] {Library.FilterFuncs.CONTAINS, fAuthors});
 									}
-									
+
 									String ageInputTxt = ageInput.getText().trim();
 									String[] fAges = ageInputTxt.split(";");
-									if (fAges.length > 0) {
+									if (fAges.length > 0 && !fAges[0].isEmpty()) {
 										for (int i = 0; i < fAges.length; ++i)
 											fAges[i] = fAges[i].toLowerCase().trim();
 										filterMap.put(Library.BookFields.AGE,
 												new Object[] {Library.FilterFuncs.EQUALS, fAges});
 									}
-									
+
 									String isbnInputTxt = isbnInput.getText().trim();
 									String[] fIsbns = isbnInputTxt.split(";");
-									if (fIsbns.length > 0) {
+									if (fIsbns.length > 0 && !fIsbns[0].isEmpty()) {
 										for (int i = 0; i < fIsbns.length; ++i)
 											fIsbns[i] = fIsbns[i].toLowerCase().trim();
 										filterMap.put(Library.BookFields.ISBN,
 												new Object[] {Library.FilterFuncs.EQUALS, fIsbns});
 									}
-									
+
 									String genreInputTxt = genreInput.getText().trim();
 									String[] fGenres = genreInputTxt.split(";");
-									if (fGenres.length > 0) {
+									if (fGenres.length > 0 && !fGenres[0].isEmpty()) {
 										for (int i = 0; i < fGenres.length; ++i)
 											fGenres[i] = fGenres[i].toLowerCase().trim();
 										filterMap.put(Library.BookFields.GENRE,
