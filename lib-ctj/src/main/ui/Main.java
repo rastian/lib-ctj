@@ -380,7 +380,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	GridPane.setConstraints(submit, 0, 11);
 	                	
 	                	grid.getChildren().addAll(title, function, frequency, syllables, arpabet, morphemes, cognate, biphAve, pSegAve, neighborhood, dict, submit);
-	                	Scene scene = new Scene(grid, 350, 350);
+	                	Scene scene = new Scene(grid, 350, 400);
 	                    stageCSV.setScene(scene);
 	                    stageCSV.show();
 					}
