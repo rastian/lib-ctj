@@ -91,6 +91,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		merge.disableProperty().set(libTabs.isEmpty());
 		saveCSV.setDisable(true);
 		genD.setDisable(true);
+		addB.setDisable(true);
+		delB.setDisable(true);
 		//Button Actions
 		newLib.setOnAction( 
 				new EventHandler<ActionEvent>() {
@@ -106,10 +108,16 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							@Override
 						    public void handle(Event e) 
 						    {
-								if(libTabs.getTabCount()==1)
+								if(libTabs.getTabCount()==1) {
+									genD.setDisable(true);
 									filter.setDisable(true);
+									addB.setDisable(true);
+									delB.setDisable(true);
 									merge.setDisable(true);
+								}
 								libTabs.deleteLibTab(libTab.getTab(), libTab);
+								System.out.println(libTabs.getTabCount());
+								
 						    }
 						});
 						Tab tab = libTab.getTab();
@@ -194,14 +202,16 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    								@Override
 	    							    public void handle(Event e) 
 	    							    {
-	    									if(libTabs.getTabCount()==1)
+	    									if(libTabs.getTabCount()==1) {
+	    										genD.setDisable(true);
 	    										filter.setDisable(true);
+	    										addB.setDisable(true);
+	    										delB.setDisable(true);
 	    										merge.setDisable(true);
+	    									}
 	    									libTabs.deleteLibTab(libTab.getTab(), libTab);
 	    							    }
 	    							});
-	    	                        filter.setDisable(false);
-	    	                        merge.setDisable(false);
 	    	                        libTab.setIsSaved(true);
 	    	                        tabID.addID(libTab.getTab(), "Lib");
 	                			}
@@ -294,61 +304,83 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	syllables.setText("Syllables");
 	                	GridPane.setConstraints(syllables, 0, 3);
 	                	
-	                	CheckBox spelling = new CheckBox();
-	                	spelling.setText("Spelling");
-	                	GridPane.setConstraints(spelling, 0, 4);
-	                	
 	                	CheckBox arpabet = new CheckBox();
 	                	arpabet.setText("Arpabet");
-	                	GridPane.setConstraints(arpabet, 0, 5);
+	                	GridPane.setConstraints(arpabet, 0, 4);
 	                	
 	                	CheckBox morphemes = new CheckBox();
 	                	morphemes.setText("Morphemes");
-	                	GridPane.setConstraints(morphemes, 0, 6);
+	                	GridPane.setConstraints(morphemes, 0, 5);
 	                	
 	                	CheckBox cognate = new CheckBox();
 	                	cognate.setText("Cognate");
-	                	GridPane.setConstraints(cognate, 0, 7);
+	                	GridPane.setConstraints(cognate, 0, 6);
 	                	
 	                	CheckBox biphAve = new CheckBox();
 	                	biphAve.setText("BiphAve");
-	                	GridPane.setConstraints(biphAve, 0, 8);
+	                	GridPane.setConstraints(biphAve, 0, 7);
 	                	
 	                	CheckBox pSegAve = new CheckBox();
 	                	pSegAve.setText("P Seg Ave");
-	                	GridPane.setConstraints(pSegAve, 0, 9);
+	                	GridPane.setConstraints(pSegAve, 0, 8);
 	                	
 	                	CheckBox neighborhood = new CheckBox();
 	                	neighborhood.setText("Neighborhood");
-	                	GridPane.setConstraints(neighborhood, 0, 10);
+	                	GridPane.setConstraints(neighborhood, 0, 9);
 	                	
-	                	TextField filePath = new TextField();
-	                	filePath.setPrefWidth(250);
+	                	Button dictPath = new Button("Browse");
+						TextField dictPathText = new TextField();
+	                	dictPathText.setPromptText("Select Location of .csv (Required)");
+	                	dictPathText.setEditable(false);
 	                	
+	                	dictPathText.setPrefWidth(250);
+						
+	                	dictPath.setOnAction(new EventHandler<ActionEvent>() {
+	                		 public void handle(final ActionEvent e) {
+	     	                	FileChooser chooser = new FileChooser();
+	     	                	ExtensionFilter xml = new ExtensionFilter("CSV Files", "*.csv");
+	    	                	chooser.getExtensionFilters().add(xml);
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+	     	                	chooser.setInitialDirectory(new File(currentPath));
+	     	                    File file = chooser.showSaveDialog(stage);
+	     	                    if (file != null) {
+	     	                        dictPathText.setText(file.getPath());
+	     	                    }
+	     	                }
+	                	});
+	                	
+	                	HBox dict = new HBox(4,  dictPath, dictPathText);
+	                	GridPane.setConstraints(dict, 0, 10);
 	                	
 	                	Button submit = new Button("Submit");
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
-	    	                	Dictionary dict = dictTabs.getDictTab(tabPane.getSelectionModel().getSelectedItem()).getDict();
-	    	                	if(function.isSelected()) fields.add(Dictionary.DictField.FUNCTION);
-	    	                	if(frequency.isSelected()) fields.add(Dictionary.DictField.FREQUENCY);
-	    	                	if(syllables.isSelected()) fields.add(Dictionary.DictField.SYLLABLES);
-	    	                	if(spelling.isSelected()) fields.add(Dictionary.DictField.SPELLING);
-	    	                	if(arpabet.isSelected()) fields.add(Dictionary.DictField.ARPABET);
-	    	                	if(morphemes.isSelected()) fields.add(Dictionary.DictField.MORPHEMES);
-	    	                	if(cognate.isSelected()) fields.add(Dictionary.DictField.COGNATE);
-	    	                	if(biphAve.isSelected()) fields.add(Dictionary.DictField.BIPHAVE);
-	    	                	if(pSegAve.isSelected()) fields.add(Dictionary.DictField.PSEGAVE);
-	    	                	if(neighborhood.isSelected()) fields.add(Dictionary.DictField.NEIGHBORHOOD);
-	    	                	dict.saveAsCSV(dict.getPath(),fields);
-	    	                	stageCSV.close();
-	    	                	
+	    	                	if(dictPathText.getText().isEmpty()) {
+	    	                		Alert alert = new Alert(Alert.AlertType.ERROR);
+	    	                        alert.setHeaderText("Please select the location of the .csv file");
+	    	                        alert.showAndWait();
+	    	                	}
+	    	                	else {
+	    	                		Path newFilePath = Paths.get(dictPathText.getText());
+	    	                		Dictionary dict = dictTabs.getDictTab(tabPane.getSelectionModel().getSelectedItem()).getDict();
+	    	                		if(function.isSelected()) fields.add(Dictionary.DictField.FUNCTION);
+	    	                		if(frequency.isSelected()) fields.add(Dictionary.DictField.FREQUENCY);
+	    	                		if(syllables.isSelected()) fields.add(Dictionary.DictField.SYLLABLES);
+	    	                		if(arpabet.isSelected()) fields.add(Dictionary.DictField.ARPABET);
+	    	                		if(morphemes.isSelected()) fields.add(Dictionary.DictField.MORPHEMES);
+	    	                		if(cognate.isSelected()) fields.add(Dictionary.DictField.COGNATE);
+	    	                		if(biphAve.isSelected()) fields.add(Dictionary.DictField.BIPHAVE);
+	    	                		if(pSegAve.isSelected()) fields.add(Dictionary.DictField.PSEGAVE);
+	    	                		if(neighborhood.isSelected()) fields.add(Dictionary.DictField.NEIGHBORHOOD);
+	    	                		dict.saveAsCSV(dict.getPath(), newFilePath, fields);
+	    	                		stageCSV.close();
+	    	                	}
 	    	                }
 	    	            });
 	                	GridPane.setConstraints(submit, 0, 11);
 	                	
-	                	grid.getChildren().addAll(title, function, frequency, syllables, spelling, arpabet, morphemes, cognate, biphAve, pSegAve, neighborhood, submit);
+	                	grid.getChildren().addAll(title, function, frequency, syllables, arpabet, morphemes, cognate, biphAve, pSegAve, neighborhood, dict, submit);
 	                	Scene scene = new Scene(grid, 350, 350);
 	                    stageCSV.setScene(scene);
 	                    stageCSV.show();
@@ -455,6 +487,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
+	    	                	if(libTabs.getTabCount() == 0) {
+	    	                		stageAdd.close();
+	    	                		Alert alert = new Alert(Alert.AlertType.ERROR);
+	    	                        alert.setHeaderText("Error: There is no library to add a book to");
+	    	                        alert.showAndWait();
+	    	                	}
 	    	                	if(titleInput.getText().isEmpty() || authInput.getText().isEmpty() || filePath.getText().isEmpty()) {
 	    	                		Alert alert = new Alert(Alert.AlertType.ERROR);
 	    	                        alert.setHeaderText("Please fill all required fields");
@@ -709,11 +747,49 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 
 									Library fLib = lib.filter(filterMap);
 		    						LibTab fLibTab = new LibTab(fLib, tabPane, stage);
+		    						Tab fTab = fLibTab.getTab();
+		    						fLibTab.setIsSaved(false);
+		    						SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+	    							selectionModel.select(fTab);
+	    							saveCSV.setDisable(true);
+	                                addB.setDisable(false);
+	                                delB.setDisable(false);
+	                                genD.setDisable(true);
+	                                save.setDisable(false);
+	                                filter.setDisable(false);
+                                	merge.setDisable(false);
+	    	                        fTab.setOnSelectionChanged(event -> {
+	    	                            if (fTab.isSelected()) {
+	    	                                saveCSV.setDisable(true);
+	    	                                addB.setDisable(false);
+	    	                                if(fLibTab.getIsSaved())
+	    	                                	genD.setDisable(false);
+	    	                                else
+	    	                                	genD.setDisable(true);
+	    	                                delB.setDisable(false);
+	    	                                save.setDisable(false);
+	    	                                filter.setDisable(false);
+	    	                                merge.setDisable(false);
+	    	                            }
+	    	                        });
+	    	                        fTab.setOnClosed(new EventHandler<Event>() {
+	    								@Override
+	    							    public void handle(Event e) 
+	    							    {
+	    									if(libTabs.getTabCount()==1) {
+	    										filter.setDisable(true);
+	    										addB.setDisable(true);
+	    										delB.setDisable(true);
+	    										merge.setDisable(true);
+	    										genD.setDisable(true);
+	    									}
+	    									libTabs.deleteLibTab(fTab, fLibTab);
+	    							    }
+	    							});
 		    						fLibTab.setName(fLib.getPath().getFileName().toString());
 		    						fLibTab.getLib().setName(fLibTab.getName());
-		    						libTabs.addLibTab(fLibTab.getTab(), fLibTab);
-		    						fLibTab.setIsSaved(false);
-		    						tabID.addID(fLibTab.getTab(), "Lib");
+		    						libTabs.addLibTab(fTab, fLibTab);
+		    						tabID.addID(fTab, "Lib");
 		    						stageFilter.close();
 								}
 							});
@@ -778,6 +854,44 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 									LibTab libTab = new LibTab(newLib, tabPane, stage);
 									//Tabs
 									libTabs.addLibTab(libTab.getTab(), libTab);
+									Tab tab = libTab.getTab();
+									SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+	    							selectionModel.select(tab);
+	    							saveCSV.setDisable(true);
+	                                addB.setDisable(false);
+	                                delB.setDisable(false);
+	                                genD.setDisable(true);
+	                                save.setDisable(false);
+	                                filter.setDisable(false);
+                                	merge.setDisable(false);
+	    	                        tab.setOnSelectionChanged(event -> {
+	    	                            if (tab.isSelected()) {
+	    	                                saveCSV.setDisable(true);
+	    	                                addB.setDisable(false);
+	    	                                delB.setDisable(false);
+	    	                                if(libTab.getIsSaved())
+	    	                                	genD.setDisable(false);
+	    	                                else
+	    	                                	genD.setDisable(true);
+	    	                                save.setDisable(false);
+	    	                                filter.setDisable(false);
+	    	                                merge.setDisable(false);
+	    	                            }
+	    	                        });
+	    	                        tab.setOnClosed(new EventHandler<Event>() {
+	    								@Override
+	    							    public void handle(Event e) 
+	    							    {
+	    									if(libTabs.getTabCount()==1) {
+	    										filter.setDisable(true);
+	    										addB.setDisable(true);
+	    										delB.setDisable(true);
+	    										merge.setDisable(true);
+	    										genD.setDisable(true);
+	    									}
+	    									libTabs.deleteLibTab(libTab.getTab(), libTab);
+	    							    }
+	    							});
 									libTab.setName("Lib" + libTabs.getTabCount());
 									libTab.getLib().setName(libTab.getName());
 									libTab.setIsSaved(false);
@@ -893,45 +1007,47 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                        alert.setHeaderText("Please select the CMU and new dictionary file");
 	    	                        alert.showAndWait();
 	    	                	}
-	    	                	genDStage.close();
-	    	                	Tab tab = tabPane.getSelectionModel().getSelectedItem();
-	    						LibTab libTab = libTabs.getLibTab(tab);
-	    						Library lib = libTab.getLib();
-	    						Path newDictPath = Paths.get(dictPathText.getText());
-	    						Path cmuPath1 = Paths.get(cmuPath.getText());
-	    						Path masterPath1 = Paths.get(masterPath.getText());
-	    						Dictionary newDict = Dictionary.Dictionary(lib, newDictPath, cmuPath1, masterPath1);
-	    						DictTab newDictTab = new DictTab(newDict, tabPane);
-	    						newDictTab.setName(newDict.getPath().getFileName().toString());
-	    						dictTabs.addDictTab(newDictTab.getTab(), newDictTab);
-	    						Tab newTab = newDictTab.getTab();
-	    						SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
-    							selectionModel.select(newTab);
-    							saveCSV.setDisable(false);
-                                genD.setDisable(true);
-                                addB.setDisable(true);
-                                delB.setDisable(true);
-                                filter.setDisable(true);
-                                merge.setDisable(true);
-                                save.setDisable(true);
-    	                    	newTab.setOnSelectionChanged(event -> {
-    	                            if (newTab.isSelected()) {
-    	                                saveCSV.setDisable(false);
-    	                                genD.setDisable(true);
-    	                                addB.setDisable(true);
-    	                                delB.setDisable(true);
-    	                                filter.setDisable(true);
-    	                                merge.setDisable(true);
-    	                                save.setDisable(true);
-    	                            }
-    	                        });
-    	                    	newTab.setOnClosed(event -> {
-    	                    		if(dictTabs.getTabCount()==0) {
-    	                    			save.setDisable(false);
-    	                    			addB.setDisable(false);
-    	                    		}
-    	                    	});
-    	                    	tabID.addID(newDictTab.getTab(), "Dict");
+	    	                	else {
+	    	                		genDStage.close();
+	    	                		Tab tab = tabPane.getSelectionModel().getSelectedItem();
+	    	                		LibTab libTab = libTabs.getLibTab(tab);
+	    	                		Library lib = libTab.getLib();
+	    	                		Path newDictPath = Paths.get(dictPathText.getText());
+	    	                		Path cmuPath1 = Paths.get(cmuPath.getText());
+	    	                		Path masterPath1 = Paths.get(masterPath.getText());
+	    	                		Dictionary newDict = Dictionary.Dictionary(lib, newDictPath, cmuPath1, masterPath1);
+	    	                		DictTab newDictTab = new DictTab(newDict, tabPane);
+	    	                		newDictTab.setName(newDict.getPath().getFileName().toString());
+	    	                		dictTabs.addDictTab(newDictTab.getTab(), newDictTab);
+	    	                		Tab newTab = newDictTab.getTab();
+	    	                		SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+	    	                		selectionModel.select(newTab);
+	    	                		saveCSV.setDisable(false);
+	    	                		genD.setDisable(true);
+	    	                		addB.setDisable(true);
+	    	                		delB.setDisable(true);
+	    	                		filter.setDisable(true);
+	    	                		merge.setDisable(true);
+	    	                		save.setDisable(true);
+	    	                		newTab.setOnSelectionChanged(event -> {
+	    	                			if (newTab.isSelected()) {
+	    	                				saveCSV.setDisable(false);
+	    	                				genD.setDisable(true);
+	    	                				addB.setDisable(true);
+	    	                				delB.setDisable(true);
+	    	                				filter.setDisable(true);
+	    	                				merge.setDisable(true);
+	    	                				save.setDisable(true);
+	    	                			}	
+	    	                		});	
+	    	                		newTab.setOnClosed(event -> {
+	    	                			if(dictTabs.getTabCount()==0) {
+	    	                				save.setDisable(false);
+	    	                				addB.setDisable(false);
+	    	                			}
+	    	                		});
+	    	                		tabID.addID(newDictTab.getTab(), "Dict");
+	    	                	}
 	    	                }
 	                	});
 	                	GridPane.setConstraints(submit, 0, 7);
