@@ -2,10 +2,8 @@ package main.ui;
 import main.library.*;
 import main.library.Library.FilterFuncs;
 
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,9 +17,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javafx.application.*;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
@@ -30,7 +25,6 @@ import javafx.util.StringConverter;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
