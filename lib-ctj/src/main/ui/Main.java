@@ -59,7 +59,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		TabPane tabPane = new TabPane();
 		
 		//Open/Save File Stuff
-		final FileChooser fileChooser = new FileChooser();
 		Stage stage = new Stage(); //For Open/Save File
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -388,7 +387,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                @Override
 	                public void handle(final ActionEvent e) {
 	                	ToggleGroup completeGroup = new ToggleGroup();
-	                	Boolean comp;
 	                	Stage stageAdd = new Stage();
 	                	stageAdd.setTitle("Add Book");
 	                	GridPane grid = new GridPane();
@@ -1063,10 +1061,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	}
 	@Override
 	public void handle(ActionEvent event) {}
-	private Library getChoice(ChoiceBox<LibChoice> c) {
-		Library lib = c.getValue().getLibrary();
-		return lib;
-	}
 	public class LibChoiceConverter extends StringConverter<LibChoice> {
 
 		  public LibChoice fromString(String string) {
