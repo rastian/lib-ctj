@@ -241,9 +241,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                            }
 	    	                        });
 	    	                    	tab.setOnClosed(event -> {
-	    	                    		if(dictTabs.getTabCount()==0) {
-	    	                    			save.setDisable(false);
-	    	                    			addB.setDisable(false);
+	    	                    		if(dictTabs.getTabCount()==1) {
+	    	                    			saveCSV.setDisable(true);
 	    	                    		}
 	    	                    	});
 	    	                    	tabID.addID(dictTab.getTab(), "Dict");
@@ -1067,9 +1066,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                			}	
 	    	                		});	
 	    	                		newTab.setOnClosed(event -> {
-	    	                			if(dictTabs.getTabCount()==0) {
-	    	                				save.setDisable(false);
-	    	                				addB.setDisable(false);
+	    	                			if(dictTabs.getTabCount()==1) {
+	    	                				saveCSV.setDisable(true);
 	    	                			}
 	    	                		});
 	    	                		tabID.addID(newDictTab.getTab(), "Dict");
