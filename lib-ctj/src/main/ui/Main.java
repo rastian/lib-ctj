@@ -961,6 +961,30 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	HBox master = new HBox(4, browseMaster, masterPath);
 	                	GridPane.setConstraints(master, 0, 3);
 	                	
+	                	Button exePath = new Button("Browse");
+						TextField exeText = new TextField();
+	                	exeText.setPromptText("Select Location of build_dictionary.exe (Required)");
+	                	exeText.setEditable(false);
+	                	
+	                	exeText.setPrefWidth(300);
+						
+	                	exePath.setOnAction(new EventHandler<ActionEvent>() {
+	                		 public void handle(final ActionEvent e) {
+	     	                	FileChooser chooser = new FileChooser();
+	     	                	ExtensionFilter exe = new ExtensionFilter("EXE Files", "*.exe");
+	    	                	chooser.getExtensionFilters().add(exe);
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+	     	                	chooser.setInitialDirectory(new File(currentPath));
+	     	                    File file = chooser.showOpenDialog(stage);
+	     	                    if (file != null) {
+	     	                        exeText.setText(file.getPath());
+	     	                    }
+	     	                }
+	                	});
+	                	Text exePromptText = new Text("build_dictionary.exe: ");
+	                	GridPane.setConstraints(exePromptText, 0, 4);
+	                	HBox exe= new HBox(4, exePath, exeText);
+	                	GridPane.setConstraints(exe, 0, 5);
 	                	
 	                	Button dictPath = new Button("Browse");
 						TextField dictPathText = new TextField();
@@ -983,17 +1007,20 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	     	                }
 	                	});
 	                	Text dictText = new Text("New Dictionary: ");
-	                	GridPane.setConstraints(dictText, 0, 4);
-	                	HBox dict = new HBox(4, dictText, dictPath, dictPathText);
-	                	GridPane.setConstraints(dict, 0, 5);
+	                	GridPane.setConstraints(dictText, 0, 6);
+	                	HBox dict = new HBox(4, dictPath, dictPathText);
+	                	GridPane.setConstraints(dict, 0, 7);
+	                	
+	                	
+	                	
 						
 	                	Button submit = new Button("Generate Dictionary");
 	                	submit.setOnAction(new EventHandler<ActionEvent>() {
 	    	                @Override
 	    	                public void handle(final ActionEvent a) {
-	    	                	if(dictPath.getText().isEmpty() || cmuPath.getText().isEmpty()) {
+	    	                	if(dictPath.getText().isEmpty() || cmuPath.getText().isEmpty() || exeText.getText().isEmpty()) {
 	    	                		Alert alert = new Alert(Alert.AlertType.ERROR);
-	    	                        alert.setHeaderText("Please select the CMU and new dictionary file");
+	    	                        alert.setHeaderText("Please select the CMU, build_dictionary.exe, and new dictionary file");
 	    	                        alert.showAndWait();
 	    	                	}
 	    	                	else {
@@ -1002,9 +1029,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                		LibTab libTab = libTabs.getLibTab(tab);
 	    	                		Library lib = libTab.getLib();
 	    	                		Path newDictPath = Paths.get(dictPathText.getText());
+	    	                		System.out.println(dictPathText.getText());
 	    	                		Path cmuPath1 = Paths.get(cmuPath.getText());
+	    	                		System.out.println(cmuPath.getText());
 	    	                		Path masterPath1 = Paths.get(masterPath.getText());
-	    	                		Dictionary newDict = Dictionary.Dictionary(lib, newDictPath, cmuPath1, masterPath1);
+	    	                		System.out.println(masterPath.getText());
+	    	                		Path exePath1 = Paths.get(exeText.getText());
+	    	                		System.out.print(exeText.getText());
+	    	                		Dictionary newDict = Dictionary.Dictionary(lib, exePath1, newDictPath, cmuPath1, masterPath1);
 	    	                		DictTab newDictTab = new DictTab(newDict, tabPane);
 	    	                		newDictTab.setName(newDict.getPath().getFileName().toString());
 	    	                		dictTabs.addDictTab(newDictTab.getTab(), newDictTab);
@@ -1039,9 +1071,9 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                	}
 	    	                }
 	                	});
-	                	GridPane.setConstraints(submit, 0, 7);
-						grid.getChildren().addAll(cmuText, cmu, masterText, master,dictText, dict, submit);
-						Scene scene = new Scene(grid, 400,250);
+	                	GridPane.setConstraints(submit, 0, 8);
+						grid.getChildren().addAll(cmuText, cmu, masterText, master,exePromptText, exe, dictText, dict,  submit);
+						Scene scene = new Scene(grid, 400,350);
 		                genDStage.setScene(scene);
 		                genDStage.show();
 					}

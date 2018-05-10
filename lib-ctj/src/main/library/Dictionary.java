@@ -123,10 +123,10 @@ public class Dictionary {
 		}	
 	}
 
-	public static Dictionary Dictionary(Library lib, Path newDictPath, Path cmuPath, Path masterDictPath) {
+	public static Dictionary Dictionary(Library lib, Path buildDictPath, Path newDictPath, Path cmuPath, Path masterDictPath) {
 		final Path userDir = Paths.get(System.getProperty("user.home")).resolve("lib-ctj");
 		try {
-			String buildDictExePathStr = userDir.resolve("build_dictionary.exe").toString();
+			String buildDictExePathStr = buildDictPath.toAbsolutePath().toString();
 			String newDictPathStr = newDictPath.toAbsolutePath().toString();
 			String cmuPathStr = cmuPath.toAbsolutePath().toString();
 			String libPathStr = lib.getPath().toAbsolutePath().toString();
