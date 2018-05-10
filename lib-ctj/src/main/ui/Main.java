@@ -192,7 +192,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                                saveCSV.setDisable(true);
 	    	                                addB.setDisable(false);
 	    	                                delB.setDisable(false);
-	    	                                genD.setDisable(false);
+	    	                                if(libTab.getIsSaved())
+	    	                                	genD.setDisable(false);
+	    	                                else
+	    	                                	genD.setDisable(true);
 	    	                                save.setDisable(false);
 	    	                                filter.setDisable(false);
 	    	                                merge.setDisable(false);
@@ -501,21 +504,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                	
 	    	                	if(!titleInput.getText().isEmpty() && !authInput.getText().isEmpty() && !filePath.getText().isEmpty()) {
 	    	                		final boolean comp;
-	    	                		if(libTabs.getTabCount() == 0) {
-	    	                			Library libObj = new Library();
-		    							LibTab libTab = new LibTab(libObj, tabPane, stage);
-		    					        //Tabs
-		    							libTabs.addLibTab(libTab.getTab(), libTab);
-		    							libTab.getTab().setOnClosed(new EventHandler<Event>() {
-		    								@Override
-		    							    public void handle(Event e) 
-		    							    {
-		    									libTabs.deleteLibTab(libTab.getTab(), libTab);
-		    							    }
-		    							});
-		    							libTab.setName("Lib" + libTabs.getTabCount());
-		    							libObj.setName(libTab.getName());
-	    	                		}
 		    	                	if(!tabPane.getTabs().isEmpty()) {
 		    	                		if(completeButton.isSelected()) {
 		    	                			comp = true;
@@ -526,7 +514,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		    	                		//When Null Pointer Exception Fixed, move .close() to next line after .addNewBook()
 		    	                		stageAdd.close();
 		    	                		libTab.addNewBook(new Book(titleInput.getText(), authInput.getText(), ageInput.getText(), isbnInput.getText(), comp, genreInput.getText(), filePath.getText()));
-			    	                    
+			    	                    libTab.setIsSaved(false);
+			    	                    genD.setDisable(true);
 		    	                	}
 	    	                	}
 	    	                	
@@ -562,6 +551,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							LibTab libTab = libTabs.getLibTab(tab);
 							Library lib = libTab.getLib();
 							libTab.setIsSaved(false);
+							genD.setDisable(true);
 							ObservableList<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
 							lib.delete(selected);
 							libTab.getData().removeAll(selected);
