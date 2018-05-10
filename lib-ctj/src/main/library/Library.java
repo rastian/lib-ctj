@@ -179,7 +179,7 @@ public class Library {
 			Attr isbn = doc.createAttribute("isbn13");
 			Attr complete = doc.createAttribute("complete");
 			Attr genre = doc.createAttribute("genre");
-			age.setValue(book.getAge());
+			age.setValue(book.getAge().toUpperCase());
 			author.setValue(book.getAuthor());
 			title.setValue(book.getTitle());
 			isbn.setValue(book.getIsbn());
