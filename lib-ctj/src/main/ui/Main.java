@@ -903,7 +903,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			@Override
 			public void handle(final ActionEvent e) {
 				try {
-					if (libTabs.getTabCount() > 0) {
+					String osName = System.getProperty("os.name").toLowerCase();
+                	boolean isWindows = osName.startsWith("windows");
+                	if(!isWindows) {
+                		Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText("This function only works on Windows computers");
+                        alert.showAndWait();
+                	}
+					if (libTabs.getTabCount() > 0 && isWindows) {
 						Stage genDStage = new Stage();
 						GridPane grid = new GridPane();
 	                	grid.setPadding(new Insets(10, 10, 10, 10));
