@@ -188,9 +188,9 @@ public class Dictionary {
 		return save(path);
 	}
 	
-	public int saveAsCSV(Path path, List<DictField> fields) {
+	public int saveAsCSV(Path dictPath, Path newPath, List<DictField> fields) {
 		try {
-			FileWriter fw = new FileWriter(path.toString().replaceAll(".xml", ".csv"));
+			FileWriter fw = new FileWriter(newPath.toAbsolutePath().toString());
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			// Write Header Columns
@@ -236,12 +236,12 @@ public class Dictionary {
 		}
 	}
 	
-	public int saveAsCSV(Path path) {
+	public int saveAsCSV(Path dictPath, Path newPath) {
 		List<DictField> fields = new ArrayList<>();
 		for (DictField field : DictField.values()) {
 			fields.add(field);
 		}
-		return saveAsCSV(path, fields);
+		return saveAsCSV(dictPath, newPath, fields);
 	}
 	
 	public List<DictElement> getElements() {
