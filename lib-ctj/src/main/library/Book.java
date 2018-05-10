@@ -30,15 +30,15 @@ public class Book {
 			wordMap = new HashMap<>();
 			// Get all words in text file given by filename
 			Stream<String> words = Files.lines(Paths.get(filename), Charset.defaultCharset())
-					.flatMap(line -> Stream.of(line.split("[\\s+ ,.!;?\r\n\\h]")))
-					.filter(word -> word.length() > 0)
+					.flatMap(line -> Stream.of(line.split("[\\s+ ,.!;?\r\n\\h\\d\"”“:]")))
+					.filter(word -> (word.length() > 0))
 					.map(word -> word.toLowerCase().trim());
 			// Populate wordMap 
 			words.forEach(w -> wordMap.put(w, wordMap.containsKey(w) ? wordMap.get(w) + 1 : 1));
 		
 			this.uniqueWordCount = wordMap.keySet().size();
 			this.totalWordCount = wordMap.values().stream().mapToInt(Integer::intValue).sum();
-		
+
 			words.close();
 		}
 		catch (Exception e){
