@@ -167,12 +167,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                		DocumentBuilder dBuilder;
 	                    	try {
 	                    		dBuilder = dbFactory.newDocumentBuilder();
-	                			doc = dBuilder.parse(file.getPath());
+	                			doc = dBuilder.parse(file.getAbsoluteFile());
 	                			doc.getDocumentElement().normalize();
 	                			
 	                			root = doc.getDocumentElement();
 	                			if(root.getTagName().equals("Literature")) {
-	                				Library libObj = new Library(file.toPath());
+	                				Library libObj = new Library(file.toPath().toAbsolutePath());
 	    	                        LibTab libTab = new LibTab(libObj, tabPane, stage);
 	    	                        libTab.setName(libObj.getPath().getFileName().toString());
 	    	                        libObj.setName(libTab.getName());
