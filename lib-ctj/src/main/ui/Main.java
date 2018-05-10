@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -799,31 +800,145 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 			public void handle(final ActionEvent e) {
 				try {
 					if (libTabs.getTabCount() > 0) {
-						Tab tab = tabPane.getSelectionModel().getSelectedItem();
-						tab.setOnSelectionChanged(event -> {
-                            if (tab.isSelected()) {
-                                saveCSV.setDisable(false);
+						Stage genDStage = new Stage();
+						GridPane grid = new GridPane();
+	                	grid.setPadding(new Insets(10, 10, 10, 10));
+	                	grid.setVgap(8);
+	                	grid.setHgap(10);
+	                	
+	                	
+						Button browseCMU = new Button("Browse");
+						TextField cmuPath = new TextField();
+	                	cmuPath.setPromptText("Select CMU file (Required)");
+	                	cmuPath.setEditable(false);
+	                	
+	                	cmuPath.setPrefWidth(300);
+						
+	                	browseCMU.setOnAction(new EventHandler<ActionEvent>() {
+	                		 public void handle(final ActionEvent e) {
+	     	                	FileChooser chooser = new FileChooser();
+	     	                	ExtensionFilter xml = new ExtensionFilter("Text Files", "*.txt");
+	    	                	chooser.getExtensionFilters().add(xml);
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+	     	                	chooser.setInitialDirectory(new File(currentPath));
+	     	                    File file = chooser.showOpenDialog(stage);
+	     	                    if (file != null) {
+	     	                        cmuPath.setText(file.getPath());
+	     	                    }
+	     	                }
+	                	});
+	                	Text cmuText = new Text("CMU: ");
+	                	GridPane.setConstraints(cmuText, 0, 0);
+	                	HBox cmu = new HBox(4, browseCMU, cmuPath);
+	                	GridPane.setConstraints(cmu, 0, 1);
+	                	
+	                	
+	                	Button browseMaster = new Button("Browse");
+						TextField masterPath = new TextField();
+	                	masterPath.setPromptText("Select Master Dictionary (Optional)");
+	                	masterPath.setEditable(false);
+	                	
+	                	masterPath.setPrefWidth(300);
+						
+	                	browseMaster.setOnAction(new EventHandler<ActionEvent>() {
+	                		 public void handle(final ActionEvent e) {
+	     	                	FileChooser chooser = new FileChooser();
+	     	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
+	    	                	chooser.getExtensionFilters().add(xml);
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+	     	                	chooser.setInitialDirectory(new File(currentPath));
+	     	                    File file = chooser.showOpenDialog(stage);
+	     	                    if (file != null) {
+	     	                        masterPath.setText(file.getPath());
+	     	                    }
+	     	                }
+	                	});
+	                	Text masterText = new Text("Master Dictionary: ");
+	                	GridPane.setConstraints(masterText, 0, 2);
+	                	HBox master = new HBox(4, browseMaster, masterPath);
+	                	GridPane.setConstraints(master, 0, 3);
+	                	
+	                	
+	                	Button dictPath = new Button("Browse");
+						TextField dictPathText = new TextField();
+	                	dictPathText.setPromptText("Select Location of Generated Dictionary (Required)");
+	                	dictPathText.setEditable(false);
+	                	
+	                	dictPathText.setPrefWidth(300);
+						
+	                	dictPath.setOnAction(new EventHandler<ActionEvent>() {
+	                		 public void handle(final ActionEvent e) {
+	     	                	FileChooser chooser = new FileChooser();
+	     	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
+	    	                	chooser.getExtensionFilters().add(xml);
+	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+	     	                	chooser.setInitialDirectory(new File(currentPath));
+	     	                    File file = chooser.showSaveDialog(stage);
+	     	                    if (file != null) {
+	     	                        dictPathText.setText(file.getPath());
+	     	                    }
+	     	                }
+	                	});
+	                	Text dictText = new Text("New Dictionary: ");
+	                	GridPane.setConstraints(dictText, 0, 4);
+	                	HBox dict = new HBox(4, dictText, dictPath, dictPathText);
+	                	GridPane.setConstraints(dict, 0, 5);
+						
+	                	Button submit = new Button("Generate Dictionary");
+	                	submit.setOnAction(new EventHandler<ActionEvent>() {
+	    	                @Override
+	    	                public void handle(final ActionEvent a) {
+	    	                	if(dictPath.getText().isEmpty() || cmuPath.getText().isEmpty()) {
+	    	                		Alert alert = new Alert(Alert.AlertType.ERROR);
+	    	                        alert.setHeaderText("Please select the CMU and new dictionary file");
+	    	                        alert.showAndWait();
+	    	                	}
+	    	                	genDStage.close();
+	    	                	Tab tab = tabPane.getSelectionModel().getSelectedItem();
+	    						LibTab libTab = libTabs.getLibTab(tab);
+	    						Library lib = libTab.getLib();
+	    						Path newDictPath = Paths.get(dictPathText.getText());
+	    						Path cmuPath1 = Paths.get(cmuPath.getText());
+	    						Path masterPath1 = Paths.get(masterPath.getText());
+	    						Dictionary newDict = Dictionary.Dictionary(lib, newDictPath, cmuPath1, masterPath1);
+	    						DictTab newDictTab = new DictTab(newDict, tabPane);
+	    						newDictTab.setName(newDict.getPath().getFileName().toString());
+	    						dictTabs.addDictTab(newDictTab.getTab(), newDictTab);
+	    						Tab newTab = newDictTab.getTab();
+	    						SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+    							selectionModel.select(newTab);
+    							saveCSV.setDisable(false);
                                 genD.setDisable(true);
                                 addB.setDisable(true);
                                 delB.setDisable(true);
                                 filter.setDisable(true);
                                 merge.setDisable(true);
                                 save.setDisable(true);
-                            }
-                        });
-                    	tab.setOnClosed(event -> {
-                    		if(dictTabs.getTabCount()==0) {
-                    			save.setDisable(false);
-                    			addB.setDisable(false);
-                    		}
-                    	});
-						LibTab libTab = libTabs.getLibTab(tab);
-						Library lib = libTab.getLib();
-						Dictionary newDict = Dictionary.Dictionary(lib);
-						DictTab newDictTab = new DictTab(newDict, tabPane);
-						newDictTab.setName(newDict.getPath().getFileName().toString());
-						dictTabs.addDictTab(newDictTab.getTab(), newDictTab);
-						
+    	                    	newTab.setOnSelectionChanged(event -> {
+    	                            if (newTab.isSelected()) {
+    	                                saveCSV.setDisable(false);
+    	                                genD.setDisable(true);
+    	                                addB.setDisable(true);
+    	                                delB.setDisable(true);
+    	                                filter.setDisable(true);
+    	                                merge.setDisable(true);
+    	                                save.setDisable(true);
+    	                            }
+    	                        });
+    	                    	newTab.setOnClosed(event -> {
+    	                    		if(dictTabs.getTabCount()==0) {
+    	                    			save.setDisable(false);
+    	                    			addB.setDisable(false);
+    	                    		}
+    	                    	});
+    	                    	tabID.addID(newDictTab.getTab(), "Dict");
+	    	                }
+	                	});
+	                	GridPane.setConstraints(submit, 0, 7);
+						grid.getChildren().addAll(cmuText, cmu, masterText, master,dictText, dict, submit);
+						Scene scene = new Scene(grid, 400,250);
+		                genDStage.setScene(scene);
+		                genDStage.show();
 					}
 				}
 				catch(Exception ex){
