@@ -86,6 +86,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		genD.setDisable(true);
 		addB.setDisable(true);
 		delB.setDisable(true);
+		save.setDisable(true);
 		//Button Actions
 		newLib.setOnAction( 
 				new EventHandler<ActionEvent>() {
@@ -107,6 +108,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 									addB.setDisable(true);
 									delB.setDisable(true);
 									merge.setDisable(true);
+									save.setDisable(true);
 								}
 								libTabs.deleteLibTab(libTab.getTab(), libTab);
 								System.out.println(libTabs.getTabCount());
@@ -199,6 +201,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    							    public void handle(Event e) 
 	    							    {
 	    									if(libTabs.getTabCount()==1) {
+	    										save.setDisable(true);
 	    										genD.setDisable(true);
 	    										filter.setDisable(true);
 	    										addB.setDisable(true);
@@ -759,6 +762,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    							    public void handle(Event e) 
 	    							    {
 	    									if(libTabs.getTabCount()==1) {
+	    										save.setDisable(true);
 	    										filter.setDisable(true);
 	    										addB.setDisable(true);
 	    										delB.setDisable(true);
@@ -865,6 +869,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    							    public void handle(Event e) 
 	    							    {
 	    									if(libTabs.getTabCount()==1) {
+	    										save.setDisable(true);
 	    										filter.setDisable(true);
 	    										addB.setDisable(true);
 	    										delB.setDisable(true);
