@@ -2,11 +2,10 @@ package main.library;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder; 
@@ -197,9 +196,8 @@ public class Library {
 			doc.appendChild(root);
 			
 			// Create all book nodes
-			System.out.println(books.size());
+			Collections.sort(books);
 			for (Book book : books) {
-				System.out.println(book.getTitle());
 				// Create Book node
 				Element bookNode = doc.createElement("Book");
 				// Set book node attributes
@@ -219,7 +217,7 @@ public class Library {
 				// Create invididual word elements
 				Element word;
 				Map<String, Integer> wordMap = book.getWordMap();
-				// TreeMSap keeps map sorted
+				// TreeMap keeps map sorted
 				TreeMap<String, Integer> sortedWordMap = new TreeMap<>(wordMap);
 				for (Map.Entry<String, Integer> wordEntry : sortedWordMap.entrySet()) {
 					word = doc.createElement("W");
