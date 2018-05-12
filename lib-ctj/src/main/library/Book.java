@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Book {
+public class Book implements Comparable<Book> {
 	private String title;
 	private String author;
 	private String age;
@@ -67,7 +67,7 @@ public class Book {
 	}
 
 	public boolean equals(Book b) {
-		if (this.title.equals(b.title)) {
+		if (this.title.toLowerCase().equals(b.title.toLowerCase())) {
 			return this.isbn.equals(b.isbn);
 		}
 		return false;
@@ -104,4 +104,9 @@ public class Book {
 	}
 
 	public void setWordMap(HashMap<String, Integer> wordMap) { this.wordMap = wordMap; }
+
+	@Override
+	public int compareTo(Book b) {
+		return title.toLowerCase().compareTo(b.title.toLowerCase());
+	}
 }
