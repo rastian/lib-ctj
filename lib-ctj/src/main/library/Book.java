@@ -33,7 +33,7 @@ public class Book {
 			wordMap = new HashMap<>();
 			List<String> lines = Files.lines(Paths.get(filename), Charset.defaultCharset()).collect(Collectors.toList());
 			String word;
-			Pattern pattern = Pattern.compile("([a-zA-Z'_\\\\-]+)");
+			Pattern pattern = Pattern.compile("([a-zA-Z']+)");
 			Matcher matcher;
 			for (String line : lines) {
 				matcher = pattern.matcher(line);
@@ -41,7 +41,8 @@ public class Book {
 					word = matcher.group().toLowerCase().trim();
 					if (word.length() > 0) {
 						if (wordMap.containsKey(word)) {
-							wordMap.put(word, wordMap.get(word) + 1);
+							int oldWordCount = wordMap.get(word);
+							wordMap.put(word, oldWordCount + 1);
 						}
 						else {
 							wordMap.put(word, 1);
