@@ -39,7 +39,7 @@ public class Library {
 	public enum FilterFuncs {
 		// Used for filtering string fields
 		CONTAINS, STARTS_WITH, ENDS_WITH,
-		// Used for filtering numeric fields
+		// Used for filtering numeric fields or for string equality
 		EQUALS, LESS_THAN, GREATER_THAN
 	}
 
@@ -60,69 +60,72 @@ public class Library {
 			doc = dBuilder.parse(libXMLFile);
 			doc.getDocumentElement().normalize();
 			
+			// Ensure that XML document is a Library file
 			root = doc.getDocumentElement();
+			if (root.getTagName().equals("Literature")) {
+				NodeList bookNodeList = doc.getElementsByTagName("Book");
+				Book tmpBook;
+				HashMap<String, Integer> wordMap;
+				this.size = 0;
+				for (int i = 0; i < bookNodeList.getLength(); ++i) {
+					Node bookNode = bookNodeList.item(size);
+					if (bookNode.getNodeType() == Node.ELEMENT_NODE && bookNode.getNodeName().equals("Book")) {
+						Element bookElem = (Element) bookNode;
+						tmpBook = new Book();
+						wordMap = new HashMap<>();
+						// Fill basic book attributes
+						tmpBook.setTitle(bookElem.getAttribute("title").trim());
+						tmpBook.setAuthor(bookElem.getAttribute("author").trim());
+						tmpBook.setAge(bookElem.getAttribute("age").toUpperCase().trim());
+						tmpBook.setIsbn(bookElem.getAttribute("isbn13").trim());
+						// Make sure genre/complete fields exist and if not create and add the attributes to the DOM
+						// along with default values of genre="unknown" and complete="yes"
+						if (bookElem.hasAttribute("complete")) {
+							tmpBook.setComplete(bookElem.getAttribute("complete").trim().equals("yes"));
+						}
+						else {
+							Attr complete = doc.createAttribute("complete");
+							complete.setValue("yes");
+							tmpBook.setComplete(true);
+							bookElem.setAttributeNode(complete);
+						}
+						if (bookElem.hasAttribute("genre")) {
+							tmpBook.setGenre(bookElem.getAttribute("genre").toLowerCase().trim());
+						}
+						else {
+							Attr genre = doc.createAttribute("genre");
+							genre.setValue("unknown");
+							tmpBook.setGenre("unknown");
+							bookElem.setAttributeNode(genre);
+						}
 
-			// Get all books
-			NodeList bookNodeList = doc.getElementsByTagName("Book");
-			Book tmpBook;
-			HashMap<String, Integer> wordMap;
-			this.size = 0;
-			for (int i = 0; i < bookNodeList.getLength(); ++i) {
-				Node bookNode = bookNodeList.item(size);
-				if (bookNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element eBook = (Element) bookNode;
-					tmpBook = new Book();
-					wordMap = new HashMap<>();
-					// Fill attributes
-					tmpBook.setTitle(eBook.getAttribute("title").trim());
-					tmpBook.setAuthor(eBook.getAttribute("author").trim());
-					tmpBook.setAge(eBook.getAttribute("age").trim());
-					tmpBook.setIsbn(eBook.getAttribute("isbn13").trim());
-					// Makes sure genre/complete fields exist and if not create and add the attributes to the DOM
-					// along with default values of genre="unknown" and complete="yes"
-					if (eBook.hasAttribute("complete")) {
-						tmpBook.setComplete(eBook.getAttribute("complete").trim().equals("yes"));
-					}
-					else {
-						Attr complete = doc.createAttribute("complete");
-						complete.setValue("yes");
-						tmpBook.setComplete(true);
-						eBook.setAttributeNode(complete);
-					}
-					if (eBook.hasAttribute("genre")) {
-						tmpBook.setGenre(eBook.getAttribute("genre").trim());
-					}
-					else {
-						Attr genre = doc.createAttribute("genre");
-						genre.setValue("unknown");
-						tmpBook.setGenre("unknown");
-						eBook.setAttributeNode(genre);
-					}
-
-					NodeList wordsNodeList = eBook.getChildNodes();
-					for (int j = 0; j < wordsNodeList.getLength(); ++j) {
-						Node wordsNode = wordsNodeList.item(j);
-						if (wordsNode.getNodeType() == Node.ELEMENT_NODE) {
-							Element eWords = (Element) wordsNode;
-							tmpBook.setUniqueWordCount(Integer.parseInt(eWords.getAttribute("unique_words")));
-							tmpBook.setTotalWordCount(Integer.parseInt(eWords.getAttribute("total_count")));
-							// Fill the book wordMap
-							NodeList wordNodeList = eWords.getChildNodes();
-							for (int k = 0; k < wordNodeList.getLength(); ++k) {
-								Node wordNode = wordNodeList.item(k);
-								if (wordNode.getNodeType() == Node.ELEMENT_NODE) {
-									Element eWord = (Element) wordNode;
-									wordMap.put(eWord.getTextContent(), Integer.parseInt(eWord.getAttribute("freq")));
+						// Read in all words/counts from Book
+						NodeList bookElemChildren = bookElem.getChildNodes();
+						for (int j = 0; j < bookElemChildren.getLength(); ++j) {
+							Node wordsListNode = bookElemChildren.item(j);
+							if (wordsListNode.getNodeType() == Node.ELEMENT_NODE && wordsListNode.getNodeName().equals("Words")) {
+								Element wordsListElem = (Element) wordsListNode;
+								tmpBook.setUniqueWordCount(Integer.parseInt(wordsListElem.getAttribute("unique_words")));
+								tmpBook.setTotalWordCount(Integer.parseInt(wordsListElem.getAttribute("total_count")));
+								// Fill the book wordMap
+								NodeList wordsListChildren = wordsListElem.getChildNodes();
+								for (int k = 0; k < wordsListChildren.getLength(); ++k) {
+									Node wordNode = wordsListChildren.item(k);
+									if (wordNode.getNodeType() == Node.ELEMENT_NODE && wordNode.getNodeName().equals("W")) {
+										Element wordElem = (Element) wordNode;
+										wordMap.put(wordElem.getTextContent(), Integer.parseInt(wordElem.getAttribute("freq")));
+									}
 								}
 							}
 						}
+						tmpBook.setWordMap(wordMap);
+						books.add(tmpBook);
+						++size;
 					}
-					tmpBook.setWordMap(wordMap);
-					books.add(tmpBook);
-					++size;
-				}
+				}	
 			}	
-		} catch (ParserConfigurationException e) {
+		} 
+		catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
 		catch (SAXException e) {
@@ -163,7 +166,7 @@ public class Library {
 		}
 		return false;
 	}
-	
+
 	public void addBook(Book book) {
 		if (!this.hasDuplicate(book)) {
 			books.add(book);
@@ -260,7 +263,7 @@ public class Library {
 	}
 	
 	public int save(Path path) {
-		try {
+		try {			
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
