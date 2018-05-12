@@ -2,7 +2,11 @@ package main.library;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder; 
@@ -33,8 +37,8 @@ public class Library {
 	private Path path;
 	private List<Book> books;
 	private int size;
-	private Document doc;
-	private Element root;
+	//private Document doc;
+	//private Element root;
 	
 	public enum FilterFuncs {
 		// Used for filtering string fields
@@ -57,11 +61,11 @@ public class Library {
 		try {
 			// Read library from XML file into memory
 			dBuilder = dbFactory.newDocumentBuilder();
-			doc = dBuilder.parse(libXMLFile);
+			Document doc = dBuilder.parse(libXMLFile);
 			doc.getDocumentElement().normalize();
 			
 			// Ensure that XML document is a Library file
-			root = doc.getDocumentElement();
+			Element root = doc.getDocumentElement();
 			if (root.getTagName().equals("Literature")) {
 				NodeList bookNodeList = doc.getElementsByTagName("Book");
 				Book tmpBook;
@@ -138,22 +142,10 @@ public class Library {
 
 	public Library() {
 		books = new ArrayList<>();
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder;
 		size = 0;
 		try {
 			path = Files.createTempFile("new-", ".xml");
-			dBuilder = dbFactory.newDocumentBuilder();
-			doc = dBuilder.newDocument();
-			
-			// Create root element
-			root = doc.createElement("Literature");
-			doc.appendChild(root);
-			Attr count = doc.createAttribute("count");
-			count.setValue(Integer.toString(size));
-			root.setAttributeNode(count);
-		}
-		catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -171,73 +163,12 @@ public class Library {
 		if (!this.hasDuplicate(book)) {
 			books.add(book);
 			++size;
-			root.setAttribute("count", Integer.toString(size));
-
-			/* Create Book Node */
-			Element bookNode = doc.createElement("Book");
-			// Create/Set book attributes
-			Attr age = doc.createAttribute("age");
-			Attr author = doc.createAttribute("author");
-			Attr title = doc.createAttribute("title");
-			Attr isbn = doc.createAttribute("isbn13");
-			Attr complete = doc.createAttribute("complete");
-			Attr genre = doc.createAttribute("genre");
-			age.setValue(book.getAge().toUpperCase());
-			author.setValue(book.getAuthor());
-			title.setValue(book.getTitle());
-			isbn.setValue(book.getIsbn());
-			complete.setValue(book.isComplete() ? "yes" : "no");
-			genre.setValue(book.getGenre());
-			bookNode.setAttributeNode(age);
-			bookNode.setAttributeNode(author);
-			bookNode.setAttributeNode(title);
-			bookNode.setAttributeNode(isbn);
-			bookNode.setAttributeNode(complete);
-			bookNode.setAttributeNode(genre);
-			
-			/* Create Words Node */
-			Element wordsNode = doc.createElement("Words");
-			// Create/Set words attributes
-			Attr uniqueWordCount = doc.createAttribute("unique_words");
-			Attr totalWordCount = doc.createAttribute("total_count");
-			uniqueWordCount.setValue(Integer.toString(book.getUniqueWordCount()));
-			totalWordCount.setValue(Integer.toString(book.getTotalWordCount()));
-			wordsNode.setAttributeNode(uniqueWordCount);
-			wordsNode.setAttributeNode(totalWordCount);
-			
-			// Set individual word nodes
-			Element word;
-			HashMap<String, Integer> wordMap = book.getWordMap();
-			for (String w : wordMap.keySet()) {
-				word = doc.createElement("W");
-				Attr freq = doc.createAttribute("freq");
-				freq.setValue(Integer.toString(wordMap.get(w)));
-				word.setAttributeNode(freq);
-				word.appendChild(doc.createTextNode(w));
-				wordsNode.appendChild(word);
-			}
-			root.appendChild(bookNode);
-			bookNode.appendChild(wordsNode);
 		}
 	}
 
 	public void delete(ObservableList<Book> selected) {
-		NodeList bookNodes = root.getElementsByTagName("Book");
-		for (Book book : selected) {
-			String title = book.getTitle();
-			String isbn = book.getIsbn();
-			System.out.println("Deleting '" + title + "' '" +  isbn + "'");
-			for (int i = 0; i < bookNodes.getLength(); ++i) {
-				Element bookNode = (Element) bookNodes.item(i);
-				if (bookNode.getAttribute("title").trim().equals(title) && bookNode.getAttribute("isbn13").trim().equals(isbn)) {
-					System.out.println("Book Node: '" + bookNode.getAttribute("title") + "' '" + bookNode.getAttribute("isbn13") + "'");
-					root.removeChild((Node)bookNode);
-				}
-			}
-		}
 		books.removeAll(selected);
 		size -= selected.size();
-		root.setAttribute("count", Integer.toString(size));
 		
 	}
 
@@ -247,14 +178,6 @@ public class Library {
 			Book b = books.get(index);
 			books.remove(index);
 			--size;
-			NodeList bookNodes = root.getElementsByTagName("Book");
-			for (int i = 0; i < bookNodes.getLength(); ++i) {
-				Element bookNode = (Element) bookNodes.item(i);
-				if (bookNode.getAttribute("title").trim().equals(b.getTitle()) && bookNode.getAttribute("isbn13").trim().equals(b.getIsbn())) {
-					root.removeChild((Node)bookNode);
-				}
-			}
-			root.setAttribute("count", Integer.toString(size));
 			return b;
 		}
 		else {
@@ -263,7 +186,51 @@ public class Library {
 	}
 	
 	public int save(Path path) {
-		try {			
+		try {
+			// Dump state of library into XML file
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.newDocument();
+			
+			Element root = doc.createElement("Literature");
+			root.setAttribute("count", Integer.toString(size));
+			doc.appendChild(root);
+			
+			// Create all book nodes
+			System.out.println(books.size());
+			for (Book book : books) {
+				System.out.println(book.getTitle());
+				// Create Book node
+				Element bookNode = doc.createElement("Book");
+				// Set book node attributes
+				bookNode.setAttribute("age", book.getAge().trim().toUpperCase());
+				bookNode.setAttribute("author", book.getAuthor());
+				bookNode.setAttribute("title", book.getTitle());
+				bookNode.setAttribute("isbn13", book.getIsbn());
+				bookNode.setAttribute("complete", book.isComplete() ? "yes" : "no");
+				bookNode.setAttribute("genre", book.getGenre());
+				
+				// Create Words node
+				Element wordsNode = doc.createElement("Words");
+				// set words node attributes
+				wordsNode.setAttribute("unique_words", Integer.toString(book.getUniqueWordCount()));
+				wordsNode.setAttribute("total_count", Integer.toString(book.getTotalWordCount()));
+				
+				// Create invididual word elements
+				Element word;
+				Map<String, Integer> wordMap = book.getWordMap();
+				// TreeMSap keeps map sorted
+				TreeMap<String, Integer> sortedWordMap = new TreeMap<>(wordMap);
+				for (Map.Entry<String, Integer> wordEntry : sortedWordMap.entrySet()) {
+					word = doc.createElement("W");
+					word.setAttribute("freq", Integer.toString(wordEntry.getValue()));
+					word.appendChild(doc.createTextNode(wordEntry.getKey()));
+					wordsNode.appendChild(word);
+				}
+				root.appendChild(bookNode);
+				bookNode.appendChild(wordsNode);
+			}
+
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
@@ -273,6 +240,7 @@ public class Library {
 			DOMSource src = new DOMSource(doc);
 			StreamResult result = new StreamResult(new File(path.toString()));
 			transformer.transform(src, result);
+			System.out.println("done");
 			return 1;
 		}
 		catch (Exception e) {
