@@ -65,11 +65,17 @@ public class Book implements Comparable<Book> {
 		return s;
 	}
 
-	public boolean equals(Book b) {
-		if (this.title.toLowerCase().equals(b.title.toLowerCase())) {
-			return this.isbn.equals(b.isbn);
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
 		}
-		return false;
+		if (!(o instanceof Book)) {
+			return false;
+		}
+		
+		Book b = (Book) o;
+		return this.title.toLowerCase().equals(b.title.toLowerCase()) && this.isbn.equals(b.isbn);
 	}
 
 	public void  setTitle(String title) { this.title = title; }
