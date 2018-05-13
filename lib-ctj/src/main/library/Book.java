@@ -77,6 +77,19 @@ public class Book implements Comparable<Book> {
 		Book b = (Book) o;
 		return this.title.toLowerCase().equals(b.title.toLowerCase()) && this.isbn.equals(b.isbn);
 	}
+	
+	@Override
+	public int hashCode() {
+		int result = 65537;
+		result = 257 * result + title.hashCode();
+		result = 257 * result +  author.hashCode();
+		result = 257 * result + age.hashCode();
+		result = 257 * result + isbn.hashCode();
+		result = 257 * result + genre.hashCode();
+		result = 257 * result + uniqueWordCount;
+		result = 257 * result + totalWordCount;
+		return result;
+	}
 
 	public void  setTitle(String title) { this.title = title; }
 	public String getTitle() { return title; }
