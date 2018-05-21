@@ -101,7 +101,7 @@ public class LibTab {
         tab.setContent(libData);
         pane.getTabs().add(tab);
 	}
-	public TableView<Book> getLibTable(){
+	public MultiSelectTableView<Book> getLibTable(){
 		return libData;
 	}
 	public void addNewBook(Book book) {
