@@ -140,5 +140,5 @@ public class LibTab {
 	}
 	public ObservableList<Book> getData(){
 		return data;
-	}
+	} //
 }

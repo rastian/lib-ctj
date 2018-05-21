@@ -550,7 +550,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							ObservableList<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
 							lib.delete(selected);
 							libTab.getData().removeAll(selected);
-							libTab.getLibTable().updateSelection(sm->sm.clearSelection());
+							libTab.getLibTable().updateSelection(sm->sm.clearSelection()); //Deselects rows after deletion
 							e.consume();
 						}
 					}
