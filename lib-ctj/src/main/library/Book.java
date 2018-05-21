@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class Book {
+public class Book implements Comparable<Book> {
 	private String title;
 	private String author;
 	private String age;
@@ -33,7 +32,7 @@ public class Book {
 			wordMap = new HashMap<>();
 			List<String> lines = Files.lines(Paths.get(filename), Charset.defaultCharset()).collect(Collectors.toList());
 			String word;
-			Pattern pattern = Pattern.compile("([a-zA-Z'_\\\\-]+)");
+			Pattern pattern = Pattern.compile("([a-zA-Z']+)");
 			Matcher matcher;
 			for (String line : lines) {
 				matcher = pattern.matcher(line);
@@ -41,7 +40,8 @@ public class Book {
 					word = matcher.group().toLowerCase().trim();
 					if (word.length() > 0) {
 						if (wordMap.containsKey(word)) {
-							wordMap.put(word, wordMap.get(word) + 1);
+							int oldWordCount = wordMap.get(word);
+							wordMap.put(word, oldWordCount + 1);
 						}
 						else {
 							wordMap.put(word, 1);
@@ -65,11 +65,30 @@ public class Book {
 		return s;
 	}
 
-	public boolean equals(Book b) {
-		if (this.title.equals(b.title)) {
-			return this.isbn.equals(b.isbn);
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
 		}
-		return false;
+		if (!(o instanceof Book)) {
+			return false;
+		}
+		
+		Book b = (Book) o;
+		return this.title.toLowerCase().equals(b.title.toLowerCase()) && this.isbn.equals(b.isbn);
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 65537;
+		result = 257 * result + title.hashCode();
+		result = 257 * result +  author.hashCode();
+		result = 257 * result + age.hashCode();
+		result = 257 * result + isbn.hashCode();
+		result = 257 * result + genre.hashCode();
+		result = 257 * result + uniqueWordCount;
+		result = 257 * result + totalWordCount;
+		return result;
 	}
 
 	public void  setTitle(String title) { this.title = title; }
@@ -103,4 +122,9 @@ public class Book {
 	}
 
 	public void setWordMap(HashMap<String, Integer> wordMap) { this.wordMap = wordMap; }
+
+	@Override
+	public int compareTo(Book b) {
+		return title.toLowerCase().compareTo(b.title.toLowerCase());
+	}
 }
