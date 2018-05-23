@@ -86,7 +86,6 @@ public class LibTab {
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                    File file = chooser.showSaveDialog(stage);
 	                    libObj.save(file.toPath());
-	                    libObj.setName(file.getName());
 	                    name = file.getName();
 	                    isSaved = true;
                 	}
@@ -140,7 +139,6 @@ public class LibTab {
 	}
 	public void setName(String newName) {
 		name = newName;
-		libObj.setName(newName);
 		tab.setText(name);
 	}
 	public ObservableList<Book> getBookList(){

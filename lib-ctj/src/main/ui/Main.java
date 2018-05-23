@@ -139,7 +139,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                             }
                         });
 						libTab.setName("Lib" + libTabs.getTabCount());
-						libObj.setName(libTab.getName());
 					}
 				});
 		
@@ -168,8 +167,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                			if(root.getTagName().equals("Literature")) {
 	                				Library libObj = new Library(file.toPath().toAbsolutePath());
 	    	                        LibTab libTab = new LibTab(libObj, tabPane, stage);
-	    	                        libTab.setName(libObj.getPath().getFileName().toString());
-	    	                        libObj.setName(libTab.getName());
+	    	                        libTab.setName(libObj.getName());
 	    	                        libTabs.addLibTab(libTab.getTab(), libTab);
 	    	                        Tab tab = libTab.getTab();
 	    	                        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
@@ -268,7 +266,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    Library libObj = libTab.getLib();
 	                    libObj.save(file.toPath());
 	                    libTab.setName(file.getName());
-	                    libObj.setName(libTab.getName());
 	                    libObj.setPath(file.toPath());
 	                    libTab.setIsSaved(true);
 	                    genD.setDisable(false);
@@ -771,8 +768,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    									libTabs.deleteLibTab(fTab, fLibTab);
 	    							    }
 	    							});
-		    						fLibTab.setName(fLib.getPath().getFileName().toString());
-		    						fLibTab.getLib().setName(fLibTab.getName());
+		    						fLibTab.setName(fLib.getName());
 		    						libTabs.addLibTab(fTab, fLibTab);
 		    						tabID.addID(fTab, "Lib");
 		    						stageFilter.close();
@@ -879,7 +875,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    							    }
 	    							});
 									libTab.setName("Lib" + libTabs.getTabCount());
-									libTab.getLib().setName(libTab.getName());
+									//libTab.getLib().setName(libTab.getName());
 									libTab.setIsSaved(false);
 									tabID.addID(libTab.getTab(), "Lib");
 									stageMerge.close();
