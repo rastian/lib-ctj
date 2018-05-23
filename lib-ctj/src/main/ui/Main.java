@@ -7,6 +7,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -547,10 +548,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							Library lib = libTab.getLib();
 							libTab.setIsSaved(false);
 							genD.setDisable(true);
-							ObservableList<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
+							List<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
 							lib.delete(selected);
 							libTab.getData().removeAll(selected);
-							libTab.getLibTable().updateSelection(sm->sm.clearSelection()); //Deselects rows after deletion
+							libTab.getLibTable().updateSelection(sm -> sm.clearSelection()); //Deselects rows after deletion
 							e.consume();
 						}
 					}

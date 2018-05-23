@@ -165,10 +165,9 @@ public class Library {
 		}
 	}
 
-	public void delete(ObservableList<Book> selected) {
+	public void delete(List<Book> selected) {
 		books.removeAll(selected);
 		size -= selected.size();
-		
 	}
 
 	public Book delete(int index) {
