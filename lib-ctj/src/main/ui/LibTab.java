@@ -20,8 +20,10 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -36,13 +38,35 @@ public class LibTab {
 	private int tabCount;
 	private Tab tab = new Tab();
 	Library libObj = new Library();
-	private MultiSelectTableView<Book> libData = new MultiSelectTableView<Book>();
+	private TableView<Book> libData = new TableView<Book>();
 	private ObservableList<Book> data =
 	        FXCollections.observableArrayList(
 	        	
 	            
 	        );
 	public LibTab(Library lib, TabPane pane, Stage stage){
+		/* Code from lines 52-68 created by James_D
+		 * URL: https://stackoverflow.com/questions/34722159/how-to-change-selection-behavior-of-tableview
+		 * Date Used: 5/23/2018
+		 */
+		libData.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		libData.setRowFactory(tv -> {
+            TableRow<Book> row = new TableRow<>();
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, e-> {
+                if (! row.isEmpty() && e.getClickCount() == 1) {
+                    Book book = row.getItem() ;
+                    if (libData.getSelectionModel().getSelectedItems().contains(book)) {
+                        int index = row.getIndex() ;
+                        libData.getSelectionModel().clearSelection(index);
+                    } else {
+                        libData.getSelectionModel().select(book);
+                    }
+                    e.consume();
+                }
+            });
+            return row ;
+        });
+		
 		tab.setOnCloseRequest(new EventHandler<Event>() {
 			@Override
 		    public void handle(Event e) 
@@ -101,7 +125,7 @@ public class LibTab {
         tab.setContent(libData);
         pane.getTabs().add(tab);
 	}
-	public MultiSelectTableView<Book> getLibTable(){
+	public TableView<Book> getLibTable(){
 		return libData;
 	}
 	public void addNewBook(Book book) {
@@ -140,5 +164,5 @@ public class LibTab {
 	}
 	public ObservableList<Book> getData(){
 		return data;
-	} //
+	} 
 }
