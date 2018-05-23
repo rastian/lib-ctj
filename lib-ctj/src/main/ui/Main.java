@@ -59,7 +59,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		TabPane tabPane = new TabPane();
 		
 		//Open/Save File Stuff
-		Stage stage = new Stage(); //For Open/Save File
+		Stage stage = new Stage(); //For Open/Save File, and Lib and Dict Tabs
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent e) {
@@ -78,8 +78,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				
 			}
 		});
-		FileChooser openLD = new FileChooser(); 
-		openLD.setTitle("Select Library or Dictionary XML File to Open");
 		filter.disableProperty().set(libTabs.isEmpty());
 		merge.disableProperty().set(libTabs.isEmpty());
 		saveCSV.setDisable(true);
@@ -92,7 +90,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(final ActionEvent e) {
-						//Table Stuff
 						Library libObj = new Library();
 						LibTab libTab = new LibTab(libObj, tabPane, stage);
 				        //Tabs
@@ -150,6 +147,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                @Override
 	                public void handle(final ActionEvent e) {
 	                	FileChooser chooser = new FileChooser();
+	                	chooser.setTitle("Open Library or Dictionary");
 	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
@@ -259,6 +257,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                @Override
 	                public void handle(final ActionEvent e) {
 	                	FileChooser chooser = new FileChooser();
+	                	chooser.setTitle("Save Library");
 	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 	                	chooser.setInitialDirectory(new File(currentPath));
 	                	chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml"));
@@ -336,6 +335,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	dictPath.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
 	     	                	FileChooser chooser = new FileChooser();
+	     	                	chooser.setTitle("Save Dictionary CSV");
 	     	                	ExtensionFilter xml = new ExtensionFilter("CSV Files", "*.csv");
 	    	                	chooser.getExtensionFilters().add(xml);
 	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
@@ -469,6 +469,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	browse.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
 	     	                	FileChooser chooser = new FileChooser();
+	     	                	chooser.setTitle("Select Book Text File");
 	     	                	ExtensionFilter txt = new ExtensionFilter("Text Files", "*.txt");
 	    	                	chooser.getExtensionFilters().add(txt);
 	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
@@ -549,6 +550,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							ObservableList<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
 							lib.delete(selected);
 							libTab.getData().removeAll(selected);
+							libTab.getLibTable().updateSelection(sm->sm.clearSelection()); //Deselects rows after deletion
 							e.consume();
 						}
 					}
@@ -924,6 +926,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	browseCMU.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
 	     	                	FileChooser chooser = new FileChooser();
+	     	                	chooser.setTitle("Select CMU");
 	     	                	ExtensionFilter xml = new ExtensionFilter("Text Files", "*.txt");
 	    	                	chooser.getExtensionFilters().add(xml);
 	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
@@ -950,6 +953,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	browseMaster.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
 	     	                	FileChooser chooser = new FileChooser();
+	     	                	chooser.setTitle("Select Master Dictionary");
 	     	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
 	    	                	chooser.getExtensionFilters().add(xml);
 	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
@@ -975,6 +979,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	exePath.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
 	     	                	FileChooser chooser = new FileChooser();
+	     	                	chooser.setTitle("Select build_dictionary Executable");
 	     	                	ExtensionFilter exe = new ExtensionFilter("EXE Files", "*.exe");
 	    	                	chooser.getExtensionFilters().add(exe);
 	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
@@ -1000,6 +1005,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	dictPath.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
 	     	                	FileChooser chooser = new FileChooser();
+	     	                	chooser.setTitle("Select Dictionary Directory");
 	     	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
 	    	                	chooser.getExtensionFilters().add(xml);
 	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
