@@ -551,7 +551,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							List<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
 							lib.delete(selected);
 							libTab.getData().removeAll(selected);
-							libTab.getLibTable().updateSelection(sm -> sm.clearSelection()); //Deselects rows after deletion
+							libTab.getLibTable().updateSelection(sm -> sm.clearSelection()); // Deselects rows after deletion
 							e.consume();
 						}
 					}
@@ -650,8 +650,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 
 									String titleInputTxt = titleInput.getText().trim();
 									String[] fTitles = titleInputTxt.split(";");
-									System.out.println("ftitle length: " +fTitles.length);
-									System.out.println("'" + fTitles[0] + "'");
 									if (fTitles.length > 0 && !fTitles[0].isEmpty()) {
 										// ensure inputs are all lowercase and trimmed of whitespace
 										for (int i = 0; i < fTitles.length; ++i) 
@@ -662,7 +660,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 
 									String authorInputTxt = authInput.getText().trim();
 									String[] fAuthors = authorInputTxt.split(";");
-									System.out.println("fauthor length: " + fAuthors.length);
 									if (fAuthors.length > 0 && !fAuthors[0].isEmpty()) {
 										for (int i = 0; i < fAuthors.length; ++i)
 											fAuthors[i] = fAuthors[i].toLowerCase().trim();
