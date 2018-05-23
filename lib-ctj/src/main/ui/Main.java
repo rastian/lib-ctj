@@ -550,8 +550,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							genD.setDisable(true);
 							List<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
 							lib.delete(selected);
-							libTab.getData().removeAll(selected);
-							libTab.getLibTable().updateSelection(sm -> sm.clearSelection()); // Deselects rows after deletion
+							libTab.getData().removeAll(selected); 
+							libTab.getLibTable().getSelectionModel().clearSelection(); //Makes sure nothing is selected after deletion.
 							e.consume();
 						}
 					}
@@ -808,7 +808,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	            
 		            	        );
 
-		            	MultiSelectTableView<Library> libs = new MultiSelectTableView<Library>();
+		            	TableView<Library> libs = new TableView<Library>();
 		        		TableColumn<Library, String> libCol = new TableColumn<>("Library");
 		                libCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		            	for(int i = 0; i < tabs.size(); i++) {

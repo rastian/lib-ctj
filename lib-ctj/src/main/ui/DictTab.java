@@ -19,7 +19,7 @@ public class DictTab {
 	private int tabCount;
 	private Tab tab = new Tab();
 	Dictionary dictObj;
-	private MultiSelectTableView<DictElement> dictData = new MultiSelectTableView<DictElement>();
+	private TableView<DictElement> dictData = new TableView<DictElement>();
 	private ObservableList<DictElement> data =
 	        FXCollections.observableArrayList(
 	        	
@@ -68,7 +68,7 @@ public class DictTab {
         tab.setContent(dictData);
         pane.getTabs().add(tab);
 	}
-	public MultiSelectTableView<DictElement> getDictTable(){
+	public TableView<DictElement> getDictTable(){
 		return dictData;
 	}
 	
