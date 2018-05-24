@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder; 
@@ -213,12 +212,12 @@ public class Library {
 				// Create invididual word elements
 				Element word;
 				Map<String, Integer> wordMap = book.getWordMap();
-				// TreeMap keeps map sorted
-				TreeMap<String, Integer> sortedWordMap = new TreeMap<>(wordMap);
-				for (Map.Entry<String, Integer> wordEntry : sortedWordMap.entrySet()) {
+				List<String> words = new ArrayList<>(wordMap.keySet());
+				Collections.sort(words);
+				for (String w : words) {
 					word = doc.createElement("W");
-					word.setAttribute("freq", Integer.toString(wordEntry.getValue()));
-					word.appendChild(doc.createTextNode(wordEntry.getKey()));
+					word.setAttribute("freq", Integer.toString(wordMap.get(w)));
+					word.appendChild(doc.createTextNode(w));
 					wordsNode.appendChild(word);
 				}
 				root.appendChild(bookNode);
@@ -234,7 +233,6 @@ public class Library {
 			DOMSource src = new DOMSource(doc);
 			StreamResult result = new StreamResult(new File(path.toString()));
 			transformer.transform(src, result);
-			System.out.println("done");
 			return 1;
 		}
 		catch (Exception e) {
@@ -488,9 +486,9 @@ public class Library {
 	public Path getPath() { return path; }
 
 	public Book getBook(int index) { return books.get(index); }
-	
+
 	public String getName() {return this.getPath().getFileName().toString(); }
-	
+
 	public boolean isEmpty() {
 		return size == 0;
 	}
