@@ -80,14 +80,14 @@ public class Book implements Comparable<Book> {
 	
 	@Override
 	public int hashCode() {
-		int result = 65537;
-		result = 257 * result + title.hashCode();
-		result = 257 * result +  author.hashCode();
-		result = 257 * result + age.hashCode();
-		result = 257 * result + isbn.hashCode();
-		result = 257 * result + genre.hashCode();
-		result = 257 * result + uniqueWordCount;
-		result = 257 * result + totalWordCount;
+		int result = 97;
+		result = 19 * result + title.hashCode();
+		result = 19 * result +  author.hashCode();
+		result = 19 * result + age.hashCode();
+		result = 19 * result + isbn.hashCode();
+		result = 19 * result + genre.hashCode();
+		result = 19 * result + uniqueWordCount;
+		result = 19 * result + totalWordCount;
 		return result;
 	}
 
