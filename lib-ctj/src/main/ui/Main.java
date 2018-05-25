@@ -119,10 +119,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						saveCSV.setDisable(true);
                         addB.setDisable(false);
                         delB.setDisable(false);
-                        genD.setDisable(true);
                         save.setDisable(false);
                         filter.setDisable(false);
                         merge.setDisable(false);
+                        genD.setDisable(false);
 						tab.setOnSelectionChanged(event -> {
                             if (tab.isSelected()) {
                                 saveCSV.setDisable(true);
@@ -130,12 +130,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                                 delB.setDisable(false);
                                 save.setDisable(false);
                             	merge.setDisable(false);
+                            	genD.setDisable(false);
                                 if(libTabs.getTabCount()>=1)
                                 	filter.setDisable(false);
-                                if(libTab.getIsSaved()) {
-                                	genD.setDisable(false);
-                                }
-                                else genD.setDisable(true);
+                               
                             }
                         });
 						libTab.setName("Lib" + libTabs.getTabCount());
@@ -184,10 +182,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                                saveCSV.setDisable(true);
 	    	                                addB.setDisable(false);
 	    	                                delB.setDisable(false);
-	    	                                if(libTab.getIsSaved())
-	    	                                	genD.setDisable(false);
-	    	                                else
-	    	                                	genD.setDisable(true);
+	    	                                genD.setDisable(false);
 	    	                                save.setDisable(false);
 	    	                                filter.setDisable(false);
 	    	                                merge.setDisable(false);
@@ -270,7 +265,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                    libTab.setName(file.getName());
 	                    libObj.setPath(file.toPath());
 	                    libTab.setIsSaved(true);
-	                    genD.setDisable(false);
 	                    
 	                }
 	            });
@@ -510,7 +504,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		    	                		stageAdd.close();
 		    	                		libTab.addNewBook(new Book(titleInput.getText(), authInput.getText(), ageInput.getText(), isbnInput.getText(), comp, genreInput.getText(), filePath.getText()));
 			    	                    libTab.setIsSaved(false);
-			    	                    genD.setDisable(true);
 		    	                	}
 	    	                	}
 	    	                	
@@ -546,7 +539,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 							LibTab libTab = libTabs.getLibTab(tab);
 							Library lib = libTab.getLib();
 							libTab.setIsSaved(false);
-							genD.setDisable(true);
 							List<Book> selected = libTab.getLibTable().getSelectionModel().getSelectedItems();
 							lib.delete(selected);
 							libTab.getData().removeAll(selected); 
@@ -737,7 +729,6 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    							saveCSV.setDisable(true);
 	                                addB.setDisable(false);
 	                                delB.setDisable(false);
-	                                genD.setDisable(true);
 	                                save.setDisable(false);
 	                                filter.setDisable(false);
                                 	merge.setDisable(false);
@@ -745,10 +736,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                            if (fTab.isSelected()) {
 	    	                                saveCSV.setDisable(true);
 	    	                                addB.setDisable(false);
-	    	                                if(fLibTab.getIsSaved())
-	    	                                	genD.setDisable(false);
-	    	                                else
-	    	                                	genD.setDisable(true);
+	    	                                genD.setDisable(false);
 	    	                                delB.setDisable(false);
 	    	                                save.setDisable(false);
 	    	                                filter.setDisable(false);
@@ -806,7 +794,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		            	            
 		            	        );
 
-		            	TableView<Library> libs = new TableView<Library>();
+		            	TableView<Library> libs = new MultiSelectTableView<Library>();
 		        		TableColumn<Library, String> libCol = new TableColumn<>("Library");
 		                libCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		            	for(int i = 0; i < tabs.size(); i++) {
@@ -843,7 +831,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    							saveCSV.setDisable(true);
 	                                addB.setDisable(false);
 	                                delB.setDisable(false);
-	                                genD.setDisable(true);
+	                                genD.setDisable(false);
 	                                save.setDisable(false);
 	                                filter.setDisable(false);
                                 	merge.setDisable(false);
@@ -852,10 +840,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                                saveCSV.setDisable(true);
 	    	                                addB.setDisable(false);
 	    	                                delB.setDisable(false);
-	    	                                if(libTab.getIsSaved())
-	    	                                	genD.setDisable(false);
-	    	                                else
-	    	                                	genD.setDisable(true);
+	    	                                genD.setDisable(false);
 	    	                                save.setDisable(false);
 	    	                                filter.setDisable(false);
 	    	                                merge.setDisable(false);
@@ -904,7 +889,13 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                         alert.setHeaderText("This function only works on Windows computers");
                         alert.showAndWait();
                 	}
-					if (libTabs.getTabCount() > 0 && isWindows) {
+                	boolean isSaved = libTabs.getLibTab(tabPane.getSelectionModel().getSelectedItem()).getIsSaved();
+                	if(!isSaved) {
+                		Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setHeaderText("This Library must be saved before you may generate a Dictionary");
+                        alert.showAndWait();
+                	}
+					if (libTabs.getTabCount() > 0 && isWindows && isSaved) {
 						Stage genDStage = new Stage();
 						GridPane grid = new GridPane();
 	                	grid.setPadding(new Insets(10, 10, 10, 10));
