@@ -258,14 +258,15 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	Tab tab = tabPane.getSelectionModel().getSelectedItem();
 	                    LibTab libTab = libTabs.getLibTab(tab);
 	                    Library libObj = libTab.getLib();
-	                    if(libTab.getIsSaved())
-	                    	chooser.setInitialFileName(libObj.getName());
+	                    chooser.setInitialFileName(libObj.getName());
 	                	File file = chooser.showSaveDialog(stage);
-	                    libObj.save(file.toPath());
-	                    libTab.setName(file.getName());
-	                    libObj.setPath(file.toPath());
-	                    libTab.setIsSaved(true);
-	                    
+	                	if (file != null) {
+		                    libObj.save(file.toPath());
+		                    libTab.setName(file.getName());
+		                    libObj.setPath(file.toPath());
+		                    libTab.setIsSaved(true);
+		                    genD.setDisable(false);
+	                	}
 	                }
 	            });
 		saveCSV.setOnAction(
@@ -732,6 +733,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                                save.setDisable(false);
 	                                filter.setDisable(false);
                                 	merge.setDisable(false);
+                                	genD.setDisable(false);
 	    	                        fTab.setOnSelectionChanged(event -> {
 	    	                            if (fTab.isSelected()) {
 	    	                                saveCSV.setDisable(true);

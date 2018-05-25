@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder; 
@@ -34,7 +33,6 @@ import org.xml.sax.SAXException;
 public class Library {
 	private Path path;
 	private List<Book> books;
-	private int size;
 
 	public enum FilterFuncs {
 		// Used for filtering string fields
@@ -66,9 +64,8 @@ public class Library {
 				NodeList bookNodeList = doc.getElementsByTagName("Book");
 				Book tmpBook;
 				HashMap<String, Integer> wordMap;
-				this.size = 0;
 				for (int i = 0; i < bookNodeList.getLength(); ++i) {
-					Node bookNode = bookNodeList.item(size);
+					Node bookNode = bookNodeList.item(i);
 					if (bookNode.getNodeType() == Node.ELEMENT_NODE && bookNode.getNodeName().equals("Book")) {
 						Element bookElem = (Element) bookNode;
 						tmpBook = new Book();
@@ -120,7 +117,6 @@ public class Library {
 						}
 						tmpBook.setWordMap(wordMap);
 						books.add(tmpBook);
-						++size;
 					}
 				}	
 			}	
@@ -138,7 +134,6 @@ public class Library {
 
 	public Library() {
 		books = new ArrayList<>();
-		size = 0;
 		try {
 			path = Files.createTempFile("new-", ".xml");
 		} catch (IOException e) {
@@ -158,21 +153,18 @@ public class Library {
 	public void addBook(Book book) {
 		if (!this.hasDuplicate(book)) {
 			books.add(book);
-			++size;
 		}
 	}
 
 	public void delete(List<Book> selected) {
 		books.removeAll(selected);
-		size -= selected.size();
 	}
 
 	public Book delete(int index) {
-		if (index <= size) {
+		if (index <= books.size()) {
 			// Find book to be deleted
 			Book b = books.get(index);
 			books.remove(index);
-			--size;
 			return b;
 		}
 		else {
@@ -188,7 +180,7 @@ public class Library {
 			Document doc = dBuilder.newDocument();
 			
 			Element root = doc.createElement("Literature");
-			root.setAttribute("count", Integer.toString(size));
+			root.setAttribute("count", Integer.toString(books.size()));
 			doc.appendChild(root);
 			
 			// Create all book nodes
@@ -213,12 +205,12 @@ public class Library {
 				// Create invididual word elements
 				Element word;
 				Map<String, Integer> wordMap = book.getWordMap();
-				// TreeMap keeps map sorted
-				TreeMap<String, Integer> sortedWordMap = new TreeMap<>(wordMap);
-				for (Map.Entry<String, Integer> wordEntry : sortedWordMap.entrySet()) {
+				List<String> words = new ArrayList<>(wordMap.keySet());
+				Collections.sort(words);
+				for (String w : words) {
 					word = doc.createElement("W");
-					word.setAttribute("freq", Integer.toString(wordEntry.getValue()));
-					word.appendChild(doc.createTextNode(wordEntry.getKey()));
+					word.setAttribute("freq", Integer.toString(wordMap.get(w)));
+					word.appendChild(doc.createTextNode(w));
 					wordsNode.appendChild(word);
 				}
 				root.appendChild(bookNode);
@@ -234,7 +226,6 @@ public class Library {
 			DOMSource src = new DOMSource(doc);
 			StreamResult result = new StreamResult(new File(path.toString()));
 			transformer.transform(src, result);
-			System.out.println("done");
 			return 1;
 		}
 		catch (Exception e) {
@@ -281,160 +272,121 @@ public class Library {
 
 		String libFilename = this.getPath().getFileName().toString();
 		StringBuilder newFilename = new StringBuilder(libFilename.substring(0, libFilename.indexOf(".xml")));
+
 		Object[] filterArr;
-		List<BookFields> sortedBookFields = new ArrayList(filterMap.keySet());
-		Collections.sort(sortedBookFields);
-		for (BookFields field : sortedBookFields) {
-			if (field == BookFields.TITLE) {
-				filterArr = (Object[])filterMap.get(BookFields.TITLE);
-				List<String> fTitles = Arrays.asList((String[])filterArr[1]);
-				for (String fTitle : fTitles) {
-					newFilename.append("-").append(fTitle);
-				}
-			}
-			if (field == BookFields.AUTHOR) {
-				filterArr = (Object[])filterMap.get(BookFields.AUTHOR);
-				List<String> fAuthors = Arrays.asList((String[])filterArr[1]);
-				for (String fAuthor : fAuthors) {
-					newFilename.append("-").append(fAuthor);
-				}
-			}
-			if (field == BookFields.AGE) {
-				filterArr = (Object[])filterMap.get(BookFields.AGE);
-				List<String> fAges = Arrays.asList((String[])filterArr[1]);
-				for (String fAge : fAges) {
-					newFilename.append("-").append(fAge);
-				}
-			}
-			if (field == BookFields.ISBN) {
-				filterArr = (Object[])filterMap.get(BookFields.ISBN);
-				List<String> fIsbns = Arrays.asList((String[])filterArr[1]);
-				for (String fIsbn : fIsbns) {
-					newFilename.append("-").append(fIsbn);
-				}
-			}
-			if (field == BookFields.GENRE) {
-				filterArr = (Object[])filterMap.get(BookFields.GENRE);
-				List<String> fGenres = Arrays.asList((String[])filterArr[1]);
-				for (String fGenre : fGenres) {
-					newFilename.append("-").append(fGenre);
-				}
-			}
-			if (field == BookFields.COMPLETE) {
-				filterArr = (Object[])filterMap.get(BookFields.COMPLETE);
-				boolean fComplete = (boolean)filterArr[1];
-				if (fComplete) {
-					newFilename.append("-").append("complete");
-				}
-				else {
-					newFilename.append("-").append("incomplete");
-				}
-			}
-			if (field == BookFields.UNIQUE_WORD_COUNT) {
-				HashMap<FilterFuncs, Integer> funcs = (HashMap<FilterFuncs, Integer>)filterMap.get(BookFields.UNIQUE_WORD_COUNT);
-				if (funcs.containsKey(FilterFuncs.LESS_THAN)) {
-					int upperLimit = funcs.get(FilterFuncs.LESS_THAN);
-					newFilename.append("-TWless").append(upperLimit);
-				}
-				if (funcs.containsKey(FilterFuncs.GREATER_THAN)) {
-					int lowerLimit = funcs.get(FilterFuncs.GREATER_THAN);
-					newFilename.append("-TWgreater").append(lowerLimit);
-				}
-			}
-			if (field == BookFields.TOTAL_WORD_COUNT) {
-				HashMap<FilterFuncs, Integer> funcs = (HashMap<FilterFuncs, Integer>)filterMap.get(BookFields.TOTAL_WORD_COUNT);
-				if (funcs.containsKey(FilterFuncs.LESS_THAN)) {
-					int upperLimit = funcs.get(FilterFuncs.LESS_THAN);
-					newFilename.append("-TWless").append(upperLimit);
-				}
-				if (funcs.containsKey(FilterFuncs.GREATER_THAN)) {
-					int lowerLimit = funcs.get(FilterFuncs.GREATER_THAN);
-					newFilename.append("-TWgreater").append(lowerLimit);
-				}
-			}
-		}
-		newFilename.append(".xml");
-		System.out.println(newFilename);
-		fLib.setPath(Paths.get(this.getPath().getParent().resolve(newFilename.toString()).toString()));
-		
 		FilterFuncs func;
 		List<Book> tmpBooks;
 		if (filterMap.containsKey(BookFields.TITLE)) {
 			filterArr = (Object[])filterMap.get(BookFields.TITLE);
 			func = (FilterFuncs)filterArr[0];
 			List<String> titles = Arrays.asList((String[])filterArr[1]);
+			for (String title : titles) {
+				newFilename.append("-").append(title);
+			}
 			tmpBooks = new ArrayList<>(filteredBooks);
 			for (Book b : tmpBooks) {
 				boolean delFlag = true;
 				for (String title : titles) {
-					if (b.getTitle().toLowerCase().contains(title)) 
+					if (b.getTitle().toLowerCase().contains(title)) { 
 						delFlag = false;
+					}
 				}
-				if (delFlag) filteredBooks.remove(b);
+				if (delFlag) {
+					filteredBooks.remove(b);
+				}
 			}
 		}
 		if (filterMap.containsKey(BookFields.AUTHOR)) {
 			filterArr = (Object[])filterMap.get(BookFields.AUTHOR);
 			func = (FilterFuncs)filterArr[0];
 			List<String> authors = Arrays.asList((String[])filterArr[1]);
+			for (String author : authors) {
+				newFilename.append("-").append(author);
+			}
 			tmpBooks = new ArrayList<>(filteredBooks);
 			for (Book b : tmpBooks) {
 				boolean delFlag = true;
 				for (String author : authors) {
-					if (b.getAuthor().toLowerCase().contains(author))
+					if (b.getAuthor().toLowerCase().contains(author)) {
 						delFlag = false;
+					}
 				}
-				if (delFlag) filteredBooks.remove(b);
+				if (delFlag) {
+					filteredBooks.remove(b);
+				}
 			}
 		}
 		if (filterMap.containsKey(BookFields.AGE)) {
 			filterArr = (Object[])filterMap.get(BookFields.AGE);
 			func = (FilterFuncs)filterArr[0];
 			List<String> ages = Arrays.asList((String[])filterArr[1]);
+			for (String age : ages) {
+				newFilename.append("-").append(age);
+			}
 			tmpBooks = new ArrayList<>(filteredBooks);
 			for (Book b : tmpBooks) {
 				boolean delFlag = true;
 				for (String age : ages) {
-					if (b.getAge().toLowerCase().equals(age))
+					if (b.getAge().toLowerCase().equals(age)) {
 						delFlag = false;
+					}
 				}
-				if (delFlag) filteredBooks.remove(b);
+				if (delFlag) {
+					filteredBooks.remove(b);
+				}
 			}
 		}
 		if (filterMap.containsKey(BookFields.ISBN)) {
 			filterArr = (Object[])filterMap.get(BookFields.ISBN);
 			func = (FilterFuncs)filterArr[0];
 			List<String> isbns = Arrays.asList((String[])filterArr[1]);
+			for (String isbn : isbns) {
+				newFilename.append("-").append(isbn);
+			}
 			tmpBooks = new ArrayList<>(filteredBooks);
 			for (Book b : tmpBooks) {
 				boolean delFlag = true;
 				for (String isbn : isbns) {
-					if (b.getIsbn().toLowerCase().equals(isbn))
+					if (b.getIsbn().toLowerCase().equals(isbn)) {
 						delFlag = false;
+					}
 				}
-				if (delFlag) filteredBooks.remove(b);
+				if (delFlag) {
+					filteredBooks.remove(b);
+				}
 			}
 		}
 		if (filterMap.containsKey(BookFields.COMPLETE)) {
 			filterArr = (Object[])filterMap.get(BookFields.COMPLETE);
 			func = (FilterFuncs)filterArr[0];
 			boolean complete = (boolean)filterArr[1];
+			if (complete) {
+				newFilename.append("-").append("complete");
+			}
+			else {
+				newFilename.append("-").append("incomplete");
+			}
 			tmpBooks = new ArrayList<>(filteredBooks);
 			for (Book b : tmpBooks) {
-				if (b.isComplete() != complete)
+				if (b.isComplete() != complete) {
 					filteredBooks.remove(b);
+				}
 			}
 		}
 		if (filterMap.containsKey(BookFields.GENRE)) {
 			filterArr = (Object[])filterMap.get(BookFields.GENRE);
 			func = (FilterFuncs)filterArr[0];
 			List<String> genres = Arrays.asList((String[])filterArr[1]);
+			for (String genre : genres) {
+				newFilename.append("-").append(genre);
+			}
 			tmpBooks = new ArrayList<>(filteredBooks);
 			for (Book b : tmpBooks) {
 				boolean delFlag = true;
 				for (String genre : genres) {
-					if (b.getGenre().toLowerCase().equals(genre))
+					if (b.getGenre().toLowerCase().equals(genre)) {
 						delFlag = false;
+					}
 				}
 				if (delFlag) filteredBooks.remove(b);
 			}
@@ -444,15 +396,21 @@ public class Library {
 			tmpBooks = new ArrayList<>(filteredBooks);
 			if (funcs.containsKey(FilterFuncs.GREATER_THAN)) {
 				int lowerLimit = funcs.get(FilterFuncs.GREATER_THAN);
+				newFilename.append("-UWgreater").append(lowerLimit);
 				for (Book b : tmpBooks) {
-					if (b.getUniqueWordCount() < lowerLimit) filteredBooks.remove(b); 
+					if (b.getUniqueWordCount() < lowerLimit) {
+						filteredBooks.remove(b); 
+					}
 				}
 			}
 			tmpBooks = new ArrayList<>(filteredBooks);
 			if (funcs.containsKey(FilterFuncs.LESS_THAN)) {
 				int upperLimit = funcs.get(FilterFuncs.LESS_THAN);
+				newFilename.append("-UWless").append(upperLimit);
 				for (Book b : tmpBooks) {
-					if (b.getUniqueWordCount() > upperLimit) filteredBooks.remove(b);
+					if (b.getUniqueWordCount() > upperLimit) { 
+						filteredBooks.remove(b);
+					}
 				}
 			}
 		}
@@ -461,18 +419,26 @@ public class Library {
 			tmpBooks = new ArrayList<>(filteredBooks);
 			if (funcs.containsKey(FilterFuncs.GREATER_THAN)) {
 				int lowerLimit = funcs.get(FilterFuncs.GREATER_THAN);
+				newFilename.append("-TWgreater").append(lowerLimit);
 				for (Book b : tmpBooks) {
-					if (b.getTotalWordCount() < lowerLimit) filteredBooks.remove(b); 
+					if (b.getTotalWordCount() < lowerLimit) {
+						filteredBooks.remove(b); 
+					}
 				}
 			}
 			tmpBooks = new ArrayList<>(filteredBooks);
 			if (funcs.containsKey(FilterFuncs.LESS_THAN)) {
 				int upperLimit = funcs.get(FilterFuncs.LESS_THAN);
+				newFilename.append("-TWless").append(upperLimit);
 				for (Book b : tmpBooks) {
-					if (b.getTotalWordCount() > upperLimit) filteredBooks.remove(b);
+					if (b.getTotalWordCount() > upperLimit) {
+						filteredBooks.remove(b);
+					}
 				}
 			}
 		}
+		newFilename.append(".xml");
+		fLib.setPath(Paths.get(path.getParent().resolve(newFilename.toString()).toString()));
 
 		// Add all filtered books to fLib
 		for (Book b : filteredBooks) {
@@ -482,16 +448,16 @@ public class Library {
 	}
 	
 	
-	public int size() { return size; }
+	public int size() { return books.size(); }
 
 	public void setPath(Path path) { this.path = path; }
 	public Path getPath() { return path; }
 
 	public Book getBook(int index) { return books.get(index); }
-	
-	public String getName() {return this.getPath().getFileName().toString(); }
-	
+
+	public String getName() { return this.getPath().getFileName().toString(); }
+
 	public boolean isEmpty() {
-		return size == 0;
+		return books.size() == 0;
 	}
 }

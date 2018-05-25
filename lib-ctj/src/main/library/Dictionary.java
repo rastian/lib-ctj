@@ -27,9 +27,7 @@ import org.xml.sax.SAXException;
 public class Dictionary {
 	private Path path;
 	private List<DictElement> entries;
-	private int size;
 	private Document doc;
-	private Element root;
 	
 	public enum DictField {
 		SPELLING, ARPABET, SYLLABLES, FREQUENCY, FUNCTION, 
@@ -49,14 +47,13 @@ public class Dictionary {
 			doc = dBuilder.parse(dictXMLFile);
 			doc.getDocumentElement().normalize();
 			
-			root = doc.getDocumentElement();
+			Element root = doc.getDocumentElement();
 			
 			// Get all entries
 			NodeList entryNodes = doc.getElementsByTagName("W");
 			DictElement tmpEntry;
-			this.size = 0;
 			for (int i = 0; i < entryNodes.getLength(); ++i) {
-				Node entryNode = entryNodes.item(size);
+				Node entryNode = entryNodes.item(i);
 				if (entryNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element entry = (Element) entryNode;
 					tmpEntry = new DictElement();
@@ -107,7 +104,6 @@ public class Dictionary {
 							}
 						}
 					}
-					++size;
 					entries.add(tmpEntry);
 				}
 			}
@@ -124,7 +120,6 @@ public class Dictionary {
 	}
 
 	public static Dictionary Dictionary(Library lib, Path buildDictPath, Path newDictPath, Path cmuPath, Path masterDictPath) {
-		final Path userDir = Paths.get(System.getProperty("user.home")).resolve("lib-ctj");
 		try {
 			String buildDictExePathStr = buildDictPath.toAbsolutePath().toString();
 			String newDictPathStr = newDictPath.toAbsolutePath().toString();
