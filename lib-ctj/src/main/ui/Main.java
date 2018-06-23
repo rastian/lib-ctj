@@ -886,18 +886,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				try {
 					String osName = System.getProperty("os.name").toLowerCase();
                 	boolean isWindows = osName.startsWith("windows");
-                	if(!isWindows) {
-                		Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setHeaderText("This function only works on Windows computers");
-                        alert.showAndWait();
-                	}
+                	boolean isMac = osName.startsWith("mac");
                 	boolean isSaved = libTabs.getLibTab(tabPane.getSelectionModel().getSelectedItem()).getIsSaved();
                 	if(!isSaved) {
                 		Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setHeaderText("This Library must be saved before you may generate a Dictionary");
                         alert.showAndWait();
                 	}
-					if (libTabs.getTabCount() > 0 && isWindows && isSaved) {
+					if (libTabs.getTabCount() > 0 && (isWindows || isMac) && isSaved) {
 						Stage genDStage = new Stage();
 						GridPane grid = new GridPane();
 	                	grid.setPadding(new Insets(10, 10, 10, 10));
@@ -969,13 +965,15 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                		 public void handle(final ActionEvent e) {
 	     	                	FileChooser chooser = new FileChooser();
 	     	                	chooser.setTitle("Select build_dictionary Executable");
-	     	                	ExtensionFilter exe = new ExtensionFilter("EXE Files", "*.exe");
-	    	                	chooser.getExtensionFilters().add(exe);
+	     	                	if(isWindows) {
+	     	                		ExtensionFilter exe = new ExtensionFilter("EXE Files", "*.exe");
+	     	                		chooser.getExtensionFilters().add(exe);
+	     	                	}
 	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
 	     	                	chooser.setInitialDirectory(new File(currentPath));
 	     	                    File file = chooser.showOpenDialog(stage);
 	     	                    if (file != null) {
-	     	                        exeText.setText(file.getPath());
+	     	                        exeText.setText(file.getAbsolutePath());
 	     	                    }
 	     	                }
 	                	});
@@ -1019,7 +1017,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    	                public void handle(final ActionEvent a) {
 	    	                	if(dictPath.getText().isEmpty() || cmuPath.getText().isEmpty() || exeText.getText().isEmpty()) {
 	    	                		Alert alert = new Alert(Alert.AlertType.ERROR);
-	    	                        alert.setHeaderText("Please select the CMU, build_dictionary.exe, and new dictionary file");
+	    	                        alert.setHeaderText("Please select the CMU, build_dictionary executable, and new dictionary file");
 	    	                        alert.showAndWait();
 	    	                	}
 	    	                	else {
