@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -102,6 +103,9 @@ public class LibTab {
 		for(int i = 0; i < lib.size(); i++) {
 			data.add(lib.getBook(i));
 		}
+		TableColumn<Book, Number> indexColumn = new TableColumn<Book, Number>("#");
+		indexColumn.setSortable(true);
+		indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(libData.getItems().indexOf(column.getValue())+1));
 		TableColumn<Book, String> titleCol = new TableColumn<>("Title");
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         TableColumn<Book, String> authorCol = new TableColumn<>("Author");
@@ -120,7 +124,7 @@ public class LibTab {
         totalCol.setCellValueFactory(new PropertyValueFactory<>("totalWordCount"));
         
         libData.setItems(data);
-        libData.getColumns().addAll(titleCol, authorCol, isbnCol, ageCol, completeCol, genreCol, uniqueCol, totalCol);
+        libData.getColumns().addAll(indexColumn, titleCol, authorCol, isbnCol, ageCol, completeCol, genreCol, uniqueCol, totalCol);
         tab.setContent(libData);
         pane.getTabs().add(tab);
 	}

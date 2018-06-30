@@ -18,6 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javafx.application.*;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.*;
@@ -134,6 +135,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(final ActionEvent e) {
+						
 						Library libObj = new Library();
 						LibTab libTab = new LibTab(libObj, tabPane, stage);
 				        //Tabs
