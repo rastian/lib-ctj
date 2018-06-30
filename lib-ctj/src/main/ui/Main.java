@@ -182,6 +182,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                             }
                         });
 						libTab.setName("Lib" + libTabs.getTabCount());
+						libObj.setName(libTab.getName());
 					}
 				});
 		
@@ -790,7 +791,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	    									libTabs.deleteLibTab(fTab, fLibTab);
 	    							    }
 	    							});
-		    						fLibTab.setName(fLib.getName());
+		    						fLibTab.setName(fLib.getPath().getFileName().toString());
+		    						fLib.setName(fLibTab.getName());
 		    						libTabs.addLibTab(fTab, fLibTab);
 		    						tabID.addID(fTab, "Lib");
 		    						stageFilter.close();

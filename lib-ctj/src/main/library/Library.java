@@ -31,6 +31,7 @@ import org.xml.sax.SAXException;
 
 
 public class Library {
+	private String name;
 	private Path path;
 	private List<Book> books;
 
@@ -48,6 +49,7 @@ public class Library {
 	public Library(Path libXMLPath) {
 		path = libXMLPath;
 		books = new ArrayList<>();
+		name = path.getFileName().toString();
 		File libXMLFile = new File(path.toString());
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -455,7 +457,8 @@ public class Library {
 
 	public Book getBook(int index) { return books.get(index); }
 
-	public String getName() { return this.getPath().getFileName().toString(); }
+	public String getName() { return name; }
+	public void setName(String name) { this.name = name; }
 
 	public boolean isEmpty() {
 		return books.size() == 0;
