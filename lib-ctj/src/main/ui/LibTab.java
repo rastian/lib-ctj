@@ -103,8 +103,8 @@ public class LibTab {
 		for(int i = 0; i < lib.size(); i++) {
 			data.add(lib.getBook(i));
 		}
-		TableColumn<Book, Number> indexColumn = new TableColumn<Book, Number>("#");
-		indexColumn.setSortable(true);
+		TableColumn<Book, Number> indexColumn = new TableColumn<Book, Number>();
+		indexColumn.setSortable(false);
 		indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(libData.getItems().indexOf(column.getValue())+1));
 		TableColumn<Book, String> titleCol = new TableColumn<>("Title");
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));

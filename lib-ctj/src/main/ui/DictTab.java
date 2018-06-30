@@ -1,5 +1,6 @@
 package main.ui;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -38,6 +39,9 @@ public class DictTab {
 		for(int i = 0; i < dict.getElements().size(); i++) {
 			data.add(dict.getElements().get(i));
 		}
+		TableColumn<DictElement, Number> indexColumn = new TableColumn<DictElement, Number>();
+		indexColumn.setSortable(false);
+		indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(dictData.getItems().indexOf(column.getValue())+1));
         TableColumn<DictElement, String> spellCol = new TableColumn<>("Spelling");
         spellCol.setCellValueFactory(new PropertyValueFactory<>("spelling"));
 		TableColumn<DictElement, String> funcCol = new TableColumn<>("Function");
@@ -60,6 +64,7 @@ public class DictTab {
         neighborhoodCol.setCellValueFactory(new PropertyValueFactory<>("neighborhoodDisplay"));
         dictData.setItems(data);
         dictData.getColumns().addAll(
+        		indexColumn,
         		spellCol, funcCol, 
         		freqCol, syllableCol, 
         		arpabetCol, morphemeCol, 
