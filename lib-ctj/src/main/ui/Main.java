@@ -46,7 +46,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	Button filter = new Button("Filter Books");
 	Button merge = new Button("Merge Libraries");
 	Button genD = new Button("Generate Dictionary");
-	
+	FileChooser openChooser = new FileChooser();
+	FileChooser saveChooser = new FileChooser();
+	FileChooser csvChooser = new FileChooser();
+	FileChooser bookChooser = new FileChooser();
+	FileChooser cmuChooser = new FileChooser();
+	FileChooser masterDictChooser = new FileChooser();
+	FileChooser buildDictExeChooser = new FileChooser();
+	FileChooser newDictChooser = new FileChooser();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -56,6 +63,42 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		primaryStage.setTitle("LIB-CTJ");
 		ToolBar toolbar = new ToolBar(newLib, open, save, saveCSV, addB, delB, filter, merge, genD);
 		
+		//File Chooser options, necessary to remember previously used directory
+		openChooser.setTitle("Open Library or Dictionary");
+    	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+    	openChooser.setInitialDirectory(new File(currentPath));
+    	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
+    	openChooser.getExtensionFilters().add(xml);
+    	
+    	saveChooser.setTitle("Save Library");
+    	saveChooser.setInitialDirectory(new File(currentPath));
+    	saveChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml"));
+    	
+     	csvChooser.setTitle("Save Dictionary CSV");
+     	ExtensionFilter csv = new ExtensionFilter("CSV Files", "*.csv");
+    	csvChooser.getExtensionFilters().add(csv);
+     	csvChooser.setInitialDirectory(new File(currentPath));
+     	
+     	bookChooser.setTitle("Select Book Text File");
+     	ExtensionFilter txt = new ExtensionFilter("Text Files", "*.txt");
+    	bookChooser.getExtensionFilters().add(txt);
+     	bookChooser.setInitialDirectory(new File(currentPath));
+     	
+     	cmuChooser.setTitle("Select CMU");
+    	cmuChooser.getExtensionFilters().add(txt);
+     	cmuChooser.setInitialDirectory(new File(currentPath));
+     	
+     	masterDictChooser.setTitle("Select Master Dictionary");
+    	masterDictChooser.getExtensionFilters().add(xml);
+     	masterDictChooser.setInitialDirectory(new File(currentPath));
+     	
+     	buildDictExeChooser.setTitle("Select build_dictionary Executable");
+     	buildDictExeChooser.setInitialDirectory(new File(currentPath));
+     	
+     	newDictChooser.setTitle("Select Dictionary Directory");
+    	newDictChooser.getExtensionFilters().add(xml);
+     	newDictChooser.setInitialDirectory(new File(currentPath));
+     	
 		//Tabs
 		TabPane tabPane = new TabPane();
 		
@@ -144,14 +187,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	            new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(final ActionEvent e) {
-	                	FileChooser chooser = new FileChooser();
-	                	chooser.setTitle("Open Library or Dictionary");
-	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-	                	chooser.setInitialDirectory(new File(currentPath));
-	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
-	                	chooser.getExtensionFilters().add(xml);
-	                    File file = chooser.showOpenDialog(stage);
+	                	
+	                    File file = openChooser.showOpenDialog(stage);
 	                    if (file != null) {
+	                    	openChooser.setInitialDirectory(file.getParentFile().getAbsoluteFile());
 	                    	Document doc;
 	                    	Element root;
 	                    	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -250,17 +289,14 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				new EventHandler<ActionEvent>() {
 	                @Override
 	                public void handle(final ActionEvent e) {
-	                	FileChooser chooser = new FileChooser();
-	                	chooser.setTitle("Save Library");
-	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-	                	chooser.setInitialDirectory(new File(currentPath));
-	                	chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml"));
+	                	
 	                	Tab tab = tabPane.getSelectionModel().getSelectedItem();
 	                    LibTab libTab = libTabs.getLibTab(tab);
 	                    Library libObj = libTab.getLib();
-	                    chooser.setInitialFileName(libObj.getName());
-	                	File file = chooser.showSaveDialog(stage);
+	                    saveChooser.setInitialFileName(libObj.getName());
+	                	File file = saveChooser.showSaveDialog(stage);
 	                	if (file != null) {
+	                		saveChooser.setInitialDirectory(file.getParentFile().getAbsoluteFile());
 		                    libObj.save(file.toPath());
 		                    libTab.setName(file.getName());
 		                    libObj.setPath(file.toPath());
@@ -329,14 +365,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						
 	                	dictPath.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
-	     	                	FileChooser chooser = new FileChooser();
-	     	                	chooser.setTitle("Save Dictionary CSV");
-	     	                	ExtensionFilter xml = new ExtensionFilter("CSV Files", "*.csv");
-	    	                	chooser.getExtensionFilters().add(xml);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-	     	                	chooser.setInitialDirectory(new File(currentPath));
-	     	                    File file = chooser.showSaveDialog(stage);
+	     	                	
+	     	                    File file = csvChooser.showSaveDialog(stage);
 	     	                    if (file != null) {
+	     	                    	csvChooser.setInitialDirectory(file.getParentFile().getAbsoluteFile());
 	     	                        dictPathText.setText(file.getPath());
 	     	                    }
 	     	                }
@@ -463,14 +495,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	                	Button browse = new Button("Browse");
 	                	browse.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
-	     	                	FileChooser chooser = new FileChooser();
-	     	                	chooser.setTitle("Select Book Text File");
-	     	                	ExtensionFilter txt = new ExtensionFilter("Text Files", "*.txt");
-	    	                	chooser.getExtensionFilters().add(txt);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-	     	                	chooser.setInitialDirectory(new File(currentPath));
-	     	                    File file = chooser.showOpenDialog(stage);
+	     	                	
+	     	                    File file = bookChooser.showOpenDialog(stage);
 	     	                    if (file != null) {
+	     	                    	bookChooser.setInitialDirectory(file.getParentFile().getAbsoluteFile());
 	     	                        filePath.setText(file.getPath());
 	     	                    }
 	     	                }
@@ -893,7 +921,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                         alert.setHeaderText("This Library must be saved before you may generate a Dictionary");
                         alert.showAndWait();
                 	}
-					if (libTabs.getTabCount() > 0 && (isWindows || isMac) && isSaved) {
+                	if(!isWindows) {
+                		Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setHeaderText("This function only works on Windows machines");
+                        alert.showAndWait();
+                	}
+					if (libTabs.getTabCount() > 0 && isWindows && isSaved) {
 						Stage genDStage = new Stage();
 						GridPane grid = new GridPane();
 	                	grid.setPadding(new Insets(10, 10, 10, 10));
@@ -910,14 +943,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						
 	                	browseCMU.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
-	     	                	FileChooser chooser = new FileChooser();
-	     	                	chooser.setTitle("Select CMU");
-	     	                	ExtensionFilter xml = new ExtensionFilter("Text Files", "*.txt");
-	    	                	chooser.getExtensionFilters().add(xml);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-	     	                	chooser.setInitialDirectory(new File(currentPath));
-	     	                    File file = chooser.showOpenDialog(stage);
+	     	                	
+	     	                    File file = cmuChooser.showOpenDialog(stage);
 	     	                    if (file != null) {
+	     	                    	cmuChooser.setInitialDirectory(file.getParentFile().getAbsoluteFile());
 	     	                        cmuPath.setText(file.getPath());
 	     	                    }
 	     	                }
@@ -937,14 +966,10 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						
 	                	browseMaster.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
-	     	                	FileChooser chooser = new FileChooser();
-	     	                	chooser.setTitle("Select Master Dictionary");
-	     	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
-	    	                	chooser.getExtensionFilters().add(xml);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-	     	                	chooser.setInitialDirectory(new File(currentPath));
-	     	                    File file = chooser.showOpenDialog(stage);
+	     	                	
+	     	                    File file = masterDictChooser.showOpenDialog(stage);
 	     	                    if (file != null) {
+	     	                    	masterDictChooser.setInitialDirectory(file.getParentFile().getAbsoluteFile());
 	     	                        masterPath.setText(file.getPath());
 	     	                    }
 	     	                }
@@ -963,16 +988,15 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						
 	                	exePath.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
-	     	                	FileChooser chooser = new FileChooser();
-	     	                	chooser.setTitle("Select build_dictionary Executable");
+	     	                	
 	     	                	if(isWindows) {
 	     	                		ExtensionFilter exe = new ExtensionFilter("EXE Files", "*.exe");
-	     	                		chooser.getExtensionFilters().add(exe);
+	     	                		buildDictExeChooser.getExtensionFilters().add(exe);
 	     	                	}
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-	     	                	chooser.setInitialDirectory(new File(currentPath));
-	     	                    File file = chooser.showOpenDialog(stage);
+	     	                	
+	     	                    File file = buildDictExeChooser.showOpenDialog(stage);
 	     	                    if (file != null) {
+	     	                    	buildDictExeChooser.setInitialDirectory(file.getParentFile().getAbsoluteFile());
 	     	                        exeText.setText(file.getAbsolutePath());
 	     	                    }
 	     	                }
@@ -991,14 +1015,11 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 						
 	                	dictPath.setOnAction(new EventHandler<ActionEvent>() {
 	                		 public void handle(final ActionEvent e) {
-	     	                	FileChooser chooser = new FileChooser();
-	     	                	chooser.setTitle("Select Dictionary Directory");
-	     	                	ExtensionFilter xml = new ExtensionFilter("XML Files", "*.xml");
-	    	                	chooser.getExtensionFilters().add(xml);
-	     	                	String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-	     	                	chooser.setInitialDirectory(new File(currentPath));
-	     	                    File file = chooser.showSaveDialog(stage);
+	     	                	
+	     	                    File file = newDictChooser.showSaveDialog(stage);
+	     	                    
 	     	                    if (file != null) {
+	     	                    	newDictChooser.setInitialDirectory(file.getParentFile().getAbsoluteFile());
 	     	                        dictPathText.setText(file.getPath());
 	     	                    }
 	     	                }
