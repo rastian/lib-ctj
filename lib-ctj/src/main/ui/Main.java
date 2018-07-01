@@ -925,12 +925,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
                         alert.setHeaderText("This Library must be saved before you may generate a Dictionary");
                         alert.showAndWait();
                 	}
-                	if(!isWindows) {
-                		Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setHeaderText("This function only works on Windows machines");
-                        alert.showAndWait();
-                	}
-					if (libTabs.getTabCount() > 0 && isWindows && isSaved) {
+                	/* if(!isWindows && !isMac){
+                			Alert alert = new Alert(Alert.AlertType.WARNING);
+                        	alert.setHeaderText("This function only works on Windows and Mac machines");
+                        	alert.showAndWait();
+                	 */
+					if (libTabs.getTabCount() > 0 && isSaved) {
 						Stage genDStage = new Stage();
 						GridPane grid = new GridPane();
 	                	grid.setPadding(new Insets(10, 10, 10, 10));
@@ -1005,7 +1005,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	     	                    }
 	     	                }
 	                	});
-	                	Text exePromptText = new Text("build_dictionary.exe: ");
+	                	Text exePromptText = new Text("Build_dictionary Executable: ");
 	                	GridPane.setConstraints(exePromptText, 0, 4);
 	                	HBox exe= new HBox(4, exePath, exeText);
 	                	GridPane.setConstraints(exe, 0, 5);
